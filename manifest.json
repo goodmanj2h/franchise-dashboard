@@ -1,0 +1,19 @@
+{
+  "name": "프랜차이즈 비교 분석 대시보드",
+  "short_name": "프랜차이즈",
+  "description": "공정위 정보공개서 데이터 기반 프랜차이즈 다차원 비교 분석 시스템",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f5f5f7",
+  "theme_color": "#0071e3",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
+

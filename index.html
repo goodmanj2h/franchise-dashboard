@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>프랜차이즈 정보공개서 통합 비교 대시보드</title>
+
+  <!-- PWA & 모바일 최적화 메타 태그 -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="icon.svg" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <meta name="theme-color" content="#0071e3" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="프랜차이즈 대시보드" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Chart.js CDN (버블 차트 및 레이더 차트 지원) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <!-- Pretendard 폰트 CDN -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+  <!-- Font Awesome 아이콘 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
+          },
+          colors: {
+            apple: {
+              bg: '#f5f5f7',
+              card: '#ffffff',
+              text: '#1d1d1f',
+              subtext: '#6e6e73',
+              muted: '#86868b',
+              border: '#e5e5ea',
+              blue: '#0071e3',
+              blueHover: '#005bb5',
+              green: '#34c759',
+              red: '#ff3b30',
+              amber: '#ff9500',
+              purple: '#af52de',
+            }
+          },
+          boxShadow: {
+            'apple': '0 4px 20px rgba(0, 0, 0, 0.05)',
+            'apple-hover': '0 8px 30px rgba(0, 0, 0, 0.09)',
+            'apple-floating': '0 12px 36px rgba(0, 113, 227, 0.16)',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      word-break: keep-all;
+    }
+    body {
+      background-color: #f5f5f7;
+      color: #1d1d1f;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      letter-spacing: -0.015em;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #c7c7cc;
+      border-radius: 999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #8e8e93;
+    }
+    .card-highlight {
+      animation: pulseHighlight 2s ease-in-out;
+    }
+    @keyframes pulseHighlight {
+      0% { ring-color: rgba(0, 113, 227, 0.8); box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.4); }
+      50% { ring-color: rgba(0, 113, 227, 0.4); box-shadow: 0 0 0 8px rgba(0, 113, 227, 0.2); }
+      100% { ring-color: transparent; box-shadow: none; }
+    }
+  </style>
+
+  <!-- 초기 데이터 로드 (스크립트 태그) -->
+  <script id="dashboard-data-script" src="dashboard_data.js"></script>
+</head>
+<body id="drop-zone" class="min-h-screen flex flex-col justify-between selection:bg-apple-blue selection:text-white relative transition-colors duration-200 pb-16 sm:pb-0">
+
+  <!-- ========================================================================= -->
+  <!-- 0. 실시간 알림 토스트 (Live Sync Toast) -->
+  <!-- ========================================================================= -->
+  <div id="live-toast" class="fixed top-5 right-5 z-50 transform transition-all duration-300 translate-y-[-100px] opacity-0 pointer-events-none">
+    <div class="bg-gray-900/95 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-gray-700/60 backdrop-blur-md">
+      <span class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span>
+      <div>
+        <div class="text-xs font-bold text-white flex items-center gap-1.5">
+          <span>대시보드 실시간 갱신 완료</span>
+          <span class="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 font-mono">LIVE</span>
+        </div>
+        <div class="text-[11px] text-gray-300 mt-0.5" id="live-toast-msg">새로운 리포트가 추가되어 최신 데이터로 동기화되었습니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 드래그앤드롭 전체 화면 안내 안내판 -->
+  <div id="drag-overlay" class="fixed inset-0 z-40 bg-apple-blue/15 backdrop-blur-xs hidden pointer-events-none flex flex-col items-center justify-center border-4 border-dashed border-apple-blue m-3 rounded-3xl">
+    <div class="bg-white/95 px-6 py-5 rounded-2xl shadow-2xl flex flex-col items-center gap-2 text-apple-text">
+      <div class="w-12 h-12 rounded-2xl bg-blue-100 text-apple-blue flex items-center justify-center text-xl font-bold">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+      </div>
+      <h3 class="text-base font-black">새로운 리포트 HTML을 여기에 놓으세요</h3>
+      <p class="text-xs text-apple-subtext">놓는 즉시 대시보드에 실시간 분석 데이터가 반영됩니다.</p>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 1. 헤더 (Header & Overview Bar) -->
+  <!-- ========================================================================= -->
+  <header class="bg-white/90 backdrop-blur-md border-b border-apple-border sticky top-0 z-30 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      
+      <!-- 좌측 타이틀 & 로고 -->
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-apple-blue to-blue-400 flex items-center justify-center text-white shadow-md">
+            <i class="fa-solid fa-chart-pie text-base sm:text-lg"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5 sm:gap-2">
+              <h1 class="text-lg sm:text-2xl font-black tracking-tight text-apple-text">프랜차이즈 비교 대시보드</h1>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] sm:text-[11px] font-bold rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>실시간</span>
+              </span>
+            </div>
+            <p class="text-[11px] sm:text-xs text-apple-subtext">공정위 정보공개서 분석 리포트 누적 비교 우위 판별</p>
+          </div>
+        </div>
+
+        <!-- 모바일 전용 QR 열기 버튼 (모바일 화면에서 우측 표시) -->
+        <button onclick="openQrModal()" class="md:hidden p-2 rounded-xl bg-apple-bg border border-apple-border text-apple-text hover:bg-gray-200 text-xs flex items-center gap-1">
+          <i class="fa-solid fa-mobile-screen-button text-apple-blue"></i>
+          <span>폰 연동</span>
+        </button>
+      </div>
+
+      <!-- 우측 종합 통계 요약 뱃지들 & 모바일 QR 버튼 -->
+      <div class="flex items-center flex-wrap gap-2 text-xs">
+        <div class="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-gray-100 border border-gray-200 flex items-center gap-1">
+          <span class="text-apple-subtext">분석:</span>
+          <strong id="stat-total-brands" class="text-apple-text font-bold">0개</strong>
+        </div>
+        <div class="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center gap-1">
+          <span>정상:</span>
+          <strong id="stat-passed-brands" class="font-bold">0개</strong>
+        </div>
+        <div class="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-red-50 border border-red-200 text-red-700 flex items-center gap-1">
+          <span>위험:</span>
+          <strong id="stat-failed-brands" class="font-bold">0개</strong>
+        </div>
+
+        <!-- 폰 접속용 QR 버튼 (PC 화면) -->
+        <button onclick="openQrModal()" class="hidden md:flex px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 font-semibold border border-emerald-500/30 transition items-center gap-1">
+          <i class="fa-solid fa-qrcode text-emerald-600"></i>
+          <span>폰 접속 QR</span>
+        </button>
+
+        <button onclick="openGuideModal()" class="px-3 py-1.5 rounded-lg bg-apple-blue/10 hover:bg-apple-blue/20 text-apple-blue font-semibold border border-apple-blue/30 transition flex items-center gap-1">
+          <i class="fa-solid fa-circle-question"></i>
+          <span>가이드</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- 2. 메인 컨텐츠 영역 -->
+  <!-- ========================================================================= -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-5 sm:space-y-6 flex-1 w-full">
+
+    <!-- [컨트롤러 바]: 4대 페르소나 비교 우위 탭 & 필터 -->
+    <section class="bg-white rounded-2xl p-3.5 sm:p-5 border border-apple-border shadow-apple space-y-3.5 sm:space-y-4">
+      
+      <!-- 상단: 비교 우위 페르소나 탭 (모바일 가로 스크롤 가능) -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-xs sm:text-sm font-bold text-apple-subtext uppercase tracking-wider flex items-center gap-1.5">
+            <i class="fa-solid fa-sliders text-apple-blue"></i>
+            <span>어떤 기준으로 비교 우위를 판별할까요?</span>
+          </h2>
+          <span id="current-criteria-desc" class="text-xs text-apple-muted hidden sm:inline">전체 10개 지표를 종합한 일반 순위입니다.</span>
+        </div>
+
+        <div class="flex sm:grid sm:grid-cols-3 lg:grid-cols-5 gap-2 overflow-x-auto pb-1 sm:pb-0 custom-scrollbar snap-x" id="persona-tabs-container">
+          <!-- 탭 1: 전체 종합 -->
+          <button onclick="setPersona('all')" id="tab-all" class="persona-tab active min-w-[140px] sm:min-w-0 flex-shrink-0 sm:flex-shrink snap-start px-3 py-2.5 sm:py-3 rounded-xl border text-left transition flex flex-col justify-between bg-apple-blue text-white border-apple-blue shadow-sm">
+            <div class="flex items-center justify-between w-full">
+              <span class="text-[10px] sm:text-xs font-semibold opacity-90">종합 평가</span>
+              <i class="fa-solid fa-trophy text-xs sm:text-sm"></i>
+            </div>
+            <div class="mt-1">
+              <div class="text-xs sm:text-sm font-extrabold">🌟 전체 100점순</div>
+              <div class="text-[10px] sm:text-[11px] opacity-80 leading-tight mt-0.5">10대 지표 단순 합산</div>
+            </div>
+          </button>
+
+          <!-- 탭 2: 안정 추구형 -->
+          <button onclick="setPersona('stability')" id="tab-stability" class="persona-tab min-w-[140px] sm:min-w-0 flex-shrink-0 sm:flex-shrink snap-start px-3 py-2.5 sm:py-3 rounded-xl border text-left transition flex flex-col justify-between bg-apple-bg text-apple-text border-apple-border hover:bg-gray-100">
+            <div class="flex items-center justify-between w-full">
+              <span class="text-[10px] sm:text-xs font-semibold text-apple-subtext">리스크 최소화</span>
+              <i class="fa-solid fa-shield-halved text-xs sm:text-sm text-emerald-600"></i>
+            </div>
+            <div class="mt-1">
+              <div class="text-xs sm:text-sm font-extrabold text-apple-text">🛡️ 안정 추구형</div>
+              <div class="text-[10px] sm:text-[11px] text-apple-subtext leading-tight mt-0.5">부채·직영·이탈률 가중</div>
+            </div>
+          </button>
+
+          <!-- 탭 3: 초고속 자본회수형 -->
+          <button onclick="setPersona('roi')" id="tab-roi" class="persona-tab min-w-[140px] sm:min-w-0 flex-shrink-0 sm:flex-shrink snap-start px-3 py-2.5 sm:py-3 rounded-xl border text-left transition flex flex-col justify-between bg-apple-bg text-apple-text border-apple-border hover:bg-gray-100">
+            <div class="flex items-center justify-between w-full">
+              <span class="text-[10px] sm:text-xs font-semibold text-apple-subtext">수익 극대화</span>
+              <i class="fa-solid fa-bolt text-xs sm:text-sm text-amber-500"></i>
+            </div>
+            <div class="mt-1">
+              <div class="text-xs sm:text-sm font-extrabold text-apple-text">💰 초고속 회수형</div>
+              <div class="text-[10px] sm:text-[11px] text-apple-subtext leading-tight mt-0.5">평당매출·회수기간 가중</div>
+            </div>
+          </button>
+
+          <!-- 탭 4: 상생·물류투명형 -->
+          <button onclick="setPersona('partner')" id="tab-partner" class="persona-tab min-w-[140px] sm:min-w-0 flex-shrink-0 sm:flex-shrink snap-start px-3 py-2.5 sm:py-3 rounded-xl border text-left transition flex flex-col justify-between bg-apple-bg text-apple-text border-apple-border hover:bg-gray-100">
+            <div class="flex items-center justify-between w-full">
+              <span class="text-[10px] sm:text-xs font-semibold text-apple-subtext">가맹본부 정직성</span>
+              <i class="fa-solid fa-handshake text-xs sm:text-sm text-purple-500"></i>
+            </div>
+            <div class="mt-1">
+              <div class="text-xs sm:text-sm font-extrabold text-apple-text">🤝 상생·투명형</div>
+              <div class="text-[10px] sm:text-[11px] text-apple-subtext leading-tight mt-0.5">물류마진·SV배정 가중</div>
+            </div>
+          </button>
+
+          <!-- 탭 5: 소자본 실속형 -->
+          <button onclick="setPersona('lightCapital')" id="tab-lightCapital" class="persona-tab min-w-[140px] sm:min-w-0 flex-shrink-0 sm:flex-shrink snap-start px-3 py-2.5 sm:py-3 rounded-xl border text-left transition flex flex-col justify-between bg-apple-bg text-apple-text border-apple-border hover:bg-gray-100">
+            <div class="flex items-center justify-between w-full">
+              <span class="text-[10px] sm:text-xs font-semibold text-apple-subtext">창업비용 절감</span>
+              <i class="fa-solid fa-piggy-bank text-xs sm:text-sm text-blue-500"></i>
+            </div>
+            <div class="mt-1">
+              <div class="text-xs sm:text-sm font-extrabold text-apple-text">🏠 소자본 실속형</div>
+              <div class="text-[10px] sm:text-[11px] text-apple-subtext leading-tight mt-0.5">1억대 창업비·BEP 가중</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- 하단: 세부 필터 (과락 제외 토글, 정렬 기준, 검색) -->
+      <div class="pt-2.5 sm:pt-3 border-t border-apple-border flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 text-xs">
+        
+        <!-- 좌측: 과락 필터 토글 -->
+        <div class="flex items-center gap-3">
+          <label class="inline-flex items-center cursor-pointer select-none">
+            <input type="checkbox" id="toggle-hide-disqualified" onchange="renderAll()" class="sr-only peer" />
+            <div class="w-8 h-4.5 sm:w-9 sm:h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3.5 after:w-3.5 sm:after:h-4 sm:after:w-4 after:transition-all peer-checked:bg-red-500"></div>
+            <span class="ml-2 font-bold text-apple-text flex items-center gap-1 text-[11px] sm:text-xs">
+              <span>과락(위험) 브랜드 숨기기</span>
+              <i class="fa-solid fa-triangle-exclamation text-red-500"></i>
+            </span>
+          </label>
+        </div>
+
+        <!-- 우측: 정렬 기준 & 검색창 -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <div class="relative flex-1 sm:flex-initial">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-apple-muted"></i>
+            <input type="text" id="search-input" oninput="renderAll()" placeholder="브랜드명 검색..." class="pl-8 pr-3 py-1.5 rounded-lg border border-apple-border bg-apple-bg focus:bg-white focus:outline-none focus:ring-2 focus:ring-apple-blue/20 text-apple-text placeholder:text-apple-muted w-full sm:w-44 transition text-xs" />
+          </div>
+
+          <div class="flex items-center gap-1.5 flex-1 sm:flex-initial">
+            <select id="sort-select" onchange="renderAll()" class="w-full sm:w-auto py-1.5 px-2 rounded-lg border border-apple-border bg-apple-bg text-apple-text font-medium focus:outline-none focus:ring-2 focus:ring-apple-blue/20 cursor-pointer text-xs">
+              <option value="score_desc">선택 기준 점수 높은순</option>
+              <option value="pyeong_desc">평당 연매출 높은순</option>
+              <option value="capex_asc">총 창업비용 낮은순</option>
+              <option value="store_desc">총 매장수 많은순</option>
+              <option value="churn_asc">실질 이탈률 낮은순</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- [섹션 1]: 조건별 1위 하이라이트 배너 & 4사분면 매트릭스 -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
+      
+      <!-- 좌측 7칸: 4사분면 효율성 매트릭스 차트 -->
+      <section class="lg:col-span-7 bg-white rounded-2xl p-4 sm:p-5 border border-apple-border shadow-apple flex flex-col justify-between">
+        <div>
+          <div class="flex items-start justify-between">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-apple-blue inline-block"></span>
+                <h3 class="text-sm sm:text-base font-extrabold text-apple-text">4사분면 효율성 매트릭스 (Efficiency Quadrant)</h3>
+              </div>
+              <p class="text-[11px] sm:text-xs text-apple-subtext mt-0.5">
+                가로축(초기 창업비용)과 세로축(평당 연매출)을 교차하여 "알짜 vs 고위험" 위치를 확인하세요.
+              </p>
+            </div>
+            <span class="text-[10px] sm:text-[11px] font-semibold text-apple-blue bg-blue-50 px-2 py-0.5 rounded border border-blue-200 hidden sm:inline">
+              클릭 시 카드로 이동
+            </span>
+          </div>
+
+          <div class="relative w-full h-[240px] sm:h-[300px] mt-3 sm:mt-4">
+            <canvas id="quadrantChart"></canvas>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 pt-3 border-t border-apple-border text-[10px] sm:text-[11px] mt-2">
+          <div class="p-1.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
+            <strong>💡 1사분면 (슈퍼알짜)</strong>: 저비용+고매출
+          </div>
+          <div class="p-1.5 rounded bg-blue-50 text-apple-blue border border-blue-200">
+            <strong>🏢 2사분면 (하이엔드)</strong>: 고비용+고매출
+          </div>
+          <div class="p-1.5 rounded bg-amber-50 text-amber-800 border border-amber-200">
+            <strong>☕ 3사분면 (소형생계)</strong>: 저비용+안정매출
+          </div>
+          <div class="p-1.5 rounded bg-red-50 text-red-800 border border-red-200">
+            <strong>⚠️ 4사분면 (고위험)</strong>: 고비용+저매출
+          </div>
+        </div>
+      </section>
+
+      <!-- 우측 5칸: 현재 선택 조건 기준 [1위 비교 우위 브랜드 하이라이트] -->
+      <section class="lg:col-span-5 bg-white rounded-2xl p-4 sm:p-5 border border-apple-border shadow-apple flex flex-col justify-between" id="top-champion-section">
+        <div>
+          <div class="flex items-center justify-between pb-3 border-b border-apple-border">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-black">
+                <i class="fa-solid fa-crown"></i>
+              </span>
+              <h3 class="text-xs sm:text-sm font-extrabold text-apple-text" id="champion-title">현재 조건 1위 브랜드</h3>
+            </div>
+            <span class="text-xs px-2 py-0.5 rounded-full font-bold bg-amber-50 text-amber-800 border border-amber-200" id="champion-score-badge">
+              0점
+            </span>
+          </div>
+
+          <div class="py-3 sm:py-4 space-y-3" id="champion-content">
+            <!-- JS 동적 렌더링 -->
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-apple-border" id="champion-action">
+          <!-- JS 동적 렌더링 -->
+        </div>
+      </section>
+
+    </div>
+
+    <!-- [섹션 2]: 브랜드 비교 카드 그리드 (Card Grid) -->
+    <section class="space-y-3">
+      <div class="flex items-center justify-between">
+        <h3 class="text-sm sm:text-base font-extrabold text-apple-text flex items-center gap-2">
+          <i class="fa-solid fa-table-cells-large text-apple-blue"></i>
+          <span>브랜드별 핵심 지표 비교 카드</span>
+          <span id="rendered-count-badge" class="text-xs font-bold px-2 py-0.5 rounded-full bg-gray-200 text-apple-text">총 0개</span>
+        </h3>
+        <p class="text-[11px] sm:text-xs text-apple-muted hidden sm:inline">
+          체크박스를 선택하여 최대 3개 브랜드를 <strong>1:1 맞대결 비교</strong>할 수 있습니다.
+        </p>
+      </div>
+
+      <!-- 그리드 컨테이너 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5" id="brand-cards-grid">
+        <!-- JS 동적 렌더링 -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- 3. 플로팅 1:1 맞대결 도크 (선택 시 화면 하단에 슬라이드업) -->
+  <!-- ========================================================================= -->
+  <aside id="compare-dock" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 bg-white/95 backdrop-blur-md border border-apple-border rounded-2xl shadow-apple-floating px-3.5 py-2.5 sm:px-4 sm:py-3 items-center gap-3 sm:gap-4 transition-all duration-300 hidden max-w-2xl w-[94%] sm:w-[90%]">
+    <div class="flex items-center gap-2 text-xs font-bold text-apple-text">
+      <div class="w-7 h-7 rounded-lg bg-apple-blue text-white flex items-center justify-center font-black">
+        <i class="fa-solid fa-scale-balanced"></i>
+      </div>
+      <div>
+        <div>맞대결 (<span id="compare-count">0</span>/3)</div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-1.5 flex-1 overflow-x-auto py-1 custom-scrollbar" id="compare-tags-container">
+      <!-- JS 렌더링 -->
+    </div>
+
+    <div class="flex items-center gap-1.5">
+      <button onclick="clearComparison()" class="text-xs text-apple-subtext hover:text-apple-red px-2 py-1.5 transition">
+        비우기
+      </button>
+      <button onclick="openCompareModal()" class="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-apple-blue hover:bg-apple-blueHover text-white text-xs font-extrabold shadow-sm flex items-center gap-1.5 transition">
+        <span>맞대결 시작</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ========================================================================= -->
+  <!-- 4. 1:1 맞대결 상세 비교 모달 (Modal) -->
+  <!-- ========================================================================= -->
+  <div id="compare-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-2.5 sm:p-5 hidden">
+    <div class="bg-white rounded-3xl max-w-5xl w-full max-h-[94vh] flex flex-col shadow-2xl border border-apple-border overflow-hidden">
+      
+      <div class="px-5 py-3.5 sm:px-6 sm:py-4 border-b border-apple-border flex items-center justify-between bg-apple-bg/50">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-apple-blue text-white flex items-center justify-center font-bold">
+            <i class="fa-solid fa-code-compare"></i>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-black text-apple-text">브랜드 1:1 맞대결 심층 비교</h3>
+            <p class="text-[11px] sm:text-xs text-apple-subtext">10대 지표 및 동일 조건 가상 시뮬레이션을 비교합니다.</p>
+          </div>
+        </div>
+        <button onclick="closeCompareModal()" class="w-8 h-8 rounded-full bg-gray-200/70 hover:bg-gray-300 text-apple-subtext hover:text-apple-text flex items-center justify-center transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-4 sm:p-6 space-y-5 overflow-y-auto custom-scrollbar flex-1">
+        
+        <div class="bg-apple-bg rounded-2xl p-3 sm:p-4 border border-apple-border">
+          <h4 class="text-xs font-bold text-apple-subtext uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <i class="fa-solid fa-chart-radar text-apple-blue"></i>
+            <span>10대 역량 다이어그램 비교 (Radar Chart)</span>
+          </h4>
+          <div class="w-full h-[240px] sm:h-[300px] flex items-center justify-center">
+            <canvas id="radarChart"></canvas>
+          </div>
+        </div>
+
+        <div class="border border-apple-border rounded-2xl overflow-x-auto shadow-xs">
+          <table class="w-full text-left border-collapse text-xs min-w-[320px]">
+            <thead>
+              <tr class="bg-gray-100 text-apple-subtext border-b border-apple-border font-bold" id="compare-table-head">
+                <!-- JS 렌더링 -->
+              </tr>
+            </thead>
+            <tbody id="compare-table-body" class="divide-y divide-apple-border bg-white font-medium">
+              <!-- JS 렌더링 -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="bg-blue-50/60 rounded-2xl p-4 sm:p-5 border border-blue-200/80 space-y-3.5">
+          <div class="flex items-center justify-between">
+            <div>
+              <h4 class="text-xs sm:text-sm font-extrabold text-apple-text flex items-center gap-1.5">
+                <i class="fa-solid fa-calculator text-apple-blue"></i>
+                <span>동일 조건(동일 평수/상권) 가상 맞대결 시뮬레이션</span>
+              </h4>
+              <p class="text-[11px] text-apple-subtext mt-0.5">동일한 입지에서 어느 브랜드가 실제로 순이익을 더 많이 남길까요?</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-white p-3.5 rounded-xl border border-blue-100">
+            <div>
+              <div class="flex justify-between text-xs font-bold mb-1">
+                <span>매장 평수</span>
+                <span id="sim-input-area-val" class="text-apple-blue">25평</span>
+              </div>
+              <input type="range" id="sim-input-area" min="15" max="60" step="5" value="25" oninput="runCompareSimulation()" class="w-full accent-apple-blue" />
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-bold mb-1">
+                <span>월 임대료</span>
+                <span id="sim-input-rent-val" class="text-apple-blue">300만원</span>
+              </div>
+              <input type="range" id="sim-input-rent" min="100" max="800" step="50" value="300" oninput="runCompareSimulation()" class="w-full accent-apple-blue" />
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-bold mb-1">
+                <span>월 인건비</span>
+                <span id="sim-input-labor-val" class="text-apple-blue">1,200만원</span>
+              </div>
+              <input type="range" id="sim-input-labor" min="500" max="2500" step="100" value="1200" oninput="runCompareSimulation()" class="w-full accent-apple-blue" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="sim-results-container">
+            <!-- JS 렌더링 -->
+          </div>
+        </div>
+
+      </div>
+
+      <div class="px-5 py-3 border-t border-apple-border bg-gray-50 flex justify-end">
+        <button onclick="closeCompareModal()" class="px-5 py-2 rounded-xl bg-apple-text hover:bg-black text-white text-xs font-bold transition">
+          닫기
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 5. 폰 접속용 QR 코드 모달 (QR Modal) -->
+  <!-- ========================================================================= -->
+  <div id="qr-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5 hidden">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-apple-border space-y-4 text-center">
+      <div class="flex items-center justify-between pb-2 border-b border-apple-border">
+        <h3 class="text-sm font-extrabold text-apple-text flex items-center gap-1.5">
+          <i class="fa-solid fa-mobile-screen text-apple-blue"></i>
+          <span>스마트폰으로 대시보드 열기</span>
+        </h3>
+        <button onclick="closeQrModal()" class="w-7 h-7 rounded-full bg-gray-100 hover:bg-gray-200 text-apple-subtext flex items-center justify-center transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="flex flex-col items-center py-2">
+        <!-- QR 코드 이미지 -->
+        <div class="p-3 bg-white border border-apple-border rounded-2xl shadow-sm inline-block">
+          <img id="qr-code-img" src="" alt="스마트폰 접속 QR 코드" class="w-48 h-48 rounded-lg" />
+        </div>
+        <p class="text-xs text-apple-subtext mt-3 leading-relaxed">
+          스마트폰 기본 카메라 앱으로 위 QR 코드를 비추시면 대시보드로 즉시 연결됩니다.
+        </p>
+      </div>
+
+      <div class="p-3 bg-blue-50 rounded-xl border border-blue-200 text-[11px] text-left text-apple-text leading-relaxed">
+        <strong class="text-apple-blue font-bold block mb-1">💡 팁: 홈 화면에 앱으로 추가하기</strong>
+        스마트폰 브라우저(사파리/크롬) 하단 공유 메뉴에서 <strong>[홈 화면에 추가]</strong>를 누르시면 앱 아이콘이 생성되어 진짜 앱처럼 언제든 열립니다.
+      </div>
+
+      <div class="pt-2">
+        <button onclick="closeQrModal()" class="w-full py-2.5 rounded-xl bg-apple-text text-white text-xs font-bold hover:bg-black transition">
+          확인
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 6. 가이드 & 안내 모달 (Guide Modal) -->
+  <!-- ========================================================================= -->
+  <div id="guide-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5 hidden">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-apple-border space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-apple-border">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-apple-blue text-white flex items-center justify-center font-bold">
+            <i class="fa-solid fa-book-open"></i>
+          </div>
+          <h3 class="text-base font-extrabold text-apple-text">대시보드 활용 및 클라우드 배포 가이드</h3>
+        </div>
+        <button onclick="closeGuideModal()" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-apple-subtext flex items-center justify-center transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-xs text-apple-text leading-relaxed">
+        <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-900">
+          <strong class="text-emerald-800 block mb-1 flex items-center gap-1.5 font-bold">
+            <i class="fa-solid fa-mobile-screen"></i>
+            <span>컴퓨터가 꺼져 있어도 폰으로 접속하는 방법</span>
+          </strong>
+          <p>폴더 내 <code class="bg-emerald-100 px-1 py-0.5 rounded font-mono font-bold">클라우드_배포하기.command</code> 파일을 더블클릭하시면 무료 클라우드(GitHub Pages 또는 Cloudflare)로 업로드되어 24시간 폰으로 접속할 수 있는 전용 URL이 발급됩니다.</p>
+        </div>
+
+        <div class="p-3 bg-gray-50 rounded-xl border border-gray-200 space-y-2">
+          <strong class="text-apple-text block font-bold">💡 실시간 자동 감지 기능:</strong>
+          <p class="text-apple-subtext">
+            컴퓨터에서 작업하실 때는 새 리포트 HTML을 폴더에 넣기만 하면 실시간 감시자가 스스로 감지하여 화면을 즉시 최신화합니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-2 flex justify-end">
+        <button onclick="closeGuideModal()" class="px-4 py-2 rounded-xl bg-apple-blue text-white text-xs font-bold hover:bg-apple-blueHover transition">
+          확인했습니다
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 7. 푸터 (Footer) -->
+  <!-- ========================================================================= -->
+  <footer class="bg-white border-t border-apple-border py-4 mt-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-[11px] sm:text-xs text-apple-muted space-y-1">
+      <p>© 2026 프랜차이즈 정보공개서 비교 분석 시스템 | 공정거래위원회 등록 정보공개서 데이터 기반</p>
+      <p class="text-[10px] sm:text-[11px]">본 대시보드는 창업 의사결정을 돕기 위한 보조 지표이며 최종 계약 전 본사 현장 실사가 필수입니다.</p>
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- 8. 자바스크립트 로직 (PWA 등록, 실시간 동기화, 차트, 시뮬레이터) -->
+  <!-- ========================================================================= -->
+  <script>
+    // PWA 서비스 워커 등록
+    if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(err => {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
+
+    let allBrands = [];
+    let currentPersona = 'all';
+    let selectedBrandIds = [];
+    let quadrantChartInstance = null;
+    let radarChartInstance = null;
+    let lastBuildTimestamp = window.FRANCHISE_BUILD_TIME || 0;
+
+    const CRITERIA_NAMES = [
+      '본사 부채비율',
+      '영업이익 추이',
+      '직영점 검증력',
+      '실질 이탈률',
+      '평균 영업기간',
+      '평당 연매출',
+      '투자비 회수기간',
+      '물류마진 투명성',
+      'SV 관리 매장수',
+      '공정위 법 위반'
+    ];
+
+    const PERSONA_DESCRIPTIONS = {
+      all: '10대 지표를 단순 합산한 종합 스코어(100점 만점) 순위입니다.',
+      stability: '본사 부채비율, 직영점 수, 실질 이탈률에 최고 가중치를 둔 [안전 추구형] 순위입니다.',
+      roi: '3.3㎡당 연매출과 초기 투자비 회수 속도에 최고 가중치를 둔 [초고속 자본회수형] 순위입니다.',
+      partner: '차액가맹금(물류마진) 투명성과 SV 1인당 매장 관리에 최고 가중치를 둔 [상생·투명형] 순위입니다.',
+      lightCapital: '1억 내외의 소자본 창업 가능성과 BEP 달성 효율성에 가중치를 둔 [소자본 실속형] 순위입니다.'
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      allBrands = window.FRANCHISE_DATA || [];
+      updateTopStatistics();
+      renderAll();
+
+      initAutoLiveSync();
+      initDragAndDrop();
+    });
+
+    // 실시간 감지 폴링
+    function initAutoLiveSync() {
+      setInterval(() => {
+        const oldScript = document.getElementById('dynamic-data-poller');
+        if (oldScript) oldScript.remove();
+
+        const script = document.createElement('script');
+        script.id = 'dynamic-data-poller';
+        script.src = `dashboard_data.js?_t=${Date.now()}`;
+        script.onload = () => {
+          if (window.FRANCHISE_BUILD_TIME && window.FRANCHISE_BUILD_TIME !== lastBuildTimestamp) {
+            lastBuildTimestamp = window.FRANCHISE_BUILD_TIME;
+            allBrands = window.FRANCHISE_DATA || [];
+            updateTopStatistics();
+            renderAll();
+            showLiveToast(`총 ${allBrands.length}개 브랜드 데이터가 최신으로 동기화되었습니다.`);
+          }
+        };
+        document.body.appendChild(script);
+      }, 2500);
+    }
+
+    function showLiveToast(msg) {
+      const toast = document.getElementById('live-toast');
+      const toastMsg = document.getElementById('live-toast-msg');
+      toastMsg.textContent = msg;
+
+      toast.classList.remove('translate-y-[-100px]', 'opacity-0', 'pointer-events-none');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-[-100px]', 'opacity-0', 'pointer-events-none');
+      }, 4000);
+    }
+
+    // 드래그 앤 드롭
+    function initDragAndDrop() {
+      const dropZone = document.body;
+      const overlay = document.getElementById('drag-overlay');
+
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          overlay.classList.remove('hidden');
+        }, false);
+      });
+
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          overlay.classList.add('hidden');
+        }, false);
+      });
+
+      dropZone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        if (files.length > 0) {
+          handleDroppedHtmlFile(files[0]);
+        }
+      });
+    }
+
+    function handleDroppedHtmlFile(file) {
+      if (!file.name.toLowerCase().endsWith('.html')) {
+        alert('프랜차이즈 분석 리포트 HTML 파일만 등록할 수 있습니다.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target.result;
+        const match = content.match(/const\s+TEMPLATE_DATA\s*=\s*(\{[\s\S]*?\n\s*\});/);
+        if (match) {
+          try {
+            const fn = new Function(`return ${match[1]};`);
+            const raw = fn();
+            const existingIndex = allBrands.findIndex(b => b.name === raw.name);
+            const mockBrand = createClientMockBrand(raw, file.name);
+
+            if (existingIndex >= 0) {
+              allBrands[existingIndex] = mockBrand;
+            } else {
+              allBrands.unshift(mockBrand);
+            }
+
+            updateTopStatistics();
+            renderAll();
+            showLiveToast(`[${raw.name}] 리포트가 대시보드에 즉시 반영되었습니다!`);
+          } catch (err) {
+            alert(`리포트 해석 오류: ${err.message}`);
+          }
+        } else {
+          alert('해당 HTML 파일에서 TEMPLATE_DATA를 찾을 수 없습니다.');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function createClientMockBrand(raw, fileName) {
+      const scores = raw.scores || [0,0,0,0,0,0,0,0,0,0];
+      const capexText = raw.kpi4 ? raw.kpi4.totalCost : '0';
+      const pyeongSalesText = raw.kpi3 ? raw.kpi3.pyeongSales : '0';
+
+      const capexMan = parseInt(capexText.replace(/[^0-9]/g, '')) || 12000;
+      const pyeongSalesMan = parseInt(pyeongSalesText.replace(/[^0-9]/g, '')) || 1500;
+      const churnRate = parseFloat((raw.kpi2 ? raw.kpi2.realChurn : '0').replace(/[^0-9.]/g, '')) || 0;
+      const storeCount = parseInt((raw.kpi2 ? raw.kpi2.storeCount : '0').replace(/[^0-9]/g, '')) || 0;
+
+      const strike_capital = scores[0] === 0 || (raw.verdict && raw.verdict.includes('자본잠식'));
+      const strike_churn = scores[3] === 0 || churnRate >= 15;
+      const isDisqualified = strike_capital || strike_churn;
+
+      const reasons = [];
+      if (strike_capital) reasons.push('본사 자본잠식');
+      if (strike_churn) reasons.push(`실질 이탈률 과다 (${churnRate}%)`);
+
+      return {
+        id: `brand_${Date.now()}`,
+        name: raw.name,
+        corp: raw.corp || '',
+        category: raw.category || '외식',
+        scaleTag: raw.scaleTag || '',
+        fileName: fileName,
+        subtitle: raw.subtitle || '',
+        verdict: raw.verdict || '',
+        tags: raw.tags || [],
+        scores: scores,
+        totalScore: scores.reduce((a, b) => a + b, 0),
+        personaScores: {
+          stability: Math.round((scores[0]*2.5 + scores[1]*1.5 + scores[2]*2 + scores[3]*2 + scores[9]*2)),
+          roi: Math.round((scores[5]*3.5 + scores[6]*3.5 + scores[4]*1.5 + scores[1]*1.5)),
+          partner: Math.round((scores[7]*4 + scores[8]*3 + scores[9]*2 + scores[2]*1)),
+          lightCapital: 60
+        },
+        isDisqualified: isDisqualified,
+        strikeReasons: reasons,
+        metrics: {
+          capexMan: capexMan,
+          capexText: capexText,
+          pyeongSalesMan: pyeongSalesMan,
+          pyeongSalesText: pyeongSalesText,
+          annualSalesMan: 50000,
+          annualSalesText: raw.kpi3 ? raw.kpi3.annualSales : '0',
+          storeCount: storeCount,
+          storeCountText: `${storeCount}개점`,
+          churnRate: churnRate,
+          churnRateText: `${churnRate}%`,
+          paybackEst: raw.kpi4 ? raw.kpi4.paybackEst : '계산 불가',
+          debtRatioText: raw.kpi1 ? raw.kpi1.debtRatio : '미제공',
+          opProfitText: raw.kpi1 ? raw.kpi1.opProfit : '미제공'
+        },
+        quadrant: {
+          type: capexMan <= 14000 && pyeongSalesMan >= 1750 ? 'Q1_SUPER_ALZZA' : 'Q4_HIGH_RISK',
+          label: capexMan <= 14000 && pyeongSalesMan >= 1750 ? '💡 슈퍼 알짜형' : '⚠️ 일반형',
+          x: capexMan,
+          y: pyeongSalesMan,
+          r: 12
+        },
+        simDefaults: raw.simDefaults || { cogs: 35, royalty: 3 }
+      };
+    }
+
+    function updateTopStatistics() {
+      const total = allBrands.length;
+      const failed = allBrands.filter(b => b.isDisqualified).length;
+      const passed = total - failed;
+
+      document.getElementById('stat-total-brands').textContent = `${total}개`;
+      document.getElementById('stat-passed-brands').textContent = `${passed}개`;
+      document.getElementById('stat-failed-brands').textContent = `${failed}개`;
+    }
+
+    function setPersona(personaKey) {
+      currentPersona = personaKey;
+
+      document.querySelectorAll('.persona-tab').forEach(btn => {
+        btn.classList.remove('bg-apple-blue', 'text-white', 'border-apple-blue', 'shadow-sm');
+        btn.classList.add('bg-apple-bg', 'text-apple-text', 'border-apple-border');
+      });
+
+      const activeBtn = document.getElementById(`tab-${personaKey}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-apple-bg', 'text-apple-text', 'border-apple-border');
+        activeBtn.classList.add('bg-apple-blue', 'text-white', 'border-apple-blue', 'shadow-sm');
+      }
+
+      document.getElementById('current-criteria-desc').textContent = PERSONA_DESCRIPTIONS[personaKey];
+      renderAll();
+    }
+
+    function renderAll() {
+      const hideDisqualified = document.getElementById('toggle-hide-disqualified').checked;
+      const searchQuery = document.getElementById('search-input').value.trim().toLowerCase();
+      const sortType = document.getElementById('sort-select').value;
+
+      let filtered = allBrands.filter(brand => {
+        if (hideDisqualified && brand.isDisqualified) return false;
+        if (searchQuery) {
+          const matchName = brand.name.toLowerCase().includes(searchQuery);
+          const matchCorp = (brand.corp || '').toLowerCase().includes(searchQuery);
+          const matchCat = (brand.category || '').toLowerCase().includes(searchQuery);
+          if (!matchName && !matchCorp && !matchCat) return false;
+        }
+        return true;
+      });
+
+      filtered.sort((a, b) => {
+        if (sortType === 'score_desc') {
+          return getScoreForCurrentPersona(b) - getScoreForCurrentPersona(a);
+        } else if (sortType === 'pyeong_desc') {
+          return b.metrics.pyeongSalesMan - a.metrics.pyeongSalesMan;
+        } else if (sortType === 'capex_asc') {
+          return a.metrics.capexMan - b.metrics.capexMan;
+        } else if (sortType === 'store_desc') {
+          return b.metrics.storeCount - a.metrics.storeCount;
+        } else if (sortType === 'churn_asc') {
+          return a.metrics.churnRate - b.metrics.churnRate;
+        }
+        return 0;
+      });
+
+      document.getElementById('rendered-count-badge').textContent = `총 ${filtered.length}개`;
+
+      renderChampionSection(filtered);
+      renderBrandCards(filtered);
+      renderQuadrantChart(filtered);
+    }
+
+    function getScoreForCurrentPersona(brand) {
+      if (currentPersona === 'all') return brand.totalScore;
+      return brand.personaScores[currentPersona] || brand.totalScore;
+    }
+
+    function renderChampionSection(filteredBrands) {
+      const contentEl = document.getElementById('champion-content');
+      const actionEl = document.getElementById('champion-action');
+      const badgeEl = document.getElementById('champion-score-badge');
+      const titleEl = document.getElementById('champion-title');
+
+      if (!filteredBrands || filteredBrands.length === 0) {
+        contentEl.innerHTML = `<p class="text-xs text-apple-muted py-6 text-center">조건에 맞는 브랜드가 없습니다.</p>`;
+        actionEl.innerHTML = '';
+        badgeEl.textContent = '0점';
+        return;
+      }
+
+      const topBrand = filteredBrands[0];
+      const topScore = getScoreForCurrentPersona(topBrand);
+
+      titleEl.innerHTML = `🏆 ${getPersonaTitle(currentPersona)} 1위: <span class="text-apple-blue font-black">${topBrand.name}</span>`;
+      badgeEl.textContent = `${topScore}점 / 100점`;
+
+      let reasonText = '';
+      if (currentPersona === 'stability') {
+        reasonText = `부채비율(${topBrand.metrics.debtRatioText}) 및 직영점 운영 건전성에서 가장 뛰어난 안정성을 입증했습니다.`;
+      } else if (currentPersona === 'roi') {
+        reasonText = `평당 연매출(${topBrand.metrics.pyeongSalesText})과 투자비 회수 속도 측면에서 가장 높은 자본 회수율을 보입니다.`;
+      } else if (currentPersona === 'partner') {
+        reasonText = `차액가맹금 마진 투명성과 슈퍼바이저(SV) 관리 여력에서 가맹본부의 상생 신뢰도가 돋보입니다.`;
+      } else if (currentPersona === 'lightCapital') {
+        reasonText = `총 창업비용(${topBrand.metrics.capexText})이 경제적이며 초기 진입 부담 대비 생산성이 우수합니다.`;
+      } else {
+        reasonText = `10대 핵심 지표 합산 결과 전반적인 항목에서 균형 잡힌 최우수 평가를 받았습니다.`;
+      }
+
+      contentEl.innerHTML = `
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="text-base sm:text-lg font-black text-apple-text">${topBrand.name}</div>
+            <div class="text-[11px] sm:text-xs text-apple-subtext">${topBrand.corp} · ${topBrand.category} · ${topBrand.scaleTag}</div>
+          </div>
+          ${topBrand.isDisqualified ? 
+            `<span class="px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-bold bg-red-100 text-red-700 border border-red-200">🔴 과락</span>` : 
+            `<span class="px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">🟢 검증</span>`}
+        </div>
+
+        <div class="p-2.5 sm:p-3 bg-apple-bg rounded-xl border border-apple-border text-[11px] sm:text-xs text-apple-text leading-relaxed">
+          <strong class="text-apple-blue font-bold block mb-0.5">💡 1위 선정 사유:</strong>
+          ${reasonText}
+        </div>
+
+        <div class="grid grid-cols-3 gap-1.5 sm:gap-2 pt-1 text-center">
+          <div class="p-1.5 sm:p-2 bg-gray-50 rounded-lg border border-gray-100">
+            <div class="text-[9px] sm:text-[10px] text-apple-muted">평당 연매출</div>
+            <div class="text-[11px] sm:text-xs font-bold text-apple-text mt-0.5">${topBrand.metrics.pyeongSalesText}</div>
+          </div>
+          <div class="p-1.5 sm:p-2 bg-gray-50 rounded-lg border border-gray-100">
+            <div class="text-[9px] sm:text-[10px] text-apple-muted">총 창업비용</div>
+            <div class="text-[11px] sm:text-xs font-bold text-apple-text mt-0.5">${topBrand.metrics.capexText}</div>
+          </div>
+          <div class="p-1.5 sm:p-2 bg-gray-50 rounded-lg border border-gray-100">
+            <div class="text-[9px] sm:text-[10px] text-apple-muted">실질 이탈률</div>
+            <div class="text-[11px] sm:text-xs font-bold ${topBrand.metrics.churnRate >= 15 ? 'text-red-600' : 'text-apple-text'} mt-0.5">${topBrand.metrics.churnRateText}</div>
+          </div>
+        </div>
+      `;
+
+      actionEl.innerHTML = `
+        <div class="flex items-center justify-between gap-2 sm:gap-3">
+          <a href="${topBrand.fileName}" target="_blank" class="flex-1 py-2 rounded-xl bg-apple-blue hover:bg-apple-blueHover text-white text-xs font-extrabold text-center transition flex items-center justify-center gap-1.5 shadow-sm">
+            <span>상세 리포트 열람</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+          </a>
+          <button onclick="toggleCompareBrand('${topBrand.id}')" class="px-3 py-2 rounded-xl border border-apple-border text-xs font-semibold hover:bg-gray-100 text-apple-text transition">
+            맞대결 담기
+          </button>
+        </div>
+      `;
+    }
+
+    function getPersonaTitle(key) {
+      if (key === 'stability') return '안정 추구형';
+      if (key === 'roi') return '초고속 회수형';
+      if (key === 'partner') return '상생·투명형';
+      if (key === 'lightCapital') return '소자본 실속형';
+      return '종합 평가';
+    }
+
+    function renderBrandCards(brands) {
+      const container = document.getElementById('brand-cards-grid');
+      container.innerHTML = '';
+
+      if (brands.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-12 text-center bg-white rounded-2xl border border-apple-border text-apple-subtext text-xs">
+            <i class="fa-solid fa-folder-open text-3xl mb-2 text-gray-300 block"></i>
+            일치하는 브랜드 데이터가 없습니다.
+          </div>
+        `;
+        return;
+      }
+
+      brands.forEach(b => {
+        const score = getScoreForCurrentPersona(b);
+        const isSelected = selectedBrandIds.includes(b.id);
+
+        const card = document.createElement('div');
+        card.id = `card-${b.id}`;
+        card.className = `bg-white rounded-2xl p-4 sm:p-5 border transition-all duration-200 flex flex-col justify-between shadow-apple hover:shadow-apple-hover ${isSelected ? 'border-apple-blue ring-2 ring-apple-blue/30' : 'border-apple-border'}`;
+
+        let strikeHtml = '';
+        if (b.isDisqualified) {
+          strikeHtml = `
+            <div class="mt-2.5 p-2 rounded-xl bg-red-50 border border-red-200 text-red-800 text-[11px] flex items-start gap-1.5">
+              <i class="fa-solid fa-triangle-exclamation text-red-600 mt-0.5"></i>
+              <div>
+                <strong class="font-bold">과락(위험):</strong> ${b.strikeReasons.join(', ')}
+              </div>
+            </div>
+          `;
+        }
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-gray-100 text-apple-subtext">${b.category}</span>
+                  <span class="text-[10px] text-apple-muted">${b.scaleTag}</span>
+                </div>
+                <h4 class="text-lg sm:text-xl font-black text-apple-text mt-1">${b.name}</h4>
+                <div class="text-[11px] sm:text-xs text-apple-subtext">${b.corp}</div>
+              </div>
+
+              <div class="flex flex-col items-end">
+                <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl flex flex-col items-center justify-center font-black ${score >= 70 ? 'bg-emerald-100 text-emerald-800' : (score >= 40 ? 'bg-blue-100 text-apple-blue' : 'bg-red-100 text-red-700')}">
+                  <span class="text-sm sm:text-base leading-none">${score}</span>
+                  <span class="text-[9px] font-medium opacity-80">점</span>
+                </div>
+                <span class="text-[9px] text-apple-muted mt-0.5">${getPersonaTitle(currentPersona)}</span>
+              </div>
+            </div>
+
+            ${strikeHtml}
+
+            <div class="mt-2 text-[10px] sm:text-[11px] font-semibold text-apple-subtext flex items-center gap-1">
+              <i class="fa-solid fa-shapes text-apple-blue"></i>
+              <span>${b.quadrant.label}</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-1.5 sm:gap-2 mt-2.5 sm:mt-3 pt-2.5 sm:pt-3 border-t border-apple-border text-xs">
+              <div class="p-2 rounded-xl bg-apple-bg">
+                <span class="text-[9px] sm:text-[10px] text-apple-muted block">3.3㎡당 연매출</span>
+                <strong class="text-apple-text font-bold text-[11px] sm:text-xs mt-0.5 block">${b.metrics.pyeongSalesText}</strong>
+              </div>
+              <div class="p-2 rounded-xl bg-apple-bg">
+                <span class="text-[9px] sm:text-[10px] text-apple-muted block">총 창업비용</span>
+                <strong class="text-apple-text font-bold text-[11px] sm:text-xs mt-0.5 block">${b.metrics.capexText}</strong>
+              </div>
+              <div class="p-2 rounded-xl bg-apple-bg">
+                <span class="text-[9px] sm:text-[10px] text-apple-muted block">실질 이탈률</span>
+                <strong class="font-bold text-[11px] sm:text-xs mt-0.5 block ${b.metrics.churnRate >= 15 ? 'text-red-600' : 'text-apple-text'}">${b.metrics.churnRateText}</strong>
+              </div>
+              <div class="p-2 rounded-xl bg-apple-bg">
+                <span class="text-[9px] sm:text-[10px] text-apple-muted block">예상 회수기간</span>
+                <strong class="text-apple-text font-bold text-[11px] sm:text-xs mt-0.5 block">${b.metrics.paybackEst}</strong>
+              </div>
+            </div>
+
+            <p class="text-[11px] text-apple-subtext mt-2.5 line-clamp-2 leading-relaxed">
+              ${b.verdict}
+            </p>
+          </div>
+
+          <div class="mt-3.5 pt-2.5 border-t border-apple-border flex items-center justify-between gap-2">
+            <a href="${b.fileName}" target="_blank" class="flex-1 py-1.5 sm:py-2 px-3 rounded-xl bg-apple-bg hover:bg-apple-blue hover:text-white text-apple-text text-xs font-bold text-center transition flex items-center justify-center gap-1 border border-apple-border">
+              <span>상세 리포트</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </a>
+
+            <button onclick="toggleCompareBrand('${b.id}')" class="px-3 py-1.5 sm:py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition ${isSelected ? 'bg-apple-blue text-white' : 'bg-gray-100 hover:bg-gray-200 text-apple-text'}">
+              <i class="fa-solid ${isSelected ? 'fa-square-check' : 'fa-square'}"></i>
+              <span>비교함</span>
+            </button>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    function renderQuadrantChart(brands) {
+      const ctx = document.getElementById('quadrantChart').getContext('2d');
+
+      const chartData = brands.map(b => ({
+        x: b.metrics.capexMan,
+        y: b.metrics.pyeongSalesMan,
+        r: b.quadrant.r,
+        brand: b
+      }));
+
+      if (quadrantChartInstance) {
+        quadrantChartInstance.destroy();
+      }
+
+      quadrantChartInstance = new Chart(ctx, {
+        type: 'bubble',
+        data: {
+          datasets: [{
+            label: '프랜차이즈 브랜드',
+            data: chartData,
+            backgroundColor: chartData.map(d => d.brand.isDisqualified ? 'rgba(239, 68, 68, 0.7)' : 'rgba(0, 113, 227, 0.7)'),
+            borderColor: chartData.map(d => d.brand.isDisqualified ? '#ef4444' : '#0071e3'),
+            borderWidth: 2,
+            hoverRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const b = context.raw.brand;
+                  return [
+                    ` [${b.name}]`,
+                    ` • 평당 연매출: ${b.metrics.pyeongSalesText}`,
+                    ` • 총 창업비용: ${b.metrics.capexText}`,
+                    ` • 총 매장수: ${b.metrics.storeCountText}`
+                  ];
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: '창업비용 (만 원)',
+                font: { size: 10, weight: 'bold' }
+              },
+              grid: { color: '#f0f0f2' }
+            },
+            y: {
+              title: {
+                display: true,
+                text: '평당 연매출 (만 원)',
+                font: { size: 10, weight: 'bold' }
+              },
+              grid: { color: '#f0f0f2' }
+            }
+          },
+          onClick: (event, elements) => {
+            if (elements.length > 0) {
+              const elIndex = elements[0].index;
+              const targetBrand = chartData[elIndex].brand;
+              scrollToBrandCard(targetBrand.id);
+            }
+          }
+        }
+      });
+    }
+
+    function scrollToBrandCard(brandId) {
+      const card = document.getElementById(`card-${brandId}`);
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.classList.add('card-highlight');
+        setTimeout(() => card.classList.remove('card-highlight'), 2000);
+      }
+    }
+
+    function toggleCompareBrand(brandId) {
+      if (selectedBrandIds.includes(brandId)) {
+        selectedBrandIds = selectedBrandIds.filter(id => id !== brandId);
+      } else {
+        if (selectedBrandIds.length >= 3) {
+          alert('1:1 맞대결 비교는 최대 3개 브랜드까지만 선택 가능합니다.');
+          return;
+        }
+        selectedBrandIds.push(brandId);
+      }
+
+      updateCompareDock();
+      renderAll();
+    }
+
+    function clearComparison() {
+      selectedBrandIds = [];
+      updateCompareDock();
+      renderAll();
+    }
+
+    function updateCompareDock() {
+      const dock = document.getElementById('compare-dock');
+      const countEl = document.getElementById('compare-count');
+      const tagsContainer = document.getElementById('compare-tags-container');
+
+      countEl.textContent = selectedBrandIds.length;
+
+      if (selectedBrandIds.length > 0) {
+        dock.classList.remove('hidden');
+        dock.classList.add('flex');
+      } else {
+        dock.classList.add('hidden');
+        dock.classList.remove('flex');
+      }
+
+      tagsContainer.innerHTML = '';
+      selectedBrandIds.forEach(id => {
+        const b = allBrands.find(item => item.id === id);
+        if (b) {
+          const tag = document.createElement('span');
+          tag.className = 'inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-apple-bg text-apple-text text-xs border border-apple-border font-bold flex-shrink-0';
+          tag.innerHTML = `
+            <span>${b.name}</span>
+            <button onclick="toggleCompareBrand('${b.id}')" class="text-apple-muted hover:text-apple-red ml-1"><i class="fa-solid fa-xmark"></i></button>
+          `;
+          tagsContainer.appendChild(tag);
+        }
+      });
+    }
+
+    function openCompareModal() {
+      if (selectedBrandIds.length < 2) {
+        alert('맞대결 비교를 위해 최소 2개 이상의 브랜드를 선택해 주세요.');
+        return;
+      }
+
+      const modal = document.getElementById('compare-modal');
+      modal.classList.remove('hidden');
+
+      const compareBrands = selectedBrandIds.map(id => allBrands.find(b => b.id === id)).filter(Boolean);
+
+      renderRadarChart(compareBrands);
+      renderCompareTable(compareBrands);
+      runCompareSimulation();
+    }
+
+    function closeCompareModal() {
+      document.getElementById('compare-modal').classList.add('hidden');
+    }
+
+    function renderRadarChart(brands) {
+      const ctx = document.getElementById('radarChart').getContext('2d');
+      const colors = ['rgba(0, 113, 227, 0.7)', 'rgba(52, 199, 89, 0.7)', 'rgba(255, 149, 0, 0.7)'];
+      const bgColors = ['rgba(0, 113, 227, 0.2)', 'rgba(52, 199, 89, 0.2)', 'rgba(255, 149, 0, 0.2)'];
+
+      const datasets = brands.map((b, idx) => ({
+        label: b.name,
+        data: b.scores,
+        backgroundColor: bgColors[idx % bgColors.length],
+        borderColor: colors[idx % colors.length],
+        pointBackgroundColor: colors[idx % colors.length],
+        borderWidth: 2
+      }));
+
+      if (radarChartInstance) {
+        radarChartInstance.destroy();
+      }
+
+      radarChartInstance = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: CRITERIA_NAMES,
+          datasets: datasets
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              min: 0,
+              max: 10,
+              ticks: { stepSize: 2 }
+            }
+          }
+        }
+      });
+    }
+
+    function renderCompareTable(brands) {
+      const thead = document.getElementById('compare-table-head');
+      const tbody = document.getElementById('compare-table-body');
+
+      let headHtml = `<th class="p-2.5 sm:p-3 w-1/4">평가 지표 (10점 만점)</th>`;
+      brands.forEach(b => {
+        headHtml += `
+          <th class="p-2.5 sm:p-3 text-center">
+            <div class="font-extrabold text-xs sm:text-sm text-apple-text">${b.name}</div>
+          </th>
+        `;
+      });
+      thead.innerHTML = headHtml;
+
+      let bodyHtml = '';
+      CRITERIA_NAMES.forEach((critName, idx) => {
+        const scores = brands.map(b => b.scores[idx]);
+        const maxScore = Math.max(...scores);
+
+        bodyHtml += `<tr class="hover:bg-gray-50/70">`;
+        bodyHtml += `<td class="p-2.5 sm:p-3 font-bold text-apple-text bg-gray-50/50">${critName}</td>`;
+
+        brands.forEach(b => {
+          const score = b.scores[idx];
+          const isWinner = score === maxScore && maxScore > 0;
+          bodyHtml += `
+            <td class="p-2.5 sm:p-3 text-center">
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] sm:text-xs font-bold ${isWinner ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-gray-100 text-apple-subtext'}">
+                ${isWinner ? '<i class="fa-solid fa-crown text-[9px] text-emerald-600"></i>' : ''}
+                ${score}점
+              </span>
+            </td>
+          `;
+        });
+
+        bodyHtml += `</tr>`;
+      });
+
+      bodyHtml += `<tr class="bg-blue-50/40 font-bold border-t-2 border-apple-border">`;
+      bodyHtml += `<td class="p-2.5 sm:p-3 text-apple-blue">🏆 100점 만점 종합</td>`;
+      brands.forEach(b => {
+        bodyHtml += `
+          <td class="p-2.5 sm:p-3 text-center">
+            <span class="text-sm sm:text-base font-black text-apple-blue">${b.totalScore}점</span>
+            ${b.isDisqualified ? '<span class="block text-[9px] text-red-600 font-bold">과락</span>' : ''}
+          </td>
+        `;
+      });
+      bodyHtml += `</tr>`;
+
+      tbody.innerHTML = bodyHtml;
+    }
+
+    function runCompareSimulation() {
+      const area = parseInt(document.getElementById('sim-input-area').value);
+      const rent = parseInt(document.getElementById('sim-input-rent').value);
+      const labor = parseInt(document.getElementById('sim-input-labor').value);
+
+      document.getElementById('sim-input-area-val').textContent = `${area}평`;
+      document.getElementById('sim-input-rent-val').textContent = `${rent}만원`;
+      document.getElementById('sim-input-labor-val').textContent = `${labor}만원`;
+
+      const compareBrands = selectedBrandIds.map(id => allBrands.find(b => b.id === id)).filter(Boolean);
+      const container = document.getElementById('sim-results-container');
+      container.innerHTML = '';
+
+      compareBrands.forEach(b => {
+        const pyeongSalesMan = b.metrics.pyeongSalesMan > 0 ? b.metrics.pyeongSalesMan : 1500;
+        const estAnnualSales = pyeongSalesMan * area;
+        const estMonthlySales = Math.round(estAnnualSales / 12);
+
+        const cogsRate = b.simDefaults ? b.simDefaults.cogs : 35.0;
+        const cogs = Math.round(estMonthlySales * (cogsRate / 100));
+
+        const royaltyRate = b.simDefaults ? b.simDefaults.royalty : 3.0;
+        const royalty = Math.round(estMonthlySales * (royaltyRate / 100));
+
+        const other = Math.round(estMonthlySales * 0.05);
+        const totalExpense = cogs + rent + labor + royalty + other;
+
+        const monthlyNet = estMonthlySales - totalExpense;
+        const marginRate = estMonthlySales > 0 ? ((monthlyNet / estMonthlySales) * 100).toFixed(1) : 0;
+
+        const fixedCost = rent + labor;
+        const variableRatio = (cogsRate + royaltyRate + 5.0) / 100.0;
+        const bepMonthly = variableRatio < 1 ? Math.round(fixedCost / (1 - variableRatio)) : 0;
+
+        const card = document.createElement('div');
+        card.className = 'bg-white p-3.5 rounded-xl border border-blue-200 shadow-xs flex flex-col justify-between';
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between pb-1.5 border-b border-gray-100">
+              <h5 class="text-xs sm:text-sm font-extrabold text-apple-text">${b.name}</h5>
+              <span class="text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-apple-blue border border-blue-200">
+                ${area}평 기준
+              </span>
+            </div>
+
+            <div class="mt-2.5 space-y-1.5 text-xs">
+              <div class="flex justify-between">
+                <span class="text-apple-subtext">예상 월 매출:</span>
+                <strong class="text-apple-text">${estMonthlySales.toLocaleString()}만 원</strong>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-apple-subtext">월 총 비용:</span>
+                <span class="text-apple-subtext">${totalExpense.toLocaleString()}만 원</span>
+              </div>
+              <div class="flex justify-between pt-1.5 border-t border-gray-100 font-bold">
+                <span class="text-apple-text">예상 월 순이익:</span>
+                <span class="${monthlyNet >= 0 ? 'text-emerald-600' : 'text-red-600'} text-xs sm:text-sm font-black">
+                  ${monthlyNet >= 0 ? '+' : ''}${monthlyNet.toLocaleString()}만 원
+                  <span class="text-[9px] font-normal text-apple-muted">(${marginRate}%)</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-2.5 pt-1.5 border-t border-gray-100 text-[10px] text-apple-muted flex justify-between items-center">
+            <span>손익분기(BEP):</span>
+            <strong class="text-apple-text font-bold">${bepMonthly.toLocaleString()}만 원</strong>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    // QR 모달
+    function openQrModal() {
+      const currentUrl = window.location.href;
+      // 무료 QR 코드 생성 API 활용
+      const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(currentUrl)}`;
+      document.getElementById('qr-code-img').src = qrApiUrl;
+      document.getElementById('qr-modal').classList.remove('hidden');
+    }
+    function closeQrModal() {
+      document.getElementById('qr-modal').classList.add('hidden');
+    }
+
+    function openGuideModal() {
+      document.getElementById('guide-modal').classList.remove('hidden');
+    }
+    function closeGuideModal() {
+      document.getElementById('guide-modal').classList.add('hidden');
+    }
+  </script>
+
+</body>
+</html>
