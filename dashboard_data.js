@@ -1,10 +1,87 @@
 /**
  * 프랜차이즈 분석 리포트 통합 데이터셋
- * 자동 생성 타임스탬프: 1793950827793
- * 총 브랜드 수: 7개
+ * 자동 생성 타임스탬프: 1793951632559
+ * 총 브랜드 수: 8개
  */
-window.FRANCHISE_BUILD_TIME = 1793950827793;
+window.FRANCHISE_BUILD_TIME = 1793951632559;
 window.FRANCHISE_DATA = [
+  {
+    "id": "brand_8",
+    "name": "상무초밥",
+    "corp": "주식회사 상무프랜차이즈",
+    "category": "외식 / 일식·초밥",
+    "scaleTag": "30평 이상 중대형 상권",
+    "fileName": "8. 상무초밥 - 정보공개서 분석 리포트_20261106.html",
+    "subtitle": "업계 최상위권 평당 매출과 안정적 재무를 갖추었으나, 직영점 부재와 명의변경 이탈률에 대한 검증이 필요한 대형 프랜차이즈",
+    "verdict": "공시 평균매출(24.5억/년)과 본사 재무(부채비율 54%)는 초우량이나, 0개인 직영점과 최근 증가한 양도양수 건에 대해서는 정밀 실사가 권장됩니다.",
+    "tags": [
+      "#연평균매출_24.5억",
+      "#평당매출_3478만",
+      "#본사부채비율_54%",
+      "#직영점_0개",
+      "#로열티_1%"
+    ],
+    "scores": [
+      10,
+      8,
+      0,
+      2,
+      8,
+      10,
+      8,
+      6,
+      10,
+      10
+    ],
+    "totalScore": 72,
+    "personaScores": {
+      "stability": 61.0,
+      "roi": 87.0,
+      "partner": 74.0,
+      "lightCapital": 62.0
+    },
+    "isDisqualified": false,
+    "strikeReasons": [],
+    "metrics": {
+      "capexMan": 24420,
+      "capexText": "2억 4,420만",
+      "pyeongSalesMan": 3478,
+      "pyeongSalesText": "3,478만 원",
+      "annualSalesMan": 244972,
+      "annualSalesText": "24억 4,972만",
+      "storeCount": 50,
+      "storeCountText": "50개점",
+      "directCountText": "직영점 0개 (본사 검증매장 없음)",
+      "churnRate": 12.0,
+      "churnRateText": "12.0%",
+      "paybackEst": "계산 불가",
+      "debtRatioText": "54.0%",
+      "opProfitText": "24.9억 원",
+      "royaltyText": "미제공",
+      "logisticsMarginText": "미제공",
+      "svRatioText": "미제공"
+    },
+    "quadrant": {
+      "type": "Q2_HIGH_END",
+      "label": "🏢 하이엔드형 (높은 투자비 + 높은 평당매출)",
+      "color": "#0071e3",
+      "x": 24420,
+      "y": 3478,
+      "r": 18
+    },
+    "simDefaults": {
+      "annualSales": 269469,
+      "area": 30,
+      "cogs": 35.0,
+      "rent": 700,
+      "labor": 4000,
+      "royalty": 1.0,
+      "other": 7.0,
+      "capex": 24420,
+      "deposit": 5000,
+      "keymoney": 5000
+    }
+  },
   {
     "id": "brand_2",
     "name": "옥된장",
