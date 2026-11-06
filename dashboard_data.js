@@ -1,9 +1,9 @@
 /**
  * 프랜차이즈 분석 리포트 통합 데이터셋
- * 자동 생성 타임스탬프: 1793945804159
- * 총 브랜드 수: 4개
+ * 자동 생성 타임스탬프: 1793946419665
+ * 총 브랜드 수: 5개
  */
-window.FRANCHISE_BUILD_TIME = 1793945804159;
+window.FRANCHISE_BUILD_TIME = 1793946419665;
 window.FRANCHISE_DATA = [
   {
     "id": "brand_2",
@@ -315,6 +315,86 @@ window.FRANCHISE_DATA = [
       "capex": 14050,
       "deposit": 300,
       "keymoney": 3000
+    }
+  },
+  {
+    "id": "brand_5",
+    "name": "올리빈",
+    "corp": "공동대표 김준서, 박현석",
+    "category": "샐러드 전문점",
+    "scaleTag": "기준 132㎡ (약 40평)",
+    "fileName": "올리빈 - 공개정보서 분석 리포트_20261106.html",
+    "subtitle": "2025년 5월 런칭한 신규 샐러드 브랜드로 필수물품 통제가 강하며 세부 매출액 정보가 부족해 철저한 BEP 검증이 요구됩니다.",
+    "verdict": "설립 1년 미만의 신생 브랜드로 10대 핵심 지표 중 다수의 데이터가 미공시(정보 없음)되어 있어 투자 위험성이 매우 큽니다. 가맹 계약을 권장하지 않습니다.",
+    "tags": [
+      "#샐러드",
+      "#올리빈",
+      "#신생브랜드",
+      "#데이터부족",
+      "#필수품목과다"
+    ],
+    "scores": [
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      8
+    ],
+    "totalScore": 10,
+    "personaScores": {
+      "stability": 20.0,
+      "roi": 0.0,
+      "partner": 18.0,
+      "lightCapital": 16.0
+    },
+    "isDisqualified": true,
+    "strikeReasons": [
+      "본사 자본잠식 (부도 위험)",
+      "실질 이탈률 과다 (0.0%로 15% 초과)"
+    ],
+    "metrics": {
+      "capexMan": 15290,
+      "capexText": "1억 5,290만",
+      "pyeongSalesMan": 0,
+      "pyeongSalesText": "정보 없음",
+      "annualSalesMan": 0,
+      "annualSalesText": "정보 없음",
+      "storeCount": 2,
+      "storeCountText": "2개점",
+      "directCountText": "가맹 1개 / 직영 1개",
+      "churnRate": 0.0,
+      "churnRateText": "정보 없음",
+      "paybackEst": "계산 불가",
+      "debtRatioText": "정보 없음",
+      "opProfitText": "정보 없음",
+      "royaltyText": "미제공",
+      "logisticsMarginText": "미제공",
+      "svRatioText": "미제공"
+    },
+    "quadrant": {
+      "type": "Q4_HIGH_RISK",
+      "label": "⚠️ 고위험 함정형 (높은 투자비 + 낮은 평당매출)",
+      "color": "#ef4444",
+      "x": 15290,
+      "y": 0,
+      "r": 8
+    },
+    "simDefaults": {
+      "annualSales": 0,
+      "area": 40,
+      "cogs": 40.0,
+      "rent": 400,
+      "labor": 800,
+      "royalty": 2.2,
+      "other": 5.0,
+      "capex": 15290,
+      "deposit": 300,
+      "keymoney": 0
     }
   }
 ];
