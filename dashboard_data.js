@@ -1,9 +1,9 @@
 /**
  * 프랜차이즈 분석 리포트 통합 데이터셋
- * 자동 생성 타임스탬프: 1793946427643
- * 총 브랜드 수: 5개
+ * 자동 생성 타임스탬프: 1793947107882
+ * 총 브랜드 수: 6개
  */
-window.FRANCHISE_BUILD_TIME = 1793946427643;
+window.FRANCHISE_BUILD_TIME = 1793947107882;
 window.FRANCHISE_DATA = [
   {
     "id": "brand_2",
@@ -394,6 +394,87 @@ window.FRANCHISE_DATA = [
       "other": 5.0,
       "capex": 15290,
       "deposit": 300,
+      "keymoney": 0
+    }
+  },
+  {
+    "id": "brand_6",
+    "name": "진초동순두부",
+    "corp": "진초동 (개인사업자: 김봉기)",
+    "category": "한식",
+    "scaleTag": "기준 132㎡ (약 40평)",
+    "fileName": "진초동순두부 - 정보공개서 분석 리포트.html",
+    "subtitle": "운영 실적 전무, 재무 건전성 0원 공시. 가맹 및 직영점이 단 한 곳도 없는 극초기 고위험 개인사업자 브랜드입니다.",
+    "verdict": "등록된 점포가 전무하여 실적을 확인할 수 없으며, 모든 필수 평가 지표가 정보 없음(0점)으로 3대 과락 요건에 해당하여 투자를 절대 권장하지 않습니다.",
+    "tags": [
+      "#진초동순두부",
+      "#한식",
+      "#점포0개",
+      "#정보부재",
+      "#고위험"
+    ],
+    "scores": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      6
+    ],
+    "totalScore": 6,
+    "personaScores": {
+      "stability": 12.0,
+      "roi": 0.0,
+      "partner": 12.0,
+      "lightCapital": 16.0
+    },
+    "isDisqualified": true,
+    "strikeReasons": [
+      "본사 자본잠식 (부도 위험)",
+      "실질 이탈률 과다 (0.0%로 15% 초과)",
+      "가맹/직영 영업데이터 전무"
+    ],
+    "metrics": {
+      "capexMan": 17170,
+      "capexText": "1억 7,170만",
+      "pyeongSalesMan": 0.0,
+      "pyeongSalesText": "0원",
+      "annualSalesMan": 0.0,
+      "annualSalesText": "0원",
+      "storeCount": 0,
+      "storeCountText": "0개점",
+      "directCountText": "가맹 0개 / 직영 0개",
+      "churnRate": 0.0,
+      "churnRateText": "정보 없음",
+      "paybackEst": "계산 불가",
+      "debtRatioText": "자본 0원 / 부채 0원",
+      "opProfitText": "0원",
+      "royaltyText": "미제공",
+      "logisticsMarginText": "미제공",
+      "svRatioText": "미제공"
+    },
+    "quadrant": {
+      "type": "Q4_HIGH_RISK",
+      "label": "⚠️ 고위험 함정형 (높은 투자비 + 낮은 평당매출)",
+      "color": "#ef4444",
+      "x": 17170,
+      "y": 0.0,
+      "r": 8
+    },
+    "simDefaults": {
+      "annualSales": 0,
+      "area": 40,
+      "cogs": 40.0,
+      "rent": 400,
+      "labor": 800,
+      "royalty": 0.0,
+      "other": 5.0,
+      "capex": 17170,
+      "deposit": 1000,
       "keymoney": 0
     }
   }
