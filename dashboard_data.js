@@ -1,9 +1,9 @@
 /**
  * 프랜차이즈 분석 리포트 통합 데이터셋
- * 자동 생성 타임스탬프: 1793950726217
+ * 자동 생성 타임스탬프: 1793950827793
  * 총 브랜드 수: 7개
  */
-window.FRANCHISE_BUILD_TIME = 1793950726217;
+window.FRANCHISE_BUILD_TIME = 1793950827793;
 window.FRANCHISE_DATA = [
   {
     "id": "brand_2",
