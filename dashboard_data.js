@@ -1,9 +1,9 @@
 /**
  * 프랜차이즈 분석 리포트 통합 데이터셋
- * 자동 생성 타임스탬프: 1793939825095
- * 총 브랜드 수: 3개
+ * 자동 생성 타임스탬프: 1793945804159
+ * 총 브랜드 수: 4개
  */
-window.FRANCHISE_BUILD_TIME = 1793939825095;
+window.FRANCHISE_BUILD_TIME = 1793945804159;
 window.FRANCHISE_DATA = [
   {
     "id": "brand_2",
@@ -79,6 +79,82 @@ window.FRANCHISE_DATA = [
       "royalty": 3.0,
       "other": 5.0,
       "capex": 11415
+    }
+  },
+  {
+    "id": "brand_4",
+    "name": "반궁",
+    "corp": "(주)이랜드이츠",
+    "category": "한식",
+    "scaleTag": "기준 79㎡ (약 24평)",
+    "fileName": "4. 반궁 - 정보공개서 분석 리포트_20261106.html",
+    "subtitle": "이랜드이츠의 노하우가 담긴 한식 반상 전문점, 탄탄한 본사 매출 대비 가맹점 매출 효율은 검증 필요",
+    "verdict": "본사의 재무 안정성과 이익 성장세는 매우 우수하나, 가맹점의 평당 매출 효율이 저조하고 공개되지 않은 필수 정보(영업기간, 물류마진 등)가 많아 다각도의 검증이 필요합니다.",
+    "tags": [
+      "#한식",
+      "#이랜드이츠",
+      "#직영점2개",
+      "#본사고성장"
+    ],
+    "scores": [
+      4,
+      10,
+      6,
+      4,
+      0,
+      2,
+      4,
+      0,
+      0,
+      10
+    ],
+    "totalScore": 40,
+    "personaScores": {
+      "stability": 65.0,
+      "roi": 36.0,
+      "partner": 26.0,
+      "lightCapital": 46.0
+    },
+    "isDisqualified": false,
+    "strikeReasons": [],
+    "metrics": {
+      "capexMan": 14431,
+      "capexText": "1억 4,431만",
+      "pyeongSalesMan": 1254,
+      "pyeongSalesText": "1,254만 원",
+      "annualSalesMan": 53947,
+      "annualSalesText": "5억 3,947만",
+      "storeCount": 21,
+      "storeCountText": "21개점",
+      "directCountText": "가맹 19개 / 직영 2개",
+      "churnRate": 10.5,
+      "churnRateText": "10.5%",
+      "paybackEst": "계산 불가",
+      "debtRatioText": "248.8%",
+      "opProfitText": "319.2억 원",
+      "royaltyText": "미제공",
+      "logisticsMarginText": "미제공",
+      "svRatioText": "미제공"
+    },
+    "quadrant": {
+      "type": "Q4_HIGH_RISK",
+      "label": "⚠️ 고위험 함정형 (높은 투자비 + 낮은 평당매출)",
+      "color": "#ef4444",
+      "x": 14431,
+      "y": 1254,
+      "r": 12
+    },
+    "simDefaults": {
+      "annualSales": 53947,
+      "area": 24,
+      "cogs": 40.0,
+      "rent": 400,
+      "labor": 800,
+      "royalty": 0,
+      "other": 5.0,
+      "capex": 14431,
+      "deposit": 500,
+      "keymoney": 0
     }
   },
   {
