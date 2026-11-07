@@ -114,11 +114,52 @@ def parse_js_object(js_code):
 
     return json.loads(masked)
 
+def ensure_dashboard_back_button(html_path):
+    """
+    상세 리포트 HTML 상단에 [대시보드로 돌아가기] 버튼이 없는 경우 자동으로 주입하는 함수
+    - 스마트폰(모바일)과 PC에서 언제든 원클릭으로 메인 대시보드로 돌아올 수 있도록 지원합니다.
+    """
+    try:
+        with open(html_path, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        # 이미 [대시보드] 링크가 장착되어 있는 경우 스킵
+        if 'href="index.html"' in content:
+            return False
+
+        target = '<div class="flex items-center gap-2.5">'
+        if target not in content:
+            return False
+
+        # 좌측 상단에 깔끔한 애플 스타일의 [← 대시보드] 버튼 주입
+        button_html = (
+            '<div class="flex items-center gap-2 sm:gap-2.5">\n'
+            '            <!-- [대시보드로 돌아가기 버튼] 스마트폰 및 PC에서 언제든 원클릭 메인 복귀 -->\n'
+            '            <a href="index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-apple-blue hover:bg-apple-blueHover text-white text-xs sm:text-sm font-bold shadow-sm transition shrink-0 mr-1">\n'
+            '              <i class="fa-solid fa-arrow-left text-xs"></i>\n'
+            '              <span>대시보드</span>\n'
+            '            </a>'
+        )
+
+        new_content = content.replace(target, button_html, 1)
+
+        with open(html_path, "w", encoding="utf-8") as f:
+            f.write(new_content)
+
+        print(f"  ✨ [버튼 자동 장착] {os.path.basename(html_path)} 상단에 [← 대시보드] 버튼을 추가했습니다.")
+        return True
+    except Exception as e:
+        print(f"  ⚠️ 버튼 자동 주입 오류 ({os.path.basename(html_path)}): {e}")
+        return False
+
 def extract_report_data(html_path, index_num):
     """
     개별 리포트 HTML 파일에서 TEMPLATE_DATA를 추출하고 대시보드용 지표를 계산
     """
-    # 맥OS 환경(자모 분리 NFD)에서도 웹 호환을 위해 완성형(NFC)으로 유니코드 정규화
+    # 1. 상세 리포트 상단 [대시보드로 돌아가기] 버튼 자동 보장
+    ensure_dashboard_back_button(html_path)
+
+    # 2. 맥OS 환경(자모 분리 NFD)에서도 웹 호환을 위해 완성형(NFC)으로 유니코드 정규화
     file_name = unicodedata.normalize("NFC", os.path.basename(html_path))
     with open(html_path, "r", encoding="utf-8") as f:
         content = f.read()
