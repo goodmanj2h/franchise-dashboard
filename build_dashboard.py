@@ -16,6 +16,7 @@ import glob
 import re
 import json
 import time
+import unicodedata
 
 # 1. 경로 설정 (현재 스크립트가 위치한 폴더 기준)
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -117,7 +118,8 @@ def extract_report_data(html_path, index_num):
     """
     개별 리포트 HTML 파일에서 TEMPLATE_DATA를 추출하고 대시보드용 지표를 계산
     """
-    file_name = os.path.basename(html_path)
+    # 맥OS 환경(자모 분리 NFD)에서도 웹 호환을 위해 완성형(NFC)으로 유니코드 정규화
+    file_name = unicodedata.normalize("NFC", os.path.basename(html_path))
     with open(html_path, "r", encoding="utf-8") as f:
         content = f.read()
 
