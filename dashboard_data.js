@@ -1,9 +1,9 @@
 /**
  * 프랜차이즈 분석 리포트 통합 데이터셋
- * 자동 생성 타임스탬프: 1793951632559
- * 총 브랜드 수: 8개
+ * 자동 생성 타임스탬프: 1794026351426
+ * 총 브랜드 수: 9개
  */
-window.FRANCHISE_BUILD_TIME = 1793951632559;
+window.FRANCHISE_BUILD_TIME = 1794026351426;
 window.FRANCHISE_DATA = [
   {
     "id": "brand_8",
@@ -232,6 +232,86 @@ window.FRANCHISE_DATA = [
       "capex": 14431,
       "deposit": 500,
       "keymoney": 0
+    }
+  },
+  {
+    "id": "brand_9",
+    "name": "고향보쌈칼국수",
+    "corp": "온겸컴퍼니",
+    "category": "한식",
+    "scaleTag": "기준 점포 면적: 132m² (약 40평)",
+    "fileName": "9. 고향보쌈칼국수 - 정보공개서 분석 리포트_20261107.html",
+    "subtitle": "사업자등록일 2025.06.30 (개인사업자)[cite: 1] / 2025년 가맹점 평균 매출 약 6.28억 원[cite: 3]",
+    "verdict": "가맹점당 평균 매출액(6.28억) 및 평당 효율은 양호하나[cite: 3], 본사의 자산/자본/부채/이익 지표가 모두 0으로 공시되어 재무 투명성이 결여되었으며[cite: 1] 가맹점 이탈 현상이 관찰됩니다[cite: 3].",
+    "tags": [
+      "#한식",
+      "#개인사업자",
+      "#가맹점3개",
+      "#직영점1개",
+      "#법위반0건",
+      "#매출양호"
+    ],
+    "scores": [
+      2,
+      2,
+      4,
+      0,
+      4,
+      10,
+      6,
+      0,
+      2,
+      8
+    ],
+    "totalScore": 38,
+    "personaScores": {
+      "stability": 32.0,
+      "roi": 65.0,
+      "partner": 26.0,
+      "lightCapital": 76.0
+    },
+    "isDisqualified": true,
+    "strikeReasons": [
+      "실질 이탈률 과다 (66.6%로 15% 초과)"
+    ],
+    "metrics": {
+      "capexMan": 12900,
+      "capexText": "1억 2,900만",
+      "pyeongSalesMan": 3102,
+      "pyeongSalesText": "3,102만 원",
+      "annualSalesMan": 62880,
+      "annualSalesText": "6억 2,880만 원",
+      "storeCount": 4,
+      "storeCountText": "4개점",
+      "directCountText": "직영점 1개 / 가맹점 3개",
+      "churnRate": 66.6,
+      "churnRateText": "66.6%",
+      "paybackEst": "계산 불가",
+      "debtRatioText": "공시 누락",
+      "opProfitText": "공시 누락 (0)",
+      "royaltyText": "미제공",
+      "logisticsMarginText": "미제공",
+      "svRatioText": "미제공"
+    },
+    "quadrant": {
+      "type": "Q1_SUPER_ALZZA",
+      "label": "💡 슈퍼 알짜형 (적은 창업비 + 높은 평당매출)",
+      "color": "#10b981",
+      "x": 12900,
+      "y": 3102,
+      "r": 8
+    },
+    "simDefaults": {
+      "annualSales": 62880,
+      "area": 40,
+      "cogs": 35.0,
+      "rent": 300,
+      "labor": 1500,
+      "royalty": 0.0,
+      "other": 5.0,
+      "capex": 12400,
+      "deposit": 500,
+      "keymoney": 3000
     }
   },
   {
