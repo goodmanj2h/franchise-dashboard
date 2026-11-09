@@ -1,12 +1,12 @@
 /**
  * 프랜차이즈 분석 리포트 통합 데이터셋
- * 자동 생성 타임스탬프: 1794203473212
- * 총 브랜드 수: 10개
+ * 자동 생성 타임스탬프: 1794204205432
+ * 총 브랜드 수: 11개
  */
-window.FRANCHISE_BUILD_TIME = 1794203473212;
+window.FRANCHISE_BUILD_TIME = 1794204205432;
 window.FRANCHISE_DATA = [
   {
-    "id": "brand_9",
+    "id": "brand_10_",
     "name": "상무초밥",
     "corp": "주식회사 상무프랜차이즈",
     "category": "외식 / 일식·초밥",
@@ -83,7 +83,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_3",
+    "id": "brand_4",
     "name": "옥된장",
     "corp": "(주)옥된장에프엔비",
     "category": "한식",
@@ -159,7 +159,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_5",
+    "id": "brand_6",
     "name": "반궁",
     "corp": "(주)이랜드이츠",
     "category": "한식",
@@ -235,7 +235,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_10_",
+    "id": "brand_11_",
     "name": "고향보쌈칼국수",
     "corp": "온겸컴퍼니",
     "category": "한식",
@@ -315,7 +315,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_4",
+    "id": "brand_5",
     "name": "괭이부리마을",
     "corp": "(주)신솔에프앤비",
     "category": "한식",
@@ -554,7 +554,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_6",
+    "id": "brand_7",
     "name": "올리빈",
     "corp": "공동대표 김준서, 박현석",
     "category": "샐러드 전문점",
@@ -634,7 +634,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_8",
+    "id": "brand_9",
     "name": "유월의보리",
     "corp": "유월의 보리 본점 (개인)",
     "category": "외식 / 한식",
@@ -714,7 +714,88 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_7",
+    "id": "brand_3",
+    "name": "죽림보쌈칼국수",
+    "corp": "개인사업자 (황예본)",
+    "category": "한식",
+    "scaleTag": "기준 점포 면적: 99m² (약 30평)",
+    "fileName": "11. 죽림보쌈칼국수 - 정보공개서 분석 리포트_20261109.html",
+    "subtitle": "가맹점 및 직영점 운영 실적이 전혀 없으며, 본사 재무 데이터 또한 공시되지 않은 완전 신생 또는 실적 부재 브랜드입니다.",
+    "verdict": "본사 재무상태 및 가맹점 매출 데이터가 전무하여 사업성과 안전성을 객관적으로 판단할 수 없습니다. 신중한 접근과 철저한 현장 실사가 필수적입니다.",
+    "tags": [
+      "#한식",
+      "#가맹점0개",
+      "#직영점0개",
+      "#재무정보없음",
+      "#신생/실적부재"
+    ],
+    "scores": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      8
+    ],
+    "totalScore": 8,
+    "personaScores": {
+      "stability": 16.0,
+      "roi": 0.0,
+      "partner": 16.0,
+      "lightCapital": 16.0
+    },
+    "isDisqualified": true,
+    "strikeReasons": [
+      "본사 자본잠식 (부도 위험)",
+      "실질 이탈률 과다 (0.0%로 15% 초과)",
+      "가맹/직영 영업데이터 전무"
+    ],
+    "metrics": {
+      "capexMan": 15965,
+      "capexText": "1억 5,965만",
+      "pyeongSalesMan": 0,
+      "pyeongSalesText": "정보 없음",
+      "annualSalesMan": 0,
+      "annualSalesText": "정보 없음",
+      "storeCount": 0,
+      "storeCountText": "0개점",
+      "directCountText": "직영점 0개",
+      "churnRate": 0.0,
+      "churnRateText": "정보 없음",
+      "paybackEst": "계산 불가",
+      "debtRatioText": "정보 없음",
+      "opProfitText": "정보 없음",
+      "royaltyText": "미제공",
+      "logisticsMarginText": "미제공",
+      "svRatioText": "미제공"
+    },
+    "quadrant": {
+      "type": "Q4_HIGH_RISK",
+      "label": "⚠️ 고위험 함정형 (높은 투자비 + 낮은 평당매출)",
+      "color": "#ef4444",
+      "x": 15965,
+      "y": 0,
+      "r": 8
+    },
+    "simDefaults": {
+      "annualSales": 60000,
+      "area": 30,
+      "cogs": 35.0,
+      "rent": 300,
+      "labor": 1500,
+      "royalty": 3.0,
+      "other": 5.0,
+      "capex": 15465,
+      "deposit": 500,
+      "keymoney": 3000
+    }
+  },
+  {
+    "id": "brand_8",
     "name": "진초동순두부",
     "corp": "진초동 (개인사업자: 김봉기)",
     "category": "한식",
