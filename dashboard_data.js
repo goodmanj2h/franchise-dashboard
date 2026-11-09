@@ -1,9 +1,9 @@
 /**
  * 프랜차이즈 분석 리포트 통합 데이터셋
- * 자동 생성 타임스탬프: 1794205772587
- * 총 브랜드 수: 13개
+ * 자동 생성 타임스탬프: 1794206132283
+ * 총 브랜드 수: 14개
  */
-window.FRANCHISE_BUILD_TIME = 1794205772587;
+window.FRANCHISE_BUILD_TIME = 1794206132283;
 window.FRANCHISE_DATA = [
   {
     "id": "brand_12_",
@@ -628,6 +628,85 @@ window.FRANCHISE_DATA = [
       "capex": 8760,
       "deposit": 300,
       "keymoney": 2000
+    }
+  },
+  {
+    "id": "brand_14_",
+    "name": "섭생정식",
+    "corp": "개인사업자 (오성진)",
+    "category": "한식",
+    "scaleTag": "기준 점포 면적: 165m² (약 50평)",
+    "fileName": "섭생정식 - 정보공개서 분석 리포트_20261109.html",
+    "subtitle": "현재 직영점 1곳만 운영 중이며 가맹점 실적이 전혀 없어(가맹점 0개), 예비 창업자의 주의 깊은 데이터 분석과 현장 실사가 필수적인 브랜드입니다.",
+    "verdict": "본사 매출과 이익은 유지되고 있으나, 아직 가맹사업 모델이 외부 가맹점을 통해 검증되지 않았고 초기 투자금(3억 이상)이 막대하여 신중한 진입이 필요합니다.",
+    "tags": [
+      "#한식",
+      "#가맹점0개",
+      "#초기비용고가",
+      "#직영점1개",
+      "#실적부재"
+    ],
+    "scores": [
+      6,
+      4,
+      4,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      8
+    ],
+    "totalScore": 22,
+    "personaScores": {
+      "stability": 45.0,
+      "roi": 6.0,
+      "partner": 20.0,
+      "lightCapital": 8.0
+    },
+    "isDisqualified": true,
+    "strikeReasons": [
+      "실질 이탈률 과다 (0.0%로 15% 초과)"
+    ],
+    "metrics": {
+      "capexMan": 33060,
+      "capexText": "3억 3,060만",
+      "pyeongSalesMan": 0,
+      "pyeongSalesText": "정보 없음",
+      "annualSalesMan": 0,
+      "annualSalesText": "정보 없음",
+      "storeCount": 0,
+      "storeCountText": "0개점",
+      "directCountText": "직영점 1개 (운영중)",
+      "churnRate": 0.0,
+      "churnRateText": "정보 없음",
+      "paybackEst": "계산 불가",
+      "debtRatioText": "158.1%",
+      "opProfitText": "3,310만 원",
+      "royaltyText": "미제공",
+      "logisticsMarginText": "미제공",
+      "svRatioText": "미제공"
+    },
+    "quadrant": {
+      "type": "Q4_HIGH_RISK",
+      "label": "⚠️ 고위험 함정형 (높은 투자비 + 낮은 평당매출)",
+      "color": "#ef4444",
+      "x": 33060,
+      "y": 0,
+      "r": 8
+    },
+    "simDefaults": {
+      "annualSales": 80000,
+      "area": 50,
+      "cogs": 35.0,
+      "rent": 500,
+      "labor": 2000,
+      "royalty": 3.3,
+      "other": 5.0,
+      "capex": 32560,
+      "deposit": 1000,
+      "keymoney": 5000
     }
   },
   {
