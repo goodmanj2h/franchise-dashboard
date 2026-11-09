@@ -1,12 +1,12 @@
 /**
  * 프랜차이즈 분석 리포트 통합 데이터셋
- * 자동 생성 타임스탬프: 1794205373682
- * 총 브랜드 수: 12개
+ * 자동 생성 타임스탬프: 1794205772587
+ * 총 브랜드 수: 13개
  */
-window.FRANCHISE_BUILD_TIME = 1794205373682;
+window.FRANCHISE_BUILD_TIME = 1794205772587;
 window.FRANCHISE_DATA = [
   {
-    "id": "brand_11_",
+    "id": "brand_12_",
     "name": "상무초밥",
     "corp": "주식회사 상무프랜차이즈",
     "category": "외식 / 일식·초밥",
@@ -83,7 +83,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_5",
+    "id": "brand_6",
     "name": "옥된장",
     "corp": "(주)옥된장에프엔비",
     "category": "한식",
@@ -159,7 +159,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_7",
+    "id": "brand_8",
     "name": "반궁",
     "corp": "(주)이랜드이츠",
     "category": "한식",
@@ -235,7 +235,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_12_",
+    "id": "brand_13_",
     "name": "고향보쌈칼국수",
     "corp": "온겸컴퍼니",
     "category": "한식",
@@ -394,7 +394,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_6",
+    "id": "brand_7",
     "name": "괭이부리마을",
     "corp": "(주)신솔에프앤비",
     "category": "한식",
@@ -552,6 +552,85 @@ window.FRANCHISE_DATA = [
     }
   },
   {
+    "id": "brand_5_SLB",
+    "name": "에스엘비(SLB)",
+    "corp": "(주)시크릿케이",
+    "category": "서양식",
+    "scaleTag": "기준 점포 면적: 50m² (약 15.1평)",
+    "fileName": "13. SLB - 공개정보서 분석 리포트_20261109.html",
+    "subtitle": "2025년 기준 본사 부채비율이 매우 높으며(1379%), 가맹점 이탈률이 상당수 존재하여 신중한 수익성 검토가 요구됩니다.",
+    "verdict": "가맹점당 평균 매출액이 상대적으로 낮고 높은 본사 부채비율과 폐점(계약해지 등)이 꾸준히 발생하고 있어 투자 주의 및 심층 분석이 필요합니다.",
+    "tags": [
+      "#서양식",
+      "#부채비율과다",
+      "#매출감소추세",
+      "#이탈률주의",
+      "#면밀검토"
+    ],
+    "scores": [
+      2,
+      4,
+      4,
+      0,
+      0,
+      2,
+      8,
+      0,
+      0,
+      8
+    ],
+    "totalScore": 28,
+    "personaScores": {
+      "stability": 35.0,
+      "roi": 41.0,
+      "partner": 20.0,
+      "lightCapital": 70.0
+    },
+    "isDisqualified": true,
+    "strikeReasons": [
+      "실질 이탈률 과다 (64.2%로 15% 초과)"
+    ],
+    "metrics": {
+      "capexMan": 9060,
+      "capexText": "9,060만 원",
+      "pyeongSalesMan": 1503,
+      "pyeongSalesText": "1,503만 원",
+      "annualSalesMan": 24055,
+      "annualSalesText": "2억 4,055만",
+      "storeCount": 14,
+      "storeCountText": "14개점",
+      "directCountText": "직영점 1개",
+      "churnRate": 64.2,
+      "churnRateText": "64.2% (심각)",
+      "paybackEst": "계산 불가",
+      "debtRatioText": "1379.1%",
+      "opProfitText": "4,166만 원",
+      "royaltyText": "미제공",
+      "logisticsMarginText": "미제공",
+      "svRatioText": "미제공"
+    },
+    "quadrant": {
+      "type": "Q3_SMALL_STABLE",
+      "label": "☕ 생계 소형형 (적은 투자비 + 안정형 매출)",
+      "color": "#f59e0b",
+      "x": 9060,
+      "y": 1503,
+      "r": 10
+    },
+    "simDefaults": {
+      "annualSales": 24055,
+      "area": 16,
+      "cogs": 35.0,
+      "rent": 200,
+      "labor": 500,
+      "royalty": 3.3,
+      "other": 5.0,
+      "capex": 8760,
+      "deposit": 300,
+      "keymoney": 2000
+    }
+  },
+  {
     "id": "brand_1",
     "name": "정희",
     "corp": "(주)엘이이",
@@ -633,7 +712,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_8",
+    "id": "brand_9",
     "name": "올리빈",
     "corp": "공동대표 김준서, 박현석",
     "category": "샐러드 전문점",
@@ -713,7 +792,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_10_",
+    "id": "brand_11_",
     "name": "유월의보리",
     "corp": "유월의 보리 본점 (개인)",
     "category": "외식 / 한식",
@@ -874,7 +953,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_9",
+    "id": "brand_10_",
     "name": "진초동순두부",
     "corp": "진초동 (개인사업자: 김봉기)",
     "category": "한식",
