@@ -1,12 +1,12 @@
 /**
  * 프랜차이즈 분석 리포트 통합 데이터셋
- * 자동 생성 타임스탬프: 1794049756809
- * 총 브랜드 수: 9개
+ * 자동 생성 타임스탬프: 1794203473212
+ * 총 브랜드 수: 10개
  */
-window.FRANCHISE_BUILD_TIME = 1794049756809;
+window.FRANCHISE_BUILD_TIME = 1794203473212;
 window.FRANCHISE_DATA = [
   {
-    "id": "brand_8",
+    "id": "brand_9",
     "name": "상무초밥",
     "corp": "주식회사 상무프랜차이즈",
     "category": "외식 / 일식·초밥",
@@ -83,7 +83,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_2",
+    "id": "brand_3",
     "name": "옥된장",
     "corp": "(주)옥된장에프엔비",
     "category": "한식",
@@ -159,7 +159,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_4",
+    "id": "brand_5",
     "name": "반궁",
     "corp": "(주)이랜드이츠",
     "category": "한식",
@@ -235,7 +235,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_9",
+    "id": "brand_10_",
     "name": "고향보쌈칼국수",
     "corp": "온겸컴퍼니",
     "category": "한식",
@@ -315,7 +315,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_3",
+    "id": "brand_4",
     "name": "괭이부리마을",
     "corp": "(주)신솔에프앤비",
     "category": "한식",
@@ -391,6 +391,85 @@ window.FRANCHISE_DATA = [
       "capex": 18790,
       "deposit": 5000,
       "keymoney": 5000
+    }
+  },
+  {
+    "id": "brand_2",
+    "name": "더스시",
+    "corp": "개인사업자 (고광택)",
+    "category": "일식",
+    "scaleTag": "기준 점포 면적: 99m² (약 30평)",
+    "fileName": "10. 더스시 - 공개정보서 분석 리프트_20261109.html",
+    "subtitle": "직영점 1개를 운영 중이나 가맹점이 전무하며, 최근 영업이익이 적자로 전환되어 수익성 악화 추세를 보입니다.",
+    "verdict": "본사 재무 건전성(부채비율 88%)은 양호하나, 가맹점 영업 데이터 부재 및 본사 영업적자 전환으로 인해 사업 모델 검증이 부족합니다. 신중한 접근이 필요합니다.",
+    "tags": [
+      "#일식",
+      "#가맹점0개",
+      "#최근적자전환",
+      "#부채비율양호",
+      "#데이터부족"
+    ],
+    "scores": [
+      10,
+      2,
+      4,
+      0,
+      0,
+      0,
+      4,
+      0,
+      0,
+      8
+    ],
+    "totalScore": 28,
+    "personaScores": {
+      "stability": 52.0,
+      "roi": 17.0,
+      "partner": 20.0,
+      "lightCapital": 28.0
+    },
+    "isDisqualified": true,
+    "strikeReasons": [
+      "실질 이탈률 과다 (0.0%로 15% 초과)"
+    ],
+    "metrics": {
+      "capexMan": 17215,
+      "capexText": "1억 7,215만",
+      "pyeongSalesMan": 0,
+      "pyeongSalesText": "정보 없음",
+      "annualSalesMan": 0,
+      "annualSalesText": "정보 없음",
+      "storeCount": 0,
+      "storeCountText": "0개점",
+      "directCountText": "직영점 1개 (운영중)",
+      "churnRate": 0.0,
+      "churnRateText": "정보 없음",
+      "paybackEst": "계산 불가",
+      "debtRatioText": "88.0%",
+      "opProfitText": "-0.46억 원",
+      "royaltyText": "미제공",
+      "logisticsMarginText": "미제공",
+      "svRatioText": "미제공"
+    },
+    "quadrant": {
+      "type": "Q4_HIGH_RISK",
+      "label": "⚠️ 고위험 함정형 (높은 투자비 + 낮은 평당매출)",
+      "color": "#ef4444",
+      "x": 17215,
+      "y": 0,
+      "r": 8
+    },
+    "simDefaults": {
+      "annualSales": 60000,
+      "area": 30,
+      "cogs": 35.0,
+      "rent": 300,
+      "labor": 1500,
+      "royalty": 3.0,
+      "other": 5.0,
+      "capex": 17215,
+      "deposit": 0,
+      "keymoney": 3000
     }
   },
   {
@@ -475,7 +554,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_5",
+    "id": "brand_6",
     "name": "올리빈",
     "corp": "공동대표 김준서, 박현석",
     "category": "샐러드 전문점",
@@ -555,7 +634,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_7",
+    "id": "brand_8",
     "name": "유월의보리",
     "corp": "유월의 보리 본점 (개인)",
     "category": "외식 / 한식",
@@ -635,7 +714,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_6",
+    "id": "brand_7",
     "name": "진초동순두부",
     "corp": "진초동 (개인사업자: 김봉기)",
     "category": "한식",
