@@ -1,12 +1,12 @@
 /**
  * 프랜차이즈 분석 리포트 통합 데이터셋
- * 자동 생성 타임스탬프: 1794204205432
- * 총 브랜드 수: 11개
+ * 자동 생성 타임스탬프: 1794205373682
+ * 총 브랜드 수: 12개
  */
-window.FRANCHISE_BUILD_TIME = 1794204205432;
+window.FRANCHISE_BUILD_TIME = 1794205373682;
 window.FRANCHISE_DATA = [
   {
-    "id": "brand_10_",
+    "id": "brand_11_",
     "name": "상무초밥",
     "corp": "주식회사 상무프랜차이즈",
     "category": "외식 / 일식·초밥",
@@ -83,7 +83,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_4",
+    "id": "brand_5",
     "name": "옥된장",
     "corp": "(주)옥된장에프엔비",
     "category": "한식",
@@ -159,7 +159,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_6",
+    "id": "brand_7",
     "name": "반궁",
     "corp": "(주)이랜드이츠",
     "category": "한식",
@@ -235,7 +235,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_11_",
+    "id": "brand_12_",
     "name": "고향보쌈칼국수",
     "corp": "온겸컴퍼니",
     "category": "한식",
@@ -315,7 +315,86 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_5",
+    "id": "brand_4",
+    "name": "향택",
+    "corp": "법인",
+    "category": "미분류(정보없음)",
+    "scaleTag": "기준 점포 면적: 83m² (약 25평)",
+    "fileName": "12. 향택 - 공개정보서 분석 리포트_20261109.html",
+    "subtitle": "2025년 본사 영업이익이 적자로 전환되었고, 가맹점 2곳 모두 계약 종료(명의변경 등 실질이탈 우려)가 발생하여 주의가 필요합니다.",
+    "verdict": "본사 부채비율은 매우 우수하나, 최근 영업적자 발생 및 운영 가맹점의 100% 계약 종료(이탈) 현상이 나타나 가맹사업 지속성에 심각한 경고등이 켜진 상태입니다.",
+    "tags": [
+      "#본사적자전환",
+      "#가맹점전원이탈",
+      "#계약종료2건",
+      "#부채비율우수",
+      "#신중검토"
+    ],
+    "scores": [
+      10,
+      2,
+      0,
+      0,
+      0,
+      8,
+      8,
+      0,
+      0,
+      8
+    ],
+    "totalScore": 36,
+    "personaScores": {
+      "stability": 44.0,
+      "roi": 59.0,
+      "partner": 16.0,
+      "lightCapital": 88.0
+    },
+    "isDisqualified": true,
+    "strikeReasons": [
+      "실질 이탈률 과다 (100.0%로 15% 초과)"
+    ],
+    "metrics": {
+      "capexMan": 9970,
+      "capexText": "9,970만 원",
+      "pyeongSalesMan": 2890,
+      "pyeongSalesText": "2,890만 원",
+      "annualSalesMan": 45467,
+      "annualSalesText": "4억 5,467만",
+      "storeCount": 2,
+      "storeCountText": "2개점",
+      "directCountText": "직영점 0개",
+      "churnRate": 100.0,
+      "churnRateText": "100.0%",
+      "paybackEst": "계산 불가",
+      "debtRatioText": "20.8%",
+      "opProfitText": "-0.12억 원",
+      "royaltyText": "미제공",
+      "logisticsMarginText": "미제공",
+      "svRatioText": "미제공"
+    },
+    "quadrant": {
+      "type": "Q1_SUPER_ALZZA",
+      "label": "💡 슈퍼 알짜형 (적은 창업비 + 높은 평당매출)",
+      "color": "#10b981",
+      "x": 9970,
+      "y": 2890,
+      "r": 8
+    },
+    "simDefaults": {
+      "annualSales": 45467,
+      "area": 25,
+      "cogs": 35.0,
+      "rent": 300,
+      "labor": 1500,
+      "royalty": 3.0,
+      "other": 5.0,
+      "capex": 9770,
+      "deposit": 200,
+      "keymoney": 3000
+    }
+  },
+  {
+    "id": "brand_6",
     "name": "괭이부리마을",
     "corp": "(주)신솔에프앤비",
     "category": "한식",
@@ -554,7 +633,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_7",
+    "id": "brand_8",
     "name": "올리빈",
     "corp": "공동대표 김준서, 박현석",
     "category": "샐러드 전문점",
@@ -634,7 +713,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_9",
+    "id": "brand_10_",
     "name": "유월의보리",
     "corp": "유월의 보리 본점 (개인)",
     "category": "외식 / 한식",
@@ -795,7 +874,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_8",
+    "id": "brand_9",
     "name": "진초동순두부",
     "corp": "진초동 (개인사업자: 김봉기)",
     "category": "한식",

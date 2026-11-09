@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>공정거래위원회 프랜차이즈 정보공개서 분석 템플릿 - 향택</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Pretendard Font CDN -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
+          },
+          colors: {
+            apple: {
+              bg: '#f5f5f7',
+              card: '#ffffff',
+              text: '#1d1d1f',
+              subtext: '#6e6e73',
+              muted: '#86868b',
+              border: '#e5e5ea',
+              blue: '#0071e3',
+              green: '#34c759',
+              red: '#ff3b30',
+              yellow: '#ffcc00',
+              amber: '#ff9500',
+            }
+          },
+          boxShadow: {
+            'apple': '0 4px 24px rgba(0, 0, 0, 0.04)',
+            'apple-hover': '0 8px 32px rgba(0, 0, 0, 0.08)',
+            'apple-float': '0 12px 40px rgba(0, 113, 227, 0.12)',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    body {
+      background-color: #f5f5f7;
+      color: #1d1d1f;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      letter-spacing: -0.015em;
+    }
+
+    .nowrap-badge {
+      white-space: nowrap;
+    }
+
+    /* Smooth ring transition */
+    .score-ring-circle {
+      transition: stroke-dashoffset 0.7s cubic-bezier(0.22, 1, 0.36, 1), stroke 0.4s ease;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+
+    /* Custom Range Slider Styling */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: #e5e5ea;
+      border-radius: 999px;
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #0071e3;
+      cursor: pointer;
+      border: 3px solid #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.12);
+      background: #005bb5;
+    }
+
+    /* Custom Scrollbar for tables */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f5f5f7;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #d2d2d7;
+      border-radius: 999px;
+    }
+
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      body {
+        background-color: #ffffff;
+      }
+      .print-break-inside {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-20">
+
+  <!-- Sticky Top Navigation Bar -->
+  <div class="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-apple-border transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+        <!-- Title & Subtitle -->
+        <div class="flex items-center justify-between w-full">
+          <div class="flex items-center gap-2 sm:gap-2.5">
+            <!-- [대시보드로 돌아가기 버튼] 스마트폰 및 PC에서 언제든 원클릭 메인 복귀 -->
+            <a href="index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-apple-blue hover:bg-apple-blueHover text-white text-xs sm:text-sm font-bold shadow-sm transition shrink-0 mr-1">
+              <i class="fa-solid fa-arrow-left text-xs"></i>
+              <span>대시보드</span>
+            </a>
+            <div class="w-9 h-9 rounded-xl bg-apple-blue flex items-center justify-center text-white shadow-sm shrink-0">
+              <i class="fa-solid fa-chart-pie text-lg"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold tracking-wider uppercase text-apple-blue nowrap-badge">FTC DISCLOSURE ANALYTICS</span>
+                <span class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-gray-100 text-apple-subtext nowrap-badge">마스터 템플릿 v1.0</span>
+              </div>
+              <h1 class="text-sm sm:text-base font-bold text-apple-text">단일 브랜드 정보공개서 정밀 진단 리포트</h1>
+            </div>
+          </div>
+          <!-- Action Buttons -->
+          <div class="flex items-center gap-2">
+            <button onclick="window.print()" class="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-gray-100 hover:bg-gray-200 border border-apple-border text-xs font-semibold text-apple-text transition nowrap-badge shadow-sm">
+              <i class="fa-solid fa-print text-apple-blue"></i> <span class="hidden sm:inline">리포트 인쇄 / PDF</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-8">
+
+    <!-- HEADER & 종합 신호등 스코어 배너 -->
+    <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-apple border border-apple-border/60 relative overflow-hidden">
+      <!-- Subtle top gradient bar -->
+      <div id="header-accent-bar" class="absolute top-0 left-0 right-0 h-1.5 bg-apple-amber transition-colors duration-500"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Left 7 Cols: Brand Metadata & Executive Verdict -->
+        <div class="lg:col-span-7 space-y-5">
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="header-base-year" class="px-3 py-1 rounded-full bg-apple-bg text-apple-text text-xs font-bold border border-apple-border nowrap-badge"></span>
+            <span id="header-category-badge" class="px-3 py-1 rounded-full bg-blue-50 text-apple-blue text-xs font-bold nowrap-badge"></span>
+            <span id="header-scale-badge" class="px-3 py-1 rounded-full bg-gray-100 text-apple-subtext text-xs font-semibold nowrap-badge"></span>
+          </div>
+
+          <div>
+            <div class="flex flex-wrap items-baseline gap-3">
+              <h2 id="header-brand-title" class="text-3xl sm:text-4xl font-extrabold tracking-tight text-apple-text"></h2>
+              <span id="header-corp-title" class="text-base sm:text-lg font-semibold text-apple-subtext"></span>
+            </div>
+            <p id="header-brand-subtitle" class="mt-2 text-sm sm:text-base text-apple-subtext leading-relaxed"></p>
+          </div>
+
+          <!-- Executive One-Line Verdict Box -->
+          <div id="verdict-box" class="p-4 sm:p-5 rounded-2xl bg-amber-50/80 border border-amber-200 transition-all">
+            <div class="flex items-start gap-3">
+              <div id="verdict-icon-wrap" class="w-8 h-8 rounded-xl bg-apple-amber text-white flex items-center justify-center shrink-0 mt-0.5">
+                <i id="verdict-icon" class="fa-solid fa-circle-exclamation text-lg"></i>
+              </div>
+              <div class="space-y-1">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-extrabold uppercase tracking-wider text-apple-subtext nowrap-badge">EXECUTIVE VERDICT (종합 판정 요약)</span>
+                  <span id="one-strike-status-pill" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 nowrap-badge"></span>
+                </div>
+                <p id="header-verdict-text" class="text-sm sm:text-base font-bold text-apple-text leading-snug"></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Brand Highlight Pills -->
+          <div id="header-tags-container" class="flex flex-wrap gap-2 pt-1">
+            <!-- Dynamically injected pills -->
+          </div>
+        </div>
+
+        <!-- Right 5 Cols: 100-Point Score Gauge & Traffic Light Badge -->
+        <div class="lg:col-span-5 bg-apple-bg/80 rounded-2xl p-5 sm:p-6 border border-apple-border/80 flex flex-col justify-between space-y-5">
+          <div class="flex items-center justify-between gap-4">
+            <!-- Circular Gauge -->
+            <div class="relative w-32 h-32 sm:w-36 sm:h-36 shrink-0 flex items-center justify-center">
+              <svg class="w-full h-full" viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="50" fill="none" stroke="#e5e5ea" stroke-width="10" />
+                <circle id="score-ring" class="score-ring-circle" cx="60" cy="60" r="50" fill="none" stroke="#ffcc00" stroke-width="10" stroke-linecap="round" stroke-dasharray="314.16" stroke-dashoffset="37.7" />
+              </svg>
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                <span class="text-[11px] font-bold text-apple-subtext uppercase tracking-wider nowrap-badge">종합 스코어</span>
+                <div class="flex items-baseline justify-center">
+                  <span id="total-score-number" class="text-3xl sm:text-4xl font-black text-apple-text tracking-tight nowrap-badge">00</span>
+                  <span class="text-xs font-bold text-apple-subtext ml-0.5 nowrap-badge">/100</span>
+                </div>
+                <span id="score-rank-percentile" class="text-[11px] font-semibold text-apple-blue mt-0.5 nowrap-badge"></span>
+              </div>
+            </div>
+
+            <!-- Traffic Light System & Grade Badge -->
+            <div class="flex-1 space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-apple-subtext nowrap-badge">신호등 등급 판정</span>
+                <div class="flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-full border border-apple-border">
+                  <span id="led-green" class="w-3 h-3 rounded-full bg-gray-200 transition-all"></span>
+                  <span id="led-yellow" class="w-3.5 h-3.5 rounded-full bg-apple-yellow ring-4 ring-yellow-500/30 transition-all"></span>
+                  <span id="led-red" class="w-3 h-3 rounded-full bg-gray-200 transition-all"></span>
+                </div>
+              </div>
+
+              <div id="grade-badge-box" class="p-3.5 rounded-2xl bg-white border-2 border-apple-yellow shadow-sm">
+                <div class="flex items-center justify-between">
+                  <span id="grade-letter" class="text-2xl font-black text-apple-yellow nowrap-badge"></span>
+                  <span id="grade-signal-text" class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-yellow-100 text-yellow-900 nowrap-badge"></span>
+                </div>
+                <p id="grade-criteria-desc" class="text-xs text-apple-subtext mt-1.5 leading-snug"></p>
+              </div>
+
+              <div class="text-[11px] text-apple-subtext flex items-center justify-between px-1">
+                <span class="nowrap-badge">하단 스코어카드와 실시간 연동됨</span>
+                <a href="#section-scorecard" class="text-apple-blue font-bold hover:underline nowrap-badge">직접 채점하기 ↓</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Score Legend Bar -->
+          <div class="pt-3 border-t border-apple-border/80">
+            <div class="grid grid-cols-5 gap-1 text-[10px] font-bold text-center">
+              <div class="py-1 px-1 rounded bg-emerald-500/15 text-emerald-800 nowrap-badge">S (90~100)</div>
+              <div class="py-1 px-1 rounded bg-emerald-500/10 text-emerald-700 nowrap-badge">A (80~89)</div>
+              <div class="py-1 px-1 rounded bg-amber-500/15 text-amber-800 nowrap-badge">B (70~79)</div>
+              <div class="py-1 px-1 rounded bg-amber-500/10 text-amber-700 nowrap-badge">C (60~69)</div>
+              <div class="py-1 px-1 rounded bg-red-500/15 text-red-700 nowrap-badge">D/F (과락)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 01. 5대 핵심 KPI 요약 카드 (Bento Grid) -->
+    <section class="space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-apple-blue nowrap-badge">SECTION 01</span>
+            <span class="text-xs text-apple-subtext">공정위 정보공개서 핵심 재무·영업 지표 요약</span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-apple-text mt-0.5">5대 핵심 KPI 요약 카드</h3>
+        </div>
+        <p class="text-xs text-apple-subtext">※ 공시 연평균 매출은 부가세(VAT 10%) 포함 금액 기준</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-5">
+        <!-- Card 1: 본사 재무 건전성 -->
+        <div class="lg:col-span-2 bg-white rounded-3xl p-6 shadow-apple border border-apple-border/60 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <div class="flex items-center gap-2">
+                <span class="w-8 h-8 rounded-xl bg-blue-50 text-apple-blue flex items-center justify-center">
+                  <i class="fa-solid fa-building-columns text-sm"></i>
+                </span>
+                <h4 class="text-sm font-bold text-apple-text">01. 본사 재무 건전성</h4>
+              </div>
+              <span id="kpi1-badge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-800 nowrap-badge"></span>
+            </div>
+            <div class="grid grid-cols-2 gap-3 my-3">
+              <div class="p-3.5 rounded-2xl bg-apple-bg">
+                <span class="text-xs text-apple-subtext block">본사 부채비율</span>
+                <span id="kpi1-debt-ratio" class="text-xl sm:text-2xl font-black text-apple-text mt-1 block nowrap-badge"></span>
+                <span id="kpi1-debt-sub" class="text-[11px] text-apple-subtext font-semibold nowrap-badge"></span>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-apple-bg">
+                <span class="text-xs text-apple-subtext block">최근 연간 영업이익</span>
+                <span id="kpi1-op-profit" class="text-xl sm:text-2xl font-black text-apple-blue mt-1 block nowrap-badge"></span>
+                <span id="kpi1-op-margin" class="text-[11px] text-apple-subtext font-semibold nowrap-badge"></span>
+              </div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-apple-border/60 space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-semibold text-apple-subtext">최근 3년 이익 추이</span>
+              <span id="kpi1-trend-text" class="font-bold text-apple-text nowrap-badge"></span>
+            </div>
+            <p id="kpi1-desc" class="text-xs text-apple-subtext leading-relaxed"></p>
+          </div>
+        </div>
+
+        <!-- Card 2: 가맹점 수 및 실질 이탈률 -->
+        <div class="lg:col-span-2 bg-white rounded-3xl p-6 shadow-apple border border-apple-border/60 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <div class="flex items-center gap-2">
+                <span class="w-8 h-8 rounded-xl bg-emerald-50 text-apple-green flex items-center justify-center">
+                  <i class="fa-solid fa-store text-sm"></i>
+                </span>
+                <h4 class="text-sm font-bold text-apple-text">02. 가맹점 수 및 이탈률</h4>
+              </div>
+              <span id="kpi2-badge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-800 nowrap-badge"></span>
+            </div>
+            <div class="grid grid-cols-2 gap-3 my-3">
+              <div class="p-3.5 rounded-2xl bg-apple-bg">
+                <span class="text-xs text-apple-subtext block">전체 매장 수</span>
+                <span id="kpi2-store-count" class="text-xl sm:text-2xl font-black text-apple-text mt-1 block nowrap-badge"></span>
+                <span id="kpi2-direct-count" class="text-[11px] text-apple-blue font-semibold nowrap-badge"></span>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-apple-bg">
+                <span class="text-xs text-apple-subtext block">합산 실질 이탈률</span>
+                <span id="kpi2-real-churn" class="text-xl sm:text-2xl font-black text-apple-green mt-1 block nowrap-badge"></span>
+                <span id="kpi2-official-churn" class="text-[11px] text-apple-subtext font-semibold nowrap-badge"></span>
+              </div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-apple-border/60 space-y-2">
+            <div class="flex items-center justify-between text-xs bg-amber-50/80 px-3 py-1.5 rounded-xl border border-amber-200/60">
+              <span class="font-bold text-amber-900">폐점 착시 분리 검증</span>
+              <span id="kpi2-churn-breakdown" class="font-bold text-amber-900 nowrap-badge"></span>
+            </div>
+            <p id="kpi2-desc" class="text-xs text-apple-subtext leading-relaxed"></p>
+          </div>
+        </div>
+
+        <!-- Card 3: 가맹점 연평균 매출 및 평당 효율 -->
+        <div class="lg:col-span-2 bg-white rounded-3xl p-6 shadow-apple border border-apple-border/60 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <div class="flex items-center gap-2">
+                <span class="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                  <i class="fa-solid fa-arrow-trend-up text-sm"></i>
+                </span>
+                <h4 class="text-sm font-bold text-apple-text">03. 평균 매출 · 평당 효율</h4>
+              </div>
+              <span id="kpi3-badge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-800 nowrap-badge"></span>
+            </div>
+            <div class="grid grid-cols-2 gap-3 my-3">
+              <div class="p-3.5 rounded-2xl bg-apple-bg">
+                <span class="text-xs text-apple-subtext block">연평균 공시매출</span>
+                <span id="kpi3-annual-sales" class="text-xl sm:text-2xl font-black text-apple-text mt-1 block nowrap-badge"></span>
+                <span id="kpi3-monthly-vat-inc" class="text-[11px] text-apple-subtext font-semibold nowrap-badge"></span>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-apple-bg">
+                <span class="text-xs text-apple-subtext block">3.3㎡(1평)당 연매출</span>
+                <span id="kpi3-pyeong-sales" class="text-xl sm:text-2xl font-black text-apple-blue mt-1 block nowrap-badge"></span>
+                <span id="kpi3-pyeong-sub" class="text-[11px] text-emerald-700 font-semibold nowrap-badge"></span>
+              </div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-apple-border/60 space-y-2">
+            <div class="flex items-center justify-between text-xs bg-blue-50/80 px-3 py-1.5 rounded-xl border border-blue-200/60">
+              <span class="font-bold text-blue-900">부가세(10%) 제외 실매출</span>
+              <span id="kpi3-net-monthly" class="font-extrabold text-apple-blue nowrap-badge"></span>
+            </div>
+            <p id="kpi3-desc" class="text-xs text-apple-subtext leading-relaxed"></p>
+          </div>
+        </div>
+
+        <!-- Card 4: 본사 납입 초기 창업비 & 별도공사 주의 -->
+        <div class="lg:col-span-3 bg-white rounded-3xl p-6 shadow-apple border border-apple-border/60 flex flex-col justify-between">
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+              <div class="flex items-center gap-2">
+                <span class="w-8 h-8 rounded-xl bg-amber-50 text-apple-amber flex items-center justify-center">
+                  <i class="fa-solid fa-coins text-sm"></i>
+                </span>
+                <h4 class="text-sm font-bold text-apple-text">04. 정보공개서 본사 납입 초기 창업비</h4>
+              </div>
+              <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-red-50 text-apple-red border border-red-200 nowrap-badge">
+                <i class="fa-solid fa-circle-exclamation"></i> 별도공사비 제외 주의
+              </span>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 my-3">
+              <div class="col-span-2 sm:col-span-2 p-3.5 rounded-2xl bg-apple-blue/5 border border-apple-blue/20">
+                <span class="text-xs text-apple-subtext font-semibold block">공시 합계 (보증금 제외)</span>
+                <span id="kpi4-total-cost" class="text-2xl font-black text-apple-blue mt-1 block nowrap-badge"></span>
+                <span id="kpi4-base-size" class="text-[11px] text-apple-subtext font-medium nowrap-badge"></span>
+              </div>
+              <div class="p-3 rounded-2xl bg-apple-bg">
+                <span class="text-[11px] text-apple-subtext block">가맹비+교육비+기타</span>
+                <span id="kpi4-fee-edu" class="text-sm font-extrabold text-apple-text mt-1 block nowrap-badge"></span>
+                <span id="kpi4-fee-detail" class="text-[10px] text-apple-muted block nowrap-badge"></span>
+              </div>
+              <div class="p-3 rounded-2xl bg-apple-bg">
+                <span class="text-[11px] text-apple-subtext block">계약이행보증금</span>
+                <span id="kpi4-deposit" class="text-sm font-extrabold text-apple-text mt-1 block nowrap-badge"></span>
+                <span class="text-[10px] text-apple-muted block nowrap-badge">종료 시 반환</span>
+              </div>
+              <div class="p-3 rounded-2xl bg-apple-bg">
+                <span class="text-[11px] text-apple-subtext block">인테리어·설비</span>
+                <span id="kpi4-interior" class="text-sm font-extrabold text-apple-text mt-1 block nowrap-badge"></span>
+                <span id="kpi4-interior-py" class="text-[10px] text-apple-muted block nowrap-badge"></span>
+              </div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-apple-border/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+            <span class="text-apple-subtext">
+              <strong class="text-apple-text">실제 총 투자비 추정(별도공사 포함):</strong>
+            </span>
+            <span id="kpi4-real-estimate" class="px-3 py-1 rounded-xl bg-gray-900 text-white font-bold nowrap-badge"></span>
+          </div>
+        </div>
+
+        <!-- Card 5: 차액가맹금(물류 마진) 및 법 위반 이력 -->
+        <div class="lg:col-span-3 bg-white rounded-3xl p-6 shadow-apple border border-apple-border/60 flex flex-col justify-between">
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+              <div class="flex items-center gap-2">
+                <span class="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
+                  <i class="fa-solid fa-scale-balanced text-sm"></i>
+                </span>
+                <h4 class="text-sm font-bold text-apple-text">05. 차액가맹금(물류 마진) · 법 위반</h4>
+              </div>
+              <span id="kpi5-badge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-800 nowrap-badge"></span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 my-3">
+              <div class="p-3.5 rounded-2xl bg-apple-bg">
+                <span class="text-xs text-apple-subtext block">매출 대비 차액가맹금 비율</span>
+                <span id="kpi5-margin-ratio" class="text-xl font-black text-apple-text mt-1 block nowrap-badge"></span>
+                <span id="kpi5-royalty-info" class="text-[11px] text-apple-subtext font-semibold nowrap-badge"></span>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-apple-bg">
+                <span class="text-xs text-apple-subtext block">주요 필수품목 구조</span>
+                <span id="kpi5-margin-amount" class="text-xl font-black text-apple-text mt-1 block nowrap-badge"></span>
+                <span id="kpi5-margin-sub" class="text-[11px] text-apple-blue font-semibold nowrap-badge"></span>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-apple-bg">
+                <span class="text-xs text-apple-subtext block">최근 3년 공정위 법 위반</span>
+                <span id="kpi5-law-violations" class="text-xl font-black text-apple-green mt-1 block nowrap-badge"></span>
+                <span class="text-[11px] text-emerald-700 font-semibold nowrap-badge"></span>
+              </div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-apple-border/60">
+            <p id="kpi5-desc" class="text-xs text-apple-subtext leading-relaxed"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 02. 초보자 사각지대 7대 정밀 검증 -->
+    <section class="space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-apple-blue nowrap-badge">SECTION 02</span>
+            <span class="text-xs text-apple-subtext">예비 창업자가 놓치기 쉬운 정보공개서 행간의 함정</span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-apple-text mt-0.5">초보자 사각지대 7대 정밀 검증</h3>
+        </div>
+      </div>
+      <div id="blindspots-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Dynamically rendered via JS -->
+      </div>
+    </section>
+
+    <!-- SECTION 03. 경쟁력 비교 매트릭스 테이블 -->
+    <section class="space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-apple-blue nowrap-badge">SECTION 03</span>
+            <span class="text-xs text-apple-subtext">객관적 벤치마크 대비 현 위치 진단</span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-apple-text mt-0.5">경쟁력 비교 매트릭스 테이블</h3>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl shadow-apple border border-apple-border/60 overflow-hidden">
+        <div class="px-6 py-4 bg-apple-bg/60 border-b border-apple-border flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-table text-apple-blue text-sm"></i>
+            <span class="text-sm font-bold text-apple-text">10대 핵심 평가 지표 벤치마크 비교표</span>
+          </div>
+          <span id="matrix-current-brand-label" class="text-xs font-bold text-apple-blue bg-blue-50 px-3 py-1 rounded-full nowrap-badge"></span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-apple-border text-xs font-bold text-apple-subtext bg-gray-50/80">
+                <th class="py-3.5 px-4 sm:px-6">핵심 평가 지표</th>
+                <th class="py-3.5 px-4 sm:px-6 text-apple-blue bg-blue-50/40">해당 브랜드 수치</th>
+                <th class="py-3.5 px-4 sm:px-6">동종 업계 우량 기준치 (Top 15%)</th>
+                <th class="py-3.5 px-4 sm:px-6">주의 / 위험 기준치 (Red Flag)</th>
+                <th class="py-3.5 px-4 sm:px-6 text-center">판독 결과</th>
+              </tr>
+            </thead>
+            <tbody id="benchmark-table-body" class="divide-y divide-apple-border/60 text-xs sm:text-sm">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- Placeholder for Competitor Comparison -->
+      <div class="bg-white rounded-3xl p-6 shadow-apple border border-apple-border/60">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+          <div>
+            <h4 class="text-base font-extrabold text-apple-text flex items-center gap-2">
+              <i class="fa-solid fa-right-left text-apple-blue text-sm"></i>
+              경쟁 브랜드 직관적 교차 비교표 (템플릿 영역)
+            </h4>
+            <p class="text-xs text-apple-subtext mt-0.5">검토 중인 타 후보 브랜드들의 핵심 지표를 입력하여 한눈에 비교해 보세요.</p>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs sm:text-sm">
+            <thead>
+              <tr class="border-b border-apple-border text-apple-subtext bg-apple-bg/60">
+                <th class="py-3 px-4 font-bold">비교 항목</th>
+                <th class="py-3 px-4 font-extrabold text-apple-blue bg-blue-50/30">
+                  <div class="flex items-center justify-between">
+                    <span id="comp-table-brand-name"></span>
+                  </div>
+                </th>
+                <th class="py-3 px-4 font-extrabold text-apple-text border-l border-apple-border">
+                  <div class="flex items-center justify-between">
+                    <span>[경쟁 브랜드 A]</span>
+                  </div>
+                </th>
+                <th class="py-3 px-4 font-extrabold text-apple-text border-l border-apple-border">
+                  <div class="flex items-center justify-between">
+                    <span>[경쟁 브랜드 B]</span>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-apple-border/60 text-apple-text font-semibold">
+              <tr>
+                <td class="py-3 px-4 font-bold text-apple-subtext">가맹점 수 / 폐업률</td>
+                <td class="py-3 px-4 bg-blue-50/30">[00개점 / 0.0%]</td>
+                <td class="py-3 px-4 border-l border-apple-border text-gray-400">[데이터 입력]</td>
+                <td class="py-3 px-4 border-l border-apple-border text-gray-400">[데이터 입력]</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-bold text-apple-subtext">연평균 매출 (월평균)</td>
+                <td class="py-3 px-4 bg-blue-50/30">[0억 0000만 원]</td>
+                <td class="py-3 px-4 border-l border-apple-border text-gray-400">[데이터 입력]</td>
+                <td class="py-3 px-4 border-l border-apple-border text-gray-400">[데이터 입력]</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-bold text-apple-subtext">정보공개서 공시 창업비</td>
+                <td class="py-3 px-4 bg-blue-50/30">[0억 0000만 원]</td>
+                <td class="py-3 px-4 border-l border-apple-border text-gray-400">[데이터 입력]</td>
+                <td class="py-3 px-4 border-l border-apple-border text-gray-400">[데이터 입력]</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-bold text-apple-subtext">핵심 강점 & 주의 포인트</td>
+                <td class="py-3 px-4 bg-blue-50/30 text-xs text-apple-subtext">[강점/약점 코멘트]</td>
+                <td class="py-3 px-4 border-l border-apple-border text-gray-400 text-xs">[데이터 입력]</td>
+                <td class="py-3 px-4 border-l border-apple-border text-gray-400 text-xs">[데이터 입력]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 04. 100점 만점 인터랙티브 스코어카드 & 3대 과락 모니터 -->
+    <section id="section-scorecard" class="space-y-5 scroll-mt-20">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-apple-blue nowrap-badge">SECTION 04</span>
+            <span class="text-xs text-apple-subtext">객관적 정량 지표 기반 100점 만점 시뮬레이션</span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-apple-text mt-0.5">100점 만점 인터랙티브 스코어카드 & 3대 과락 모니터</h3>
+        </div>
+        <button onclick="resetBrandScores()" class="no-print self-start sm:self-auto px-3.5 py-2 rounded-xl bg-white border border-apple-border text-xs font-bold text-apple-subtext hover:text-apple-text hover:bg-gray-50 transition flex items-center gap-1.5 nowrap-badge shadow-sm">
+          <i class="fa-solid fa-rotate-left"></i> 기본 점수로 복원
+        </button>
+      </div>
+
+      <!-- 3대 과락(One-Strike Out) 실시간 체크 모니터 -->
+      <div id="one-strike-panel" class="bg-white rounded-3xl p-6 shadow-apple border-2 border-apple-border transition-all">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
+          <div class="flex items-center gap-2.5">
+            <span class="w-9 h-9 rounded-xl bg-red-50 text-apple-red flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-triangle-exclamation text-sm"></i>
+            </span>
+            <div>
+              <div class="flex items-center gap-2">
+                <h4 class="text-base font-extrabold text-apple-text">3대 과락(One-Strike Out) 실시간 검증 모니터</h4>
+                <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-red-100 text-red-800 nowrap-badge">단 1개라도 해당 시 총점 무관 F등급 적신호 강등</span>
+              </div>
+              <p class="text-xs text-apple-subtext mt-0.5">아래 3가지 치명적 결함 스위치를 직접 클릭해 과락(Red Flag) 발생 시 등급 강등 효과를 테스트해 보세요.</p>
+            </div>
+          </div>
+          <div id="strike-summary-badge" class="px-3.5 py-1.5 rounded-xl bg-emerald-100 text-emerald-800 font-extrabold text-xs self-start md:self-center nowrap-badge">
+            현재 과락 해당: 0건 (정상 평가 중)
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div onclick="toggleStrike(0)" id="strike-card-0" class="cursor-pointer p-4 rounded-2xl border border-apple-border bg-apple-bg/50 hover:bg-gray-100/80 transition flex items-start justify-between gap-3">
+            <div class="space-y-1">
+              <span class="text-xs font-extrabold text-apple-red uppercase nowrap-badge">CRITICAL RULE 01</span>
+              <h5 class="text-sm font-bold text-apple-text">본사 자본잠식 여부</h5>
+              <p class="text-xs text-apple-subtext">자본총계가 자본금보다 적거나 음수(-)인 경우 본사 부도 및 물류 중단 위험</p>
+            </div>
+            <button type="button" id="strike-btn-0" class="px-3 py-1.5 rounded-xl text-xs font-extrabold bg-emerald-100 text-emerald-800 shrink-0 nowrap-badge">
+              정상 (무잠식)
+            </button>
+          </div>
+          <div onclick="toggleStrike(1)" id="strike-card-1" class="cursor-pointer p-4 rounded-2xl border border-apple-border bg-apple-bg/50 hover:bg-gray-100/80 transition flex items-start justify-between gap-3">
+            <div class="space-y-1">
+              <span class="text-xs font-extrabold text-apple-red uppercase nowrap-badge">CRITICAL RULE 02</span>
+              <h5 class="text-sm font-bold text-apple-text">연간 실질 이탈률 15% 이상</h5>
+              <p class="text-xs text-apple-subtext">계약해지+계약종료+명의변경(양도양수) 합산 비율이 전체 매장의 15% 초과</p>
+            </div>
+            <button type="button" id="strike-btn-1" class="px-3 py-1.5 rounded-xl text-xs font-extrabold bg-emerald-100 text-emerald-800 shrink-0 nowrap-badge">
+              정상 (15% 미만)
+            </button>
+          </div>
+          <div onclick="toggleStrike(2)" id="strike-card-2" class="cursor-pointer p-4 rounded-2xl border border-apple-border bg-apple-bg/50 hover:bg-gray-100/80 transition flex items-start justify-between gap-3">
+            <div class="space-y-1">
+              <span class="text-xs font-extrabold text-apple-red uppercase nowrap-badge">CRITICAL RULE 03</span>
+              <h5 class="text-sm font-bold text-apple-text">타깃 지역 평균 매출 BEP 미달</h5>
+              <p class="text-xs text-apple-subtext">출점 예정 지역의 평균 매출이 예상 손익분기점(BEP) 매출액보다 낮은 경우</p>
+            </div>
+            <button type="button" id="strike-btn-2" class="px-3 py-1.5 rounded-xl text-xs font-extrabold bg-emerald-100 text-emerald-800 shrink-0 nowrap-badge">
+              정상 (BEP 상회)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10 KPI Interactive Scorecard List -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-apple border border-apple-border/60">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 mb-6 border-b border-apple-border">
+          <div>
+            <h4 class="text-base sm:text-lg font-extrabold text-apple-text">10대 핵심 KPI 정밀 배점표 (항목당 10점 · 6단계 클릭 채점)</h4>
+            <p class="text-xs text-apple-subtext mt-0.5">각 항목의 점수 버튼(0점 / 2점 / 4점 / 6점 / 8점 / 10점)을 클릭하면 상단 종합 점수와 등급이 실시간 재계산됩니다.</p>
+          </div>
+          <div class="flex items-center gap-3 bg-apple-bg px-4 py-2.5 rounded-2xl border border-apple-border shrink-0">
+            <span class="text-xs font-bold text-apple-subtext nowrap-badge">현재 합산 점수:</span>
+            <span id="scorecard-live-total" class="text-2xl font-black text-apple-blue nowrap-badge">00점</span>
+            <span id="scorecard-live-grade" class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-gray-100 text-gray-800 nowrap-badge"></span>
+          </div>
+        </div>
+        <div id="scorecard-items-container" class="space-y-4">
+          <!-- Dynamically populated 10 items via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 05. 실시간 월 순수익 & 손익분기점(BEP) 시뮬레이터 -->
+    <section class="space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-apple-blue nowrap-badge">SECTION 05</span>
+            <span class="text-xs text-apple-subtext">부가세(VAT) 10% 차감 공급가액 기준 정밀 현금흐름 시뮬레이션</span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-apple-text mt-0.5">실시간 월 순수익 & 손익분기점(BEP) 시뮬레이터</h3>
+        </div>
+        <button onclick="syncSimulatorToScorecard()" class="no-print self-start sm:self-auto px-4 py-2 rounded-xl bg-apple-blue text-white text-xs font-bold hover:bg-blue-700 transition flex items-center gap-1.5 shadow-sm nowrap-badge">
+          <i class="fa-solid fa-rotate"></i> 시뮬레이션 결과를 스코어카드에 자동 반영
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Left 7 Cols: Interactive Sliders & Inputs -->
+        <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-7 shadow-apple border border-apple-border/60 space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-apple-border">
+            <h4 class="text-base font-extrabold text-apple-text flex items-center gap-2">
+              <i class="fa-solid fa-sliders text-apple-blue text-sm"></i> 매출 · 비용 · 초기투자 변수 조절
+            </h4>
+            <span id="sim-brand-preset-tag" class="text-xs font-bold text-apple-subtext bg-apple-bg px-3 py-1 rounded-full nowrap-badge"></span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <!-- Input 1 -->
+            <div class="sm:col-span-2 p-4 rounded-2xl bg-blue-50/50 border border-blue-200/60 space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="text-xs sm:text-sm font-extrabold text-apple-text">1. 연평균 예상 매출액 (부가세 10% 포함, 만원)</label>
+                <div class="flex items-center gap-1">
+                  <input type="number" id="sim-annual-sales-num" value="45467" step="1000" oninput="syncSimInput('annualSales', this.value)" class="w-28 px-2.5 py-1 text-right rounded-lg border border-blue-300 font-extrabold text-sm text-apple-blue bg-white" />
+                  <span class="text-xs font-bold text-apple-subtext nowrap-badge">만원/년</span>
+                </div>
+              </div>
+              <input type="range" id="sim-annual-sales-range" min="20000" max="400000" step="1000" value="45467" oninput="syncSimInput('annualSales', this.value)" />
+              <div class="flex justify-between text-[11px] text-apple-subtext font-medium pt-0.5">
+                <span>월 환산(VAT포함): <strong id="sim-monthly-gross-label" class="text-apple-text"></strong></span>
+                <span class="text-apple-blue font-bold">부가세 제외 월 실매출(공급가액): <strong id="sim-monthly-net-label"></strong></span>
+              </div>
+            </div>
+
+            <!-- Input 2 -->
+            <div class="p-4 rounded-2xl bg-apple-bg/70 space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-bold text-apple-text">2. 입점 후보지 전용면적</label>
+                <div class="flex items-center gap-1">
+                  <input type="number" id="sim-area-num" value="25" step="5" oninput="syncSimInput('area', this.value)" class="w-20 px-2 py-1 text-right rounded-lg border border-apple-border font-bold text-xs bg-white" />
+                  <span class="text-xs font-semibold text-apple-subtext nowrap-badge">평</span>
+                </div>
+              </div>
+              <input type="range" id="sim-area-range" min="10" max="150" step="5" value="25" oninput="syncSimInput('area', this.value)" />
+              <div class="text-[11px] text-apple-subtext">1평당 연매출 효율: <strong id="sim-pyeong-eff-label" class="text-apple-text"></strong></div>
+            </div>
+
+            <!-- Input 3 -->
+            <div class="p-4 rounded-2xl bg-apple-bg/70 space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-bold text-apple-text">3. 식자재·물류 원가율</label>
+                <div class="flex items-center gap-1">
+                  <input type="number" id="sim-cogs-num" value="35" step="0.5" oninput="syncSimInput('cogs', this.value)" class="w-20 px-2 py-1 text-right rounded-lg border border-apple-border font-bold text-xs bg-white" />
+                  <span class="text-xs font-semibold text-apple-subtext nowrap-badge">%</span>
+                </div>
+              </div>
+              <input type="range" id="sim-cogs-range" min="20" max="60" step="0.5" value="35" oninput="syncSimInput('cogs', this.value)" />
+              <div class="text-[11px] text-apple-subtext">월 원가 지출액: <strong id="sim-cogs-cost-label" class="text-apple-text"></strong></div>
+            </div>
+
+            <!-- Input 4 -->
+            <div class="p-4 rounded-2xl bg-apple-bg/70 space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-bold text-apple-text">4. 월 임대료 + 관리비</label>
+                <div class="flex items-center gap-1">
+                  <input type="number" id="sim-rent-num" value="300" step="50" oninput="syncSimInput('rent', this.value)" class="w-20 px-2 py-1 text-right rounded-lg border border-apple-border font-bold text-xs bg-white" />
+                  <span class="text-xs font-semibold text-apple-subtext nowrap-badge">만원</span>
+                </div>
+              </div>
+              <input type="range" id="sim-rent-range" min="100" max="3000" step="50" value="300" oninput="syncSimInput('rent', this.value)" />
+              <div class="text-[11px] text-apple-subtext">실매출 대비 임대료 비중: <strong id="sim-rent-ratio-label" class="text-apple-text"></strong></div>
+            </div>
+
+            <!-- Input 5 -->
+            <div class="p-4 rounded-2xl bg-apple-bg/70 space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-bold text-apple-text">5. 월 인건비 (점주제외)</label>
+                <div class="flex items-center gap-1">
+                  <input type="number" id="sim-labor-num" value="1500" step="100" oninput="syncSimInput('labor', this.value)" class="w-20 px-2 py-1 text-right rounded-lg border border-apple-border font-bold text-xs bg-white" />
+                  <span class="text-xs font-semibold text-apple-subtext nowrap-badge">만원</span>
+                </div>
+              </div>
+              <input type="range" id="sim-labor-range" min="200" max="8000" step="100" value="1500" oninput="syncSimInput('labor', this.value)" />
+              <div class="text-[11px] text-apple-subtext">실매출 대비 인건비 비중: <strong id="sim-labor-ratio-label" class="text-apple-text"></strong></div>
+            </div>
+
+            <!-- Input 6 -->
+            <div class="p-4 rounded-2xl bg-apple-bg/70 space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-bold text-apple-text">6. 로열티(3.3%) + 광고분담금</label>
+                <div class="flex items-center gap-1">
+                  <input type="number" id="sim-royalty-num" value="3.3" step="0.1" oninput="syncSimInput('royalty', this.value)" class="w-20 px-2 py-1 text-right rounded-lg border border-apple-border font-bold text-xs bg-white" />
+                  <span class="text-xs font-semibold text-apple-subtext nowrap-badge">%</span>
+                </div>
+              </div>
+              <input type="range" id="sim-royalty-range" min="0" max="6" step="0.1" value="3.3" oninput="syncSimInput('royalty', this.value)" />
+              <div class="text-[11px] text-apple-subtext">월 본사 납입금: <strong id="sim-royalty-cost-label" class="text-apple-text"></strong></div>
+            </div>
+
+            <!-- Input 7 -->
+            <div class="p-4 rounded-2xl bg-apple-bg/70 space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-bold text-apple-text">7. 기타 변동비 (공과금 등)</label>
+                <div class="flex items-center gap-1">
+                  <input type="number" id="sim-other-num" value="5.0" step="0.5" oninput="syncSimInput('other', this.value)" class="w-20 px-2 py-1 text-right rounded-lg border border-apple-border font-bold text-xs bg-white" />
+                  <span class="text-xs font-semibold text-apple-subtext nowrap-badge">%</span>
+                </div>
+              </div>
+              <input type="range" id="sim-other-range" min="3" max="15" step="0.5" value="5.0" oninput="syncSimInput('other', this.value)" />
+              <div class="text-[11px] text-apple-subtext">월 기타 지출액: <strong id="sim-other-cost-label" class="text-apple-text"></strong></div>
+            </div>
+
+            <!-- Input 8 -->
+            <div class="p-4 rounded-2xl bg-amber-50/60 border border-amber-200/70 space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-bold text-apple-text">8. 초기 창업비 + 별도공사비</label>
+                <div class="flex items-center gap-1">
+                  <input type="number" id="sim-capex-num" value="9770" step="500" oninput="syncSimInput('capex', this.value)" class="w-24 px-2 py-1 text-right rounded-lg border border-amber-300 font-bold text-xs bg-white" />
+                  <span class="text-xs font-semibold text-apple-subtext nowrap-badge">만원</span>
+                </div>
+              </div>
+              <input type="range" id="sim-capex-range" min="3000" max="80000" step="500" value="9770" oninput="syncSimInput('capex', this.value)" />
+              <div class="text-[11px] text-amber-900">가맹·교육·인테리어·별도공사 합산 (소멸성)</div>
+            </div>
+
+            <!-- Input 9 -->
+            <div class="p-4 rounded-2xl bg-amber-50/60 border border-amber-200/70 space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-bold text-apple-text">9. 점포 보증금 / 바닥권리금</label>
+                <div class="flex items-center gap-1">
+                  <input type="number" id="sim-deposit-num" value="200" step="100" oninput="syncSimInput('deposit', this.value)" class="w-16 px-1.5 py-1 text-right rounded-lg border border-amber-300 font-bold text-xs bg-white" title="임대보증금(반환)" />
+                  <span class="text-xs text-apple-subtext">/</span>
+                  <input type="number" id="sim-keymoney-num" value="3000" step="500" oninput="syncSimInput('keymoney', this.value)" class="w-16 px-1.5 py-1 text-right rounded-lg border border-amber-300 font-bold text-xs bg-white" title="권리금(소멸성 투자)" />
+                  <span class="text-[11px] font-semibold text-apple-subtext nowrap-badge">만원</span>
+                </div>
+              </div>
+              <input type="range" id="sim-keymoney-range" min="0" max="20000" step="500" value="3000" oninput="syncSimInput('keymoney', this.value)" />
+              <div class="text-[11px] text-amber-900">보증금(반환성) 제외 권리금은 실투자 회수 대상 포함</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right 5 Cols: Real-time Financial Output Dashboard -->
+        <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-7 shadow-apple border border-apple-border/60 flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between border-b border-apple-border pb-3">
+              <h4 class="text-base font-extrabold text-apple-text">시뮬레이션 손익 분석 결과</h4>
+              <span id="sim-bep-status-badge" class="px-2.5 py-1 rounded-full text-xs font-extrabold bg-gray-100 text-gray-800 nowrap-badge"></span>
+            </div>
+            <!-- Main Hero Output -->
+            <div class="p-5 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 text-white space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-300 nowrap-badge">월 예상 세전 순수익 (점주 인수액)</span>
+                <span id="sim-net-margin-pill" class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-apple-green text-white nowrap-badge"></span>
+              </div>
+              <div class="flex items-baseline justify-between">
+                <span id="sim-net-profit-display" class="text-3xl sm:text-4xl font-black tracking-tight text-white nowrap-badge"></span>
+                <span class="text-xs text-slate-300 nowrap-badge">연 환산 약 <strong id="sim-annual-profit-display" class="text-white"></strong></span>
+              </div>
+              <div class="pt-2 border-t border-white/15 flex items-center justify-between text-xs text-slate-300">
+                <span>부가세(10%) 제외 월 실매출(공급가액)</span>
+                <span id="sim-supply-sales-display" class="font-bold text-white nowrap-badge"></span>
+              </div>
+            </div>
+
+            <!-- Secondary Key Outputs Grid -->
+            <div class="grid grid-cols-2 gap-3">
+              <div class="p-4 rounded-2xl bg-apple-bg border border-apple-border/60">
+                <span class="text-xs font-semibold text-apple-subtext block">월 손익분기점(BEP) 매출</span>
+                <span id="sim-bep-sales-display" class="text-lg sm:text-xl font-black text-apple-text mt-1 block nowrap-badge"></span>
+                <span id="sim-bep-safety-margin" class="text-[11px] font-bold text-emerald-700 mt-0.5 block nowrap-badge"></span>
+              </div>
+              <div class="p-4 rounded-2xl bg-apple-bg border border-apple-border/60">
+                <span class="text-xs font-semibold text-apple-subtext block">실투자금 회수기간 (Payback)</span>
+                <span id="sim-payback-months" class="text-lg sm:text-xl font-black text-apple-blue mt-1 block nowrap-badge"></span>
+                <span id="sim-sunk-investment" class="text-[11px] font-bold text-apple-subtext mt-0.5 block nowrap-badge"></span>
+              </div>
+            </div>
+
+            <!-- Visual Cash-Flow Breakdown Bar -->
+            <div class="space-y-2 pt-2">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-bold text-apple-text">월 실매출 대비 비용·순익 구조</span>
+                <span class="text-apple-subtext font-medium">공급가액 100% 기준</span>
+              </div>
+              <div class="w-full h-5 rounded-xl overflow-hidden flex bg-gray-200 shadow-inner">
+                <div id="bar-cogs" class="bg-blue-500 h-full transition-all duration-300" style="width: 35%" title="원가"></div>
+                <div id="bar-labor" class="bg-amber-500 h-full transition-all duration-300" style="width: 22%" title="인건비"></div>
+                <div id="bar-rent" class="bg-purple-500 h-full transition-all duration-300" style="width: 4%" title="임대료"></div>
+                <div id="bar-other" class="bg-slate-400 h-full transition-all duration-300" style="width: 9%" title="로열티+기타"></div>
+                <div id="bar-profit" class="bg-apple-green h-full transition-all duration-300" style="width: 30%" title="순수익"></div>
+              </div>
+              <div class="grid grid-cols-3 sm:grid-cols-5 gap-1.5 pt-1 text-[11px] font-semibold">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-sm bg-blue-500 shrink-0"></span>
+                  <span id="legend-cogs" class="nowrap-badge"></span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-sm bg-amber-500 shrink-0"></span>
+                  <span id="legend-labor" class="nowrap-badge"></span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-sm bg-purple-500 shrink-0"></span>
+                  <span id="legend-rent" class="nowrap-badge"></span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-sm bg-slate-400 shrink-0"></span>
+                  <span id="legend-other" class="nowrap-badge"></span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-sm bg-apple-green shrink-0"></span>
+                  <span id="legend-profit" class="text-emerald-700 font-bold nowrap-badge"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-apple-bg text-xs text-apple-subtext leading-relaxed border border-apple-border/60">
+            <strong class="text-apple-text">회계 산식 안내:</strong> 손익분기점(BEP) 매출 = 월 고정비(임대료+인건비) ÷ [1 - 변동비율(원가율+로열티율+기타변동비율)] × 1.1(부가세 보정). 총 창업예산(보증금 포함)은 <strong id="sim-total-budget-text" class="text-apple-text"></strong>입니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 06. 가맹본부 상담 필수 질문 체크리스트 -->
+    <section class="space-y-4">
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-apple border border-apple-border/60 space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-apple-border">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-extrabold uppercase tracking-wider text-apple-blue nowrap-badge">SECTION 06</span>
+              <span class="text-xs text-apple-subtext">가맹계약서 날인 및 가맹금 예치 전 본사 담당자에게 반드시 요구할 질문</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-apple-text mt-0.5">가맹본부 상담 필수 질문 체크리스트</h3>
+          </div>
+          <div class="w-full md:w-72 bg-apple-bg p-4 rounded-2xl border border-apple-border shrink-0 space-y-2">
+            <div class="flex items-center justify-between text-xs font-bold">
+              <span class="text-apple-subtext">본사 대면 상담 준비 완료율</span>
+              <span id="checklist-progress-text" class="text-apple-blue text-sm font-black nowrap-badge">0% (0/8 완료)</span>
+            </div>
+            <div class="w-full h-2.5 bg-gray-200 rounded-full overflow-hidden">
+              <div id="checklist-progress-bar" class="h-full bg-apple-blue transition-all duration-300" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+        <div id="checklist-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Note -->
+    <footer class="text-center text-xs text-apple-subtext py-6 space-y-1">
+      <p class="font-semibold">본 리포트는 공정거래위원회 가맹사업거래(franchise.ftc.go.kr) 정보공개서 표준 공시 항목을 기반으로 설계된 의사결정 지원 템플릿입니다.</p>
+      <p>실제 계약 체결 전 반드시 가맹본부로부터 최신 등록 정보공개서와 인근 가맹점 현황문서를 서면으로 제공받아 14일간 숙고하시기 바랍니다.</p>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT: DATA & LOGIC -->
+  <script>
+    const KPI_CRITERIA = [
+      { id: 'debt', num: '01', title: '본사 부채비율 (재무 안정성)', desc: '자기자본 대비 부채총계 비율 (낮을수록 본사 부도 위험 감소)', steps: [{ score: 0, label: '자본잠식' }, { score: 2, label: '300% 초과' }, { score: 4, label: '200~300%' }, { score: 6, label: '150~200%' }, { score: 8, label: '100~150%' }, { score: 10, label: '100% 이하' }] },
+      { id: 'profit', num: '02', title: '본사 영업이익 추이 (수익 지속성)', desc: '최근 3개년 가맹본부의 영업이익 흑자 여부 및 성장 추세', steps: [{ score: 0, label: '2년연속 적자' }, { score: 2, label: '최근 적자전환' }, { score: 4, label: '이익 급감(-30%)' }, { score: 6, label: '흑자유지(보합)' }, { score: 8, label: '2년연속 성장' }, { score: 10, label: '3년연속 고성장' }] },
+      { id: 'direct', num: '03', title: '직영점 검증력 (본사 운영 노하우)', desc: '가맹본부가 직접 출자·운영하며 메뉴·수익성을 검증한 직영점 수', steps: [{ score: 0, label: '직영점 0개' }, { score: 2, label: '1개(1년미만)' }, { score: 4, label: '1개(1년이상)' }, { score: 6, label: '직영 2개점' }, { score: 8, label: '직영 3~4개' }, { score: 10, label: '직영 5개 이상' }] },
+      { id: 'churn', num: '04', title: '실질 이탈률 (해지+종료+명의변경 합산)', desc: '단순 폐업뿐 아니라 양도양수(명의변경)를 포함한 연간 총 이탈 비율', steps: [{ score: 0, label: '15% 이상(과락)' }, { score: 2, label: '12% ~ 15%' }, { score: 4, label: '9% ~ 12%' }, { score: 6, label: '6% ~ 9%' }, { score: 8, label: '3% ~ 6%' }, { score: 10, label: '3% 미만' }] },
+      { id: 'longevity', num: '05', title: '가맹점 평균 영업기간 (브랜드 생명력)', desc: '유행성 반짝 아이템 여부를 판별하는 전체 가맹점 평균 존속 기간', steps: [{ score: 0, label: '1년 미만' }, { score: 2, label: '1년 ~ 2년' }, { score: 4, label: '2년 ~ 3년' }, { score: 6, label: '3년 ~ 4년' }, { score: 8, label: '4년 ~ 5년' }, { score: 10, label: '5년 이상' }] },
+      { id: 'pyeong', num: '06', title: '3.3㎡(1평)당 연매출 효율', desc: '매장 면적 대비 매출 창출력 (임대료 및 공간 투자 효율성 지표)', steps: [{ score: 0, label: '1,000만 미만' }, { score: 2, label: '1,000~1,500만' }, { score: 4, label: '1,500~2,000만' }, { score: 6, label: '2,000~2,500만' }, { score: 8, label: '2,500~3,000만' }, { score: 10, label: '3,000만 이상' }] },
+      { id: 'payback', num: '07', title: '초기 투자비 회수 기간 (보증금 제외 실투자 ÷ 월순익)', desc: '인테리어·설비·가맹비·권리금 등 소멸성 실투자금 회수 소 소요 개월 수', steps: [{ score: 0, label: '36개월 초과' }, { score: 2, label: '30~36개월' }, { score: 4, label: '24~30개월' }, { score: 6, label: '18~24개월' }, { score: 8, label: '12~18개월' }, { score: 10, label: '12개월 이내' }] },
+      { id: 'margin', num: '08', title: '차액가맹금(물류 마진) 투명성', desc: '매출 대비 본사 강제물류 마진 비중 및 시중 구매 허용 투명성', steps: [{ score: 0, label: '15%초과/비공개' }, { score: 2, label: '12% ~ 15%' }, { score: 4, label: '9% ~ 12%' }, { score: 6, label: '6% ~ 9%' }, { score: 8, label: '3% ~ 6%' }, { score: 10, label: '3%미만/정률로열티' }] },
+      { id: 'sv', num: '09', title: '슈퍼바이저(SV) 1인당 관리 매장 수', desc: '본사 사후관리 품질 및 현장 QSC(품질·서비스·위생) 코칭 여력', steps: [{ score: 0, label: '30개점 초과' }, { score: 2, label: '25~30개점' }, { score: 4, label: '20~25개점' }, { score: 6, label: '15~20개점' }, { score: 8, label: '10~15개점' }, { score: 10, label: '10개점 이하' }] },
+      { id: 'law', num: '10', title: '공정위 법 위반 및 브랜드 영속성', desc: '최근 3년간 시정명령·과징금·임원 사기/배임 처분 건수', steps: [{ score: 0, label: '과징금/형사처벌' }, { score: 2, label: '시정명령 2건+' }, { score: 4, label: '시정명령 1건' }, { score: 6, label: '경고조치 1건' }, { score: 8, label: '위반0건(업력3년)' }, { score: 10, label: '위반0건(업력5년+)' }] }
+    ];
+
+    const TEMPLATE_DATA = {
+      name: '향택',
+      corp: '법인',
+      category: '미분류(정보없음)',
+      scaleTag: '기준 점포 면적: 83m² (약 25평)',
+      baseYear: '2025년 공정위 정보공개서 공시 기준',
+      subtitle: '2025년 본사 영업이익이 적자로 전환되었고, 가맹점 2곳 모두 계약 종료(명의변경 등 실질이탈 우려)가 발생하여 주의가 필요합니다.',
+      verdict: '본사 부채비율은 매우 우수하나, 최근 영업적자 발생 및 운영 가맹점의 100% 계약 종료(이탈) 현상이 나타나 가맹사업 지속성에 심각한 경고등이 켜진 상태입니다.',
+      tags: ['#본사적자전환', '#가맹점전원이탈', '#계약종료2건', '#부채비율우수', '#신중검토'],
+      kpi1: {
+        badge: '주의 (적자전환)',
+        badgeClass: 'bg-amber-100 text-amber-800',
+        debtRatio: '20.8%',
+        debtSub: '부채 0.07억 / 자본 0.38억',
+        opProfit: '-0.12억 원',
+        opMargin: '매출 0.16억 / 적자 -0.12억',
+        trend: '2024년 0원 → 2025년 적자',
+        desc: '부채비율(20.8%)은 매우 건전하나, 2025년 들어 매출이 급감(0.16억)하고 영업이익이 1,200만 원 적자로 전환되어 수익성이 악화되었습니다.'
+      },
+      kpi2: {
+        badge: '위험 (이탈률 높음)',
+        badgeClass: 'bg-red-100 text-red-800',
+        storeCount: '2개점',
+        directCount: '직영점 0개',
+        realChurn: '100.0%',
+        officialChurn: '계약종료 2건',
+        breakdown: '가맹점 2곳 모두 계약종료',
+        desc: '운영 중인 가맹점 2곳 모두 2025년에 계약 종료가 발생했습니다. 이는 가맹점주들의 심각한 이탈 현상을 의미합니다.'
+      },
+      kpi3: {
+        badge: '보통',
+        badgeClass: 'bg-blue-100 text-apple-blue',
+        annualSales: '4억 5,467만',
+        monthlyVatInc: '월 3,788만 원 (VAT포함)',
+        pyeongSales: '2,890만 원',
+        pyeongSub: '면적당 효율 양호',
+        netMonthly: '월 실매출 약 3,444만',
+        desc: '가맹점(2개)의 연평균 공시매출은 약 4.5억 원이며, 평당 효율은 2,890만 원으로 매출 지표 자체는 양호한 편입니다.'
+      },
+      kpi4: {
+        totalCost: '9,970만 원',
+        baseSize: '기준 면적 25평',
+        feeEdu: '1,980만 원',
+        feeDetail: '가맹 1320 / 교육 660',
+        deposit: '200만 원',
+        interior: '4,125만',
+        interiorPy: '평당 약 165만',
+        realEstimate: '기타비용(7,790만) 포함 약 1억 원 (별도공사 제외)'
+      },
+      kpi5: {
+        badge: '정보없음',
+        badgeClass: 'bg-gray-100 text-gray-800',
+        marginRatio: '정보 없음',
+        royaltyInfo: '공시 정보 미기재',
+        marginAmount: '비공개',
+        marginSub: '차액가맹금 공시 내용 없음',
+        lawViolations: '0건',
+        desc: '차액가맹금(물류 마진)에 대한 명확한 공시 내용이 없으나, 최근 3년간 공정위 법 위반 이력은 없습니다.'
+      },
+      blindspots: [
+        { num: '01', title: '본사 재무수익성 급감', status: '주의', statusColor: 'amber', metric: '2025년 영업적자 -1,200만원', detail: '매출이 2024년 2.9억 원에서 2025년 0.16억 원으로 급감하고 영업이익이 적자로 전환된 원인을 파악해야 합니다.' },
+        { num: '02', title: '계약기간 및 리뉴얼 (갱신 주기)', status: '보통', statusColor: 'blue', metric: '최초 2년 / 연장 2년', detail: '최초 2년 후 2년 단위 갱신 구조입니다. 무난한 조건이나 리뉴얼 강요 조항이 있는지 체크해야 합니다.' },
+        { num: '03', title: '가맹점 전원 이탈 (계약종료)', status: '위험', statusColor: 'red', metric: '2025년 계약종료 2건', detail: '전체 가맹점 2곳이 모두 한 해에 계약을 종료했습니다. 브랜드 수익성 문제인지 본사와의 갈등인지 반드시 확인이 필요합니다.' },
+        { num: '04', title: '창업비 중 기타 비용의 비중', status: '경계', statusColor: 'amber', metric: '기타비용 7,790만원', detail: '전체 공시 창업비 약 1억 중 기타 비용이 7.8천만 원으로 큰 비중을 차지합니다. 이 금액의 구체적인 세부 내역 확인이 필수적입니다.' },
+        { num: '05', title: '필수품목 및 차액가맹금 비공개', status: '정보없음', statusColor: 'amber', metric: '차액가맹금 비율 미공개', detail: '식자재 등 본사가 가맹점에 공급하는 필수품목에서 남기는 마진율이 불투명하여, 실제 점주의 원가율 부담을 파악하기 어렵습니다.' },
+        { num: '06', title: '직영점 0개 (본사 운영 미검증)', status: '경계', statusColor: 'red', metric: '운영 직영점 0개', detail: '본사가 직접 운영하며 노하우를 쌓고 수익을 검증할 직영점이 하나도 없다는 점은 프랜차이즈로서 큰 약점입니다.' },
+        { num: '07', title: '마케팅 지원 전무', status: '미흡', statusColor: 'amber', metric: '2025년 광고/판촉비 0원', detail: '본사 차원의 광고나 판촉비 지출이 0원으로 기재되어 있어, 브랜드 인지도 확장을 위한 마케팅 지원을 전혀 기대할 수 없습니다.' }
+      ],
+      benchmarkRows: [
+        { name: '01. 본사 부채비율', brandVal: '20.8%', topVal: '100% 이하', dangerVal: '200% 초과 / 자본잠식', status: '우수', color: 'emerald' },
+        { name: '02. 본사 영업이익률', brandVal: '적자 (-0.12억)', topVal: '15% 이상 (3년 흑자)', dangerVal: '영업적자 또는 3% 미만', status: '위험', color: 'red' },
+        { name: '03. 직영점 운영 검증', brandVal: '0개', topVal: '직영 3개점 이상 (2년+)', dangerVal: '직영점 0개 (미검증)', status: '미검증 (위험)', color: 'red' },
+        { name: '04. 실질 이탈률 (해지+종료)', brandVal: '100.0% (2건)', topVal: '연 5.0% 미만', dangerVal: '연 15.0% 이상 (과락)', status: '과락 (위험)', color: 'red' },
+        { name: '05. 가맹점 평균 영업기간', brandVal: '정보 없음', topVal: '4년 6개월 이상', dangerVal: '2년 미만 (단기 유행)', status: '누락 (주의)', color: 'amber' },
+        { name: '06. 1평(3.3㎡)당 연매출', brandVal: '2,890만 원', topVal: '2,500만 원 이상', dangerVal: '1,200만 원 미만', status: '우수', color: 'emerald' },
+        { name: '07. 초기 투자비 합산', brandVal: '0.99억 원 (25평)', topVal: '업종 평균 1억 미만', dangerVal: '투명성 부족 시', status: '양호', color: 'blue' },
+        { name: '08. 차액가맹금(물류마진) 비율', brandVal: '비공개', topVal: '6% 이하 투명 공개', dangerVal: '12% 초과 / 강제 끼워팔기', status: '누락 (주의)', color: 'amber' },
+        { name: '09. SV 1인당 담당 매장 수', brandVal: '정보 없음', topVal: '10개점 이하', dangerVal: '25개점 초과 (방치)', status: '누락 (주의)', color: 'amber' },
+        { name: '10. 최근 3년 공정위 법 위반', brandVal: '0건', topVal: '0건', dangerVal: '시정명령·과징금 1건 이상', status: '양호', color: 'emerald' }
+      ],
+      scores: [10, 2, 0, 0, 0, 8, 8, 0, 0, 8],
+      simDefaults: {
+        annualSales: 45467,
+        area: 25,
+        cogs: 35.0,
+        rent: 300,
+        labor: 1500,
+        royalty: 3.0,
+        other: 5.0,
+        capex: 9770,
+        deposit: 200,
+        keymoney: 3000
+      }
+    };
+
+    const CHECKLIST_ITEMS = [
+      { category: '영역 1. 매출 · 상권 착시 검증', title: '정보공개서 평균 매출 외에 출점 예정 지역 하위 30% 매장의 최근 6개월 실매출(POS)을 공개해 줄 수 있습니까?', desc: '상위 10% 대형 특수상권 매장이 전체 평균을 끌어올리는 착시를 배제하고, 최악의 시나리오에서도 손익분기점(BEP)을 넘는지 확인해야 합니다.' },
+      { category: '영역 1. 매출 · 상권 착시 검증', title: '공식 계약해지 건수 외에 최근 2년간 발생한 명의변경(양도양수) 사유와 해당 매장의 오픈 후 경과 기간은 어떠합니까?', desc: '본사가 폐업률을 0%로 홍보하더라도 적자를 견디지 못한 점주들이 권리금을 포기하고 급매로 넘긴 명의변경이 많다면 실질 이탈률은 높은 것입니다.' },
+      { category: '영역 2. 물류 · 차액가맹금 투명성', title: '필수품목(강제 구매 물품) 전체 리스트와 품목별 최근 1년간 공급단가 인상 내역서를 계약 전 서면으로 제공할 수 있습니까?', desc: '전용 소스·육수 외에 시중 마트나 식자재 유통사에서 더 저렴하게 살 수 있는 공산품·부자재까지 필수품목으로 강제하는지 반드시 확인하세요.' },
+      { category: '영역 2. 물류 · 차액가맹금 투명성', title: '핵심 식자재 원물 시세 급등 시 본사가 원가 상승분을 분담하거나 단가 인상 상한선(Cap)을 두는 제도가 있습니까?', desc: '환율이나 기후 변화로 핵심 원물 가격이 폭등할 때 본사가 물류 마진을 고수하면 가맹점 순수익률이 즉시 반토막 날 수 있습니다.' },
+      { category: '영역 3. 별도공사 · 리뉴얼 독소조항', title: '정보공개서 공시 창업비에 제외된 별도공사의 평당 상한 견적과 자체 시공(감리비 면제) 허용 범위는?', desc: '공시 창업비 외에 별도공사비로 수천만 원이 추가되는 경우가 흔합니다. 점주가 직접 외부 업체를 선정할 수 있는지 확인하세요.' },
+      { category: '영역 3. 별도공사 · 리뉴얼 독소조항', title: '최초 계약기간 만료 후 인테리어 리뉴얼 요구 주기와 가맹본부의 리뉴얼 비용 법정 분담 비율(20~40%) 규정이 있습니까?', desc: '투자금을 막 회수한 시점에 본사가 브랜드 이미지 통일을 이유로 리뉴얼 공사를 강요하는 것을 방지해야 합니다.' },
+      { category: '영역 4. 본사 지원 · 사후관리 역량', title: '현재 출점 예정 지역을 담당하는 슈퍼바이저(SV) 1인이 몇 개 매장을 관리하며, 오픈 초기 현장 지원 체계는 어떠합니까?', desc: '오픈 초기에 본사 전문 인력이 상주 지원하는 기간과 비용, 그리고 일상적인 QSC 점검 주기를 체크하세요.' },
+      { category: '영역 4. 본사 지원 · 사후관리 역량', title: '광고·판촉 행사 진행 시 가맹점주 사전 동의 규정(광고 50%, 판촉 70%)을 준수하며, 할인 프로모션 비용의 본사 분담률은 몇 %입니까?', desc: '배달앱 할인 쿠폰이나 시즌 판촉 행사 비용을 점주에게 일방적으로 전가하지 않는지 계약서 조항으로 확인해야 합니다.' }
+    ];
+
+    let currentScores = [...TEMPLATE_DATA.scores];
+    let oneStrikeFlags = [false, true, false]; // Default strike on churn
+    let checkedQuestions = new Array(8).fill(false);
+
+    function initTemplate() {
+      renderHeaderMetadata(TEMPLATE_DATA);
+      renderSection1KPIs(TEMPLATE_DATA);
+      renderSection2Blindspots(TEMPLATE_DATA);
+      renderSection3Matrix(TEMPLATE_DATA);
+      renderSection4Scorecard();
+      renderSection6Checklist();
+      calculateSimulation();
+      recalculateTotalScore();
+    }
+
+    function formatManwon(num) {
+      const n = Math.round(num);
+      if (Math.abs(n) >= 10000) {
+        const eok = Math.floor(Math.abs(n) / 10000);
+        const man = Math.abs(n) % 10000;
+        const sign = n < 0 ? '-' : '';
+        return man > 0 ? `${sign}${eok}억 ${man.toLocaleString()}만 원` : `${sign}${eok}억 원`;
+      }
+      return `${n.toLocaleString()}만 원`;
+    }
+
+    function renderHeaderMetadata(data) {
+      document.getElementById('header-base-year').textContent = data.baseYear;
+      document.getElementById('header-category-badge').textContent = data.category;
+      document.getElementById('header-scale-badge').textContent = data.scaleTag;
+      document.getElementById('header-brand-title').textContent = data.name;
+      document.getElementById('header-corp-title').textContent = data.corp;
+      document.getElementById('header-brand-subtitle').textContent = data.subtitle;
+      document.getElementById('header-tags-container').innerHTML = data.tags.map(tag => `<span class="px-3 py-1 rounded-full bg-apple-bg text-apple-subtext text-xs font-bold border border-apple-border nowrap-badge">${tag}</span>`).join('');
+    }
+
+    function renderSection1KPIs(data) {
+      const k1 = data.kpi1;
+      const b1 = document.getElementById('kpi1-badge');
+      b1.textContent = k1.badge; b1.className = `px-2.5 py-1 rounded-full text-xs font-bold nowrap-badge ${k1.badgeClass}`;
+      document.getElementById('kpi1-debt-ratio').textContent = k1.debtRatio;
+      document.getElementById('kpi1-debt-sub').textContent = k1.debtSub;
+      document.getElementById('kpi1-op-profit').textContent = k1.opProfit;
+      document.getElementById('kpi1-op-margin').textContent = k1.opMargin;
+      document.getElementById('kpi1-trend-text').textContent = k1.trend;
+      document.getElementById('kpi1-desc').textContent = k1.desc;
+
+      const k2 = data.kpi2;
+      const b2 = document.getElementById('kpi2-badge');
+      b2.textContent = k2.badge; b2.className = `px-2.5 py-1 rounded-full text-xs font-bold nowrap-badge ${k2.badgeClass}`;
+      document.getElementById('kpi2-store-count').textContent = k2.storeCount;
+      document.getElementById('kpi2-direct-count').textContent = k2.directCount;
+      document.getElementById('kpi2-real-churn').textContent = k2.realChurn;
+      document.getElementById('kpi2-official-churn').textContent = k2.officialChurn;
+      document.getElementById('kpi2-churn-breakdown').textContent = k2.breakdown;
+      document.getElementById('kpi2-desc').textContent = k2.desc;
+
+      const k3 = data.kpi3;
+      const b3 = document.getElementById('kpi3-badge');
+      b3.textContent = k3.badge; b3.className = `px-2.5 py-1 rounded-full text-xs font-bold nowrap-badge ${k3.badgeClass}`;
+      document.getElementById('kpi3-annual-sales').textContent = k3.annualSales;
+      document.getElementById('kpi3-monthly-vat-inc').textContent = k3.monthlyVatInc;
+      document.getElementById('kpi3-pyeong-sales').textContent = k3.pyeongSales;
+      document.getElementById('kpi3-pyeong-sub').textContent = k3.pyeongSub;
+      document.getElementById('kpi3-net-monthly').textContent = k3.netMonthly;
+      document.getElementById('kpi3-desc').textContent = k3.desc;
+
+      const k4 = data.kpi4;
+      document.getElementById('kpi4-total-cost').textContent = k4.totalCost;
+      document.getElementById('kpi4-base-size').textContent = k4.baseSize;
+      document.getElementById('kpi4-fee-edu').textContent = k4.feeEdu;
+      document.getElementById('kpi4-fee-detail').textContent = k4.feeDetail;
+      document.getElementById('kpi4-deposit').textContent = k4.deposit;
+      document.getElementById('kpi4-interior').textContent = k4.interior;
+      document.getElementById('kpi4-interior-py').textContent = k4.interiorPy;
+      document.getElementById('kpi4-real-estimate').textContent = k4.realEstimate;
+
+      const k5 = data.kpi5;
+      const b5 = document.getElementById('kpi5-badge');
+      b5.textContent = k5.badge; b5.className = `px-2.5 py-1 rounded-full text-xs font-bold nowrap-badge ${k5.badgeClass}`;
+      document.getElementById('kpi5-margin-ratio').textContent = k5.marginRatio;
+      document.getElementById('kpi5-royalty-info').textContent = k5.royaltyInfo;
+      document.getElementById('kpi5-margin-amount').textContent = k5.marginAmount;
+      document.getElementById('kpi5-margin-sub').textContent = k5.marginSub;
+      document.getElementById('kpi5-law-violations').textContent = k5.lawViolations;
+      document.getElementById('kpi5-desc').textContent = k5.desc;
+    }
+
+    function renderSection2Blindspots(data) {
+      const colorMap = { emerald: 'bg-emerald-100 text-emerald-800 border-emerald-200', blue: 'bg-blue-100 text-apple-blue border-blue-200', amber: 'bg-amber-100 text-amber-900 border-amber-200', red: 'bg-red-100 text-red-800 border-red-200' };
+      document.getElementById('blindspots-grid').innerHTML = data.blindspots.map((item, idx) => `
+        <div class="${idx === 6 ? 'md:col-span-2 lg:col-span-3' : ''} bg-white rounded-3xl p-6 shadow-apple border border-apple-border/60 flex flex-col justify-between gap-3">
+          <div class="space-y-2.5">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-black text-apple-blue bg-blue-50 px-2.5 py-1 rounded-lg nowrap-badge">BLIND SPOT ${item.num}</span>
+              <span class="px-2.5 py-1 rounded-full text-xs font-bold border nowrap-badge ${colorMap[item.statusColor] || colorMap.blue}">${item.status}</span>
+            </div>
+            <h4 class="text-base font-extrabold text-apple-text">${item.title}</h4>
+            <div class="p-3 rounded-xl bg-apple-bg text-xs font-bold text-apple-text border border-apple-border/60">진단결과: ${item.metric}</div>
+          </div>
+          <p class="text-xs sm:text-sm text-apple-subtext leading-relaxed pt-1">${item.detail}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderSection3Matrix(data) {
+      const badgeMap = { emerald: 'bg-emerald-100 text-emerald-800', blue: 'bg-blue-100 text-apple-blue', amber: 'bg-amber-100 text-amber-800', red: 'bg-red-100 text-red-800' };
+      document.getElementById('matrix-current-brand-label').textContent = `분석 대상: ${data.name}`;
+      document.getElementById('comp-table-brand-name').textContent = data.name;
+      document.getElementById('benchmark-table-body').innerHTML = data.benchmarkRows.map(row => `
+        <tr class="hover:bg-gray-50/80 transition">
+          <td class="py-3.5 px-4 sm:px-6 font-bold text-apple-text">${row.name}</td>
+          <td class="py-3.5 px-4 sm:px-6 font-extrabold text-apple-blue bg-blue-50/20">${row.brandVal}</td>
+          <td class="py-3.5 px-4 sm:px-6 font-semibold text-emerald-700">${row.topVal}</td>
+          <td class="py-3.5 px-4 sm:px-6 font-medium text-apple-subtext">${row.dangerVal}</td>
+          <td class="py-3.5 px-4 sm:px-6 text-center">
+            <span class="px-2.5 py-1 rounded-full text-xs font-extrabold nowrap-badge ${badgeMap[row.color] || badgeMap.blue}">${row.status}</span>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function renderSection4Scorecard() {
+      const container = document.getElementById('scorecard-items-container');
+      container.innerHTML = KPI_CRITERIA.map((kpi, idx) => {
+        const selectedScore = currentScores[idx];
+        const buttonsHtml = kpi.steps.map(step => {
+          const isSelected = step.score === selectedScore;
+          const activeClass = isSelected ? 'bg-apple-blue text-white border-apple-blue shadow-sm ring-2 ring-apple-blue/25' : 'bg-apple-bg text-apple-subtext border-apple-border hover:bg-gray-200/70';
+          return `
+            <button type="button" onclick="setKpiScore(${idx}, ${step.score})" class="p-2 rounded-xl border text-center transition flex flex-col items-center justify-center gap-0.5 ${activeClass}">
+              <span class="text-xs sm:text-sm font-black nowrap-badge">${step.score}점</span>
+              <span class="text-[10px] font-medium leading-tight opacity-90 nowrap-badge">${step.label}</span>
+            </button>
+          `;
+        }).join('');
+
+        return `
+          <div class="p-4 sm:p-5 rounded-2xl bg-apple-bg/40 border border-apple-border/80 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div class="lg:w-5/12 space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded-md bg-gray-900 text-white text-[11px] font-extrabold nowrap-badge">KPI ${kpi.num}</span>
+                <h5 class="text-sm sm:text-base font-extrabold text-apple-text">${kpi.title}</h5>
+              </div>
+              <p class="text-xs text-apple-subtext">${kpi.desc}</p>
+            </div>
+            <div class="lg:w-7/12 grid grid-cols-3 sm:grid-cols-6 gap-1.5">
+              ${buttonsHtml}
+            </div>
+          </div>
+        `;
+      }).join('');
+      updateStrikeUI();
+    }
+
+    function setKpiScore(kpiIndex, scoreVal) {
+      currentScores[kpiIndex] = scoreVal;
+      if (kpiIndex === 3 && scoreVal === 0) oneStrikeFlags[1] = true;
+      else if (kpiIndex === 3 && scoreVal > 0 && oneStrikeFlags[1]) oneStrikeFlags[1] = false;
+      if (kpiIndex === 0 && scoreVal === 0) oneStrikeFlags[0] = true;
+      else if (kpiIndex === 0 && scoreVal > 0 && oneStrikeFlags[0]) oneStrikeFlags[0] = false;
+      
+      updateStrikeUI();
+      renderSection4Scorecard();
+      recalculateTotalScore();
+    }
+
+    function resetBrandScores() {
+      currentScores = [...TEMPLATE_DATA.scores];
+      oneStrikeFlags = [false, true, false]; // Reset to default strike
+      updateStrikeUI();
+      renderSection4Scorecard();
+      recalculateTotalScore();
+    }
+
+    function toggleStrike(idx) {
+      oneStrikeFlags[idx] = !oneStrikeFlags[idx];
+      updateStrikeUI();
+      recalculateTotalScore();
+    }
+
+    function updateStrikeUI() {
+      const labelsNormal = ['정상 (무잠식)', '정상 (15% 미만)', '정상 (BEP 상회)'];
+      const labelsStrike = ['과락! (자본잠식)', '과락! (15% 초과)', '과락! (BEP 미달)'];
+      let activeStrikes = 0;
+
+      for (let i = 0; i < 3; i++) {
+        const card = document.getElementById(`strike-card-${i}`);
+        const btn = document.getElementById(`strike-btn-${i}`);
+        if (oneStrikeFlags[i]) {
+          activeStrikes++;
+          card.className = 'cursor-pointer p-4 rounded-2xl border-2 border-apple-red bg-red-50/70 transition flex items-start justify-between gap-3';
+          btn.className = 'px-3 py-1.5 rounded-xl text-xs font-extrabold bg-apple-red text-white shrink-0 nowrap-badge shadow-sm';
+          btn.textContent = labelsStrike[i];
+        } else {
+          card.className = 'cursor-pointer p-4 rounded-2xl border border-apple-border bg-apple-bg/50 hover:bg-gray-100/80 transition flex items-start justify-between gap-3';
+          btn.className = 'px-3 py-1.5 rounded-xl text-xs font-extrabold bg-emerald-100 text-emerald-800 shrink-0 nowrap-badge';
+          btn.textContent = labelsNormal[i];
+        }
+      }
+
+      const panel = document.getElementById('one-strike-panel');
+      const summaryBadge = document.getElementById('strike-summary-badge');
+      if (activeStrikes > 0) {
+        panel.className = 'bg-red-50/40 rounded-3xl p-6 shadow-apple border-2 border-apple-red transition-all';
+        summaryBadge.className = 'px-3.5 py-1.5 rounded-xl bg-apple-red text-white font-extrabold text-xs self-start md:self-center nowrap-badge';
+        summaryBadge.textContent = `경고! 3대 과락 ${activeStrikes}건 발생 → 즉시 F등급 강등`;
+      } else {
+        panel.className = 'bg-white rounded-3xl p-6 shadow-apple border-2 border-apple-border transition-all';
+        summaryBadge.className = 'px-3.5 py-1.5 rounded-xl bg-emerald-100 text-emerald-800 font-extrabold text-xs self-start md:self-center nowrap-badge';
+        summaryBadge.textContent = '현재 과락 해당: 0건 (정상 평가 중)';
+      }
+    }
+
+    function recalculateTotalScore() {
+      const rawTotal = currentScores.reduce((acc, v) => acc + v, 0);
+      const hasOneStrike = oneStrikeFlags.some(Boolean);
+
+      const circumference = 314.16;
+      const offset = circumference - (rawTotal / 100) * circumference;
+      document.getElementById('score-ring').style.strokeDashoffset = offset;
+      document.getElementById('total-score-number').textContent = rawTotal;
+      document.getElementById('scorecard-live-total').textContent = `${rawTotal}점`;
+
+      let grade = 'A등급', signalText = '청신호', desc = '', rankText = '', colorHex = '#34c759', lightMode = 'green';
+      if (hasOneStrike) {
+        grade = 'F등급'; signalText = '적신호 (계약 불가)'; desc = '3대 치명적 과락 발생으로 총점과 무관하게 강등 판정'; rankText = '과락 강등 (위험)'; colorHex = '#ff3b30'; lightMode = 'red';
+      } else if (rawTotal >= 90) {
+        grade = 'S등급'; signalText = '청신호 (최우선 출점)'; desc = '90~100점 구간: 재무·생존력·수익성 모두 최상위권인 초우량 브랜드'; rankText = '상위 3% 최우수';
+      } else if (rawTotal >= 80) {
+        grade = 'A등급'; signalText = '청신호 (출점 긍정)'; desc = '80~89점 구간: 본사 재무와 가맹점 수익성이 검증된 우량 프랜차이즈'; rankText = '상위 10% 우량';
+      } else if (rawTotal >= 70) {
+        grade = 'B등급'; signalText = '황신호 (조건부 검토)'; desc = '70~79점 구간: 양호하나 원가율 등 일부 취약 지표 보완 후 계약 권장'; rankText = '상위 25% 양호'; colorHex = '#ff9500'; lightMode = 'yellow';
+      } else if (rawTotal >= 60) {
+        grade = 'C등급'; signalText = '황신호 (신중 보류)'; desc = '60~69점 구간: 수익 변동성 및 투자 회수 지연 우려가 있어 정밀 현장검증 필수'; rankText = '중위권 (주의)'; colorHex = '#ffcc00'; lightMode = 'yellow';
+      } else {
+        grade = 'D등급'; signalText = '적신호 (창업 비권장)'; desc = '59점 이하 구간: 다수의 재무·영업 리스크가 발견되어 가맹 계약을 권장하지 않음'; rankText = '하위권 (위험)'; colorHex = '#ff3b30'; lightMode = 'red';
+      }
+
+      document.getElementById('score-ring').style.stroke = colorHex;
+      document.getElementById('score-rank-percentile').textContent = rankText;
+      document.getElementById('grade-letter').textContent = grade;
+      document.getElementById('grade-signal-text').textContent = signalText;
+      document.getElementById('grade-criteria-desc').textContent = desc;
+
+      const ledGreen = document.getElementById('led-green'), ledYellow = document.getElementById('led-yellow'), ledRed = document.getElementById('led-red');
+      const accentBar = document.getElementById('header-accent-bar'), gradeBox = document.getElementById('grade-badge-box');
+      const liveGradeBadge = document.getElementById('scorecard-live-grade'), verdictBox = document.getElementById('verdict-box');
+      const verdictIcon = document.getElementById('verdict-icon'), strikePill = document.getElementById('one-strike-status-pill');
+      const verdictText = document.getElementById('header-verdict-text');
+
+      if (lightMode === 'green') {
+        ledGreen.className = 'w-3.5 h-3.5 rounded-full bg-apple-green ring-4 ring-emerald-500/30 transition-all'; ledYellow.className = 'w-3 h-3 rounded-full bg-gray-200 transition-all'; ledRed.className = 'w-3 h-3 rounded-full bg-gray-200 transition-all';
+        accentBar.className = 'absolute top-0 left-0 right-0 h-1.5 bg-apple-green transition-colors duration-500'; gradeBox.className = 'p-3.5 rounded-2xl bg-white border-2 border-apple-green shadow-sm';
+        document.getElementById('grade-letter').className = 'text-2xl font-black text-apple-green nowrap-badge'; document.getElementById('grade-signal-text').className = 'px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800 nowrap-badge';
+        liveGradeBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800 nowrap-badge'; liveGradeBadge.textContent = `${grade} 청신호`;
+        verdictBox.className = 'p-4 sm:p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200 transition-all'; document.getElementById('verdict-icon-wrap').className = 'w-8 h-8 rounded-xl bg-apple-green text-white flex items-center justify-center shrink-0 mt-0.5';
+        verdictIcon.className = 'fa-solid fa-shield-halved text-lg'; strikePill.className = 'text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 nowrap-badge';
+        strikePill.textContent = '3대 과락(One-Strike Out) 해당 없음'; verdictText.textContent = TEMPLATE_DATA.verdict;
+      } else if (lightMode === 'yellow') {
+        ledGreen.className = 'w-3 h-3 rounded-full bg-gray-200 transition-all'; ledYellow.className = 'w-3.5 h-3.5 rounded-full bg-apple-amber ring-4 ring-amber-500/30 transition-all'; ledRed.className = 'w-3 h-3 rounded-full bg-gray-200 transition-all';
+        accentBar.className = 'absolute top-0 left-0 right-0 h-1.5 bg-apple-amber transition-colors duration-500'; gradeBox.className = 'p-3.5 rounded-2xl bg-white border-2 border-apple-amber shadow-sm';
+        document.getElementById('grade-letter').className = 'text-2xl font-black text-apple-amber nowrap-badge'; document.getElementById('grade-signal-text').className = 'px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-amber-100 text-amber-900 nowrap-badge';
+        liveGradeBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-amber-100 text-amber-900 nowrap-badge'; liveGradeBadge.textContent = `${grade} 황신호`;
+        verdictBox.className = 'p-4 sm:p-5 rounded-2xl bg-amber-50/80 border border-amber-200 transition-all'; document.getElementById('verdict-icon-wrap').className = 'w-8 h-8 rounded-xl bg-apple-amber text-white flex items-center justify-center shrink-0 mt-0.5';
+        verdictIcon.className = 'fa-solid fa-circle-exclamation text-lg'; strikePill.className = 'text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 nowrap-badge';
+        strikePill.textContent = '황신호: 보완 및 현장 실사 필수'; verdictText.textContent = `현재 산출된 총점은 ${rawTotal}점(${grade})입니다. 일부 취약 지표 보완 후 계약을 권장합니다.`;
+      } else {
+        ledGreen.className = 'w-3 h-3 rounded-full bg-gray-200 transition-all'; ledYellow.className = 'w-3 h-3 rounded-full bg-gray-200 transition-all'; ledRed.className = 'w-3.5 h-3.5 rounded-full bg-apple-red ring-4 ring-red-500/30 transition-all';
+        accentBar.className = 'absolute top-0 left-0 right-0 h-1.5 bg-apple-red transition-colors duration-500'; gradeBox.className = 'p-3.5 rounded-2xl bg-white border-2 border-apple-red shadow-sm';
+        document.getElementById('grade-letter').className = 'text-2xl font-black text-apple-red nowrap-badge'; document.getElementById('grade-signal-text').className = 'px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-red-100 text-red-800 nowrap-badge';
+        liveGradeBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-red-100 text-red-800 nowrap-badge'; liveGradeBadge.textContent = `${grade} 적신호`;
+        verdictBox.className = 'p-4 sm:p-5 rounded-2xl bg-red-50/80 border border-red-200 transition-all'; document.getElementById('verdict-icon-wrap').className = 'w-8 h-8 rounded-xl bg-apple-red text-white flex items-center justify-center shrink-0 mt-0.5';
+        verdictIcon.className = 'fa-solid fa-triangle-exclamation text-lg'; strikePill.className = 'text-[11px] font-bold px-2 py-0.5 rounded-full bg-apple-red text-white nowrap-badge';
+        strikePill.textContent = hasOneStrike ? '치명적 과락 발동됨!' : '적신호: 투자 위험 구간';
+        verdictText.textContent = hasOneStrike ? '경고: 실질 이탈률 15% 초과 등 3대 과락 리스크가 감지되어 즉시 F등급으로 강등되었습니다!' : `현재 산출된 총점은 ${rawTotal}점(${grade})입니다. 투자금 회수 및 폐점 리스크가 높으므로 계약을 권장하지 않습니다.`;
+      }
+    }
+
+    function setInputPair(idSuffix, val) {
+      const numEl = document.getElementById(`sim-${idSuffix}-num`);
+      const rangeEl = document.getElementById(`sim-${idSuffix}-range`);
+      if (numEl) numEl.value = val;
+      if (rangeEl) rangeEl.value = val;
+    }
+
+    function syncSimInput(field, val) {
+      const map = { annualSales: 'annual-sales', area: 'area', cogs: 'cogs', rent: 'rent', labor: 'labor', royalty: 'royalty', other: 'other', capex: 'capex', keymoney: 'keymoney' };
+      if (map[field]) setInputPair(map[field], val);
+      calculateSimulation();
+    }
+
+    let latestSimPaybackMonths = 10;
+    let latestSimBelowBep = false;
+
+    function calculateSimulation() {
+      const annualSalesVatInc = parseFloat(document.getElementById('sim-annual-sales-num').value) || 0;
+      const area = Math.max(1, parseFloat(document.getElementById('sim-area-num').value) || 1);
+      const cogsPct = parseFloat(document.getElementById('sim-cogs-num').value) || 0;
+      const rent = parseFloat(document.getElementById('sim-rent-num').value) || 0;
+      const labor = parseFloat(document.getElementById('sim-labor-num').value) || 0;
+      const royaltyPct = parseFloat(document.getElementById('sim-royalty-num').value) || 0;
+      const otherPct = parseFloat(document.getElementById('sim-other-num').value) || 0;
+      const capex = parseFloat(document.getElementById('sim-capex-num').value) || 0;
+      const deposit = parseFloat(document.getElementById('sim-deposit-num').value) || 0;
+      const keymoney = parseFloat(document.getElementById('sim-keymoney-num').value) || 0;
+
+      const monthlyGross = annualSalesVatInc / 12;
+      const monthlyNetSupply = annualSalesVatInc / 1.1 / 12;
+      const pyeongAnnual = annualSalesVatInc / area;
+
+      const cogsCost = monthlyNetSupply * (cogsPct / 100);
+      const royaltyCost = monthlyNetSupply * (royaltyPct / 100);
+      const otherCost = monthlyNetSupply * (otherPct / 100);
+      const totalVariableRatio = (cogsPct + royaltyPct + otherPct) / 100;
+      const totalFixedCost = rent + labor;
+
+      const monthlyNetProfit = monthlyNetSupply - cogsCost - royaltyCost - otherCost - totalFixedCost;
+      const netMarginPct = monthlyNetSupply > 0 ? (monthlyNetProfit / monthlyNetSupply) * 100 : 0;
+
+      const contributionMarginRatio = Math.max(0.05, 1 - totalVariableRatio);
+      const bepNetSupplySales = totalFixedCost / contributionMarginRatio;
+      const bepGrossSales = bepNetSupplySales * 1.1;
+      const safetyMarginPct = monthlyGross > 0 ? ((monthlyGross - bepGrossSales) / monthlyGross) * 100 : -100;
+
+      const sunkInvestment = capex + keymoney;
+      const totalBudgetWithDeposit = sunkInvestment + deposit;
+
+      document.getElementById('sim-monthly-gross-label').textContent = `${Math.round(monthlyGross).toLocaleString()}만원`;
+      document.getElementById('sim-monthly-net-label').textContent = `${Math.round(monthlyNetSupply).toLocaleString()}만원`;
+      document.getElementById('sim-pyeong-eff-label').textContent = `${Math.round(pyeongAnnual).toLocaleString()}만원/평`;
+      document.getElementById('sim-cogs-cost-label').textContent = `${Math.round(cogsCost).toLocaleString()}만원`;
+
+      const rentRatio = monthlyNetSupply > 0 ? (rent / monthlyNetSupply) * 100 : 0;
+      const laborRatio = monthlyNetSupply > 0 ? (labor / monthlyNetSupply) * 100 : 0;
+      document.getElementById('sim-rent-ratio-label').textContent = `${rentRatio.toFixed(1)}%`;
+      document.getElementById('sim-labor-ratio-label').textContent = `${laborRatio.toFixed(1)}%`;
+      document.getElementById('sim-royalty-cost-label').textContent = `${Math.round(royaltyCost).toLocaleString()}만원`;
+      document.getElementById('sim-other-cost-label').textContent = `${Math.round(otherCost).toLocaleString()}만원`;
+
+      const profitSign = monthlyNetProfit >= 0 ? '+' : '';
+      document.getElementById('sim-net-profit-display').textContent = `${profitSign}${formatManwon(monthlyNetProfit)}`;
+      document.getElementById('sim-annual-profit-display').textContent = formatManwon(monthlyNetProfit * 12);
+      document.getElementById('sim-supply-sales-display').textContent = formatManwon(monthlyNetSupply);
+
+      const marginPill = document.getElementById('sim-net-margin-pill');
+      marginPill.textContent = `순수익률 ${netMarginPct.toFixed(1)}%`;
+      marginPill.className = monthlyNetProfit > 0 ? 'px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-apple-green text-white nowrap-badge' : 'px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-apple-red text-white nowrap-badge';
+
+      document.getElementById('sim-bep-sales-display').textContent = formatManwon(bepGrossSales);
+      const bepBadge = document.getElementById('sim-bep-status-badge'), safetyEl = document.getElementById('sim-bep-safety-margin');
+
+      if (monthlyGross >= bepGrossSales && monthlyNetProfit > 0) {
+        latestSimBelowBep = false;
+        bepBadge.textContent = 'BEP 상회 (안전권)'; bepBadge.className = 'px-2.5 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800 nowrap-badge';
+        safetyEl.textContent = `안전여유율 +${safetyMarginPct.toFixed(1)}%`; safetyEl.className = 'text-[11px] font-bold text-emerald-700 mt-0.5 block nowrap-badge';
+      } else {
+        latestSimBelowBep = true;
+        bepBadge.textContent = '경고: BEP 미달 (적자)'; bepBadge.className = 'px-2.5 py-1 rounded-full text-xs font-extrabold bg-red-100 text-red-800 nowrap-badge';
+        safetyEl.textContent = `BEP 미달 (${safetyMarginPct.toFixed(1)}%) → 과락 위험`; safetyEl.className = 'text-[11px] font-bold text-apple-red mt-0.5 block nowrap-badge';
+      }
+
+      const paybackEl = document.getElementById('sim-payback-months');
+      if (monthlyNetProfit > 0) {
+        const months = sunkInvestment / monthlyNetProfit;
+        latestSimPaybackMonths = months;
+        paybackEl.textContent = `${months.toFixed(1)}개월`;
+        paybackEl.className = months <= 24 ? 'text-lg sm:text-xl font-black text-apple-blue mt-1 block nowrap-badge' : 'text-lg sm:text-xl font-black text-apple-amber mt-1 block nowrap-badge';
+      } else {
+        latestSimPaybackMonths = 999;
+        paybackEl.textContent = '회수 불가'; paybackEl.className = 'text-lg sm:text-xl font-black text-apple-red mt-1 block nowrap-badge';
+      }
+      document.getElementById('sim-sunk-investment').textContent = `보증금제외 실투자 ${formatManwon(sunkInvestment)}`;
+      document.getElementById('sim-total-budget-text').textContent = formatManwon(totalBudgetWithDeposit);
+
+      const otherCombinedPct = royaltyPct + otherPct, profitBarPct = Math.max(0, netMarginPct);
+      const totalBarSum = cogsPct + laborRatio + rentRatio + otherCombinedPct + profitBarPct;
+      const scale = totalBarSum > 0 ? 100 / totalBarSum : 1;
+
+      document.getElementById('bar-cogs').style.width = `${(cogsPct * scale).toFixed(1)}%`;
+      document.getElementById('bar-labor').style.width = `${(laborRatio * scale).toFixed(1)}%`;
+      document.getElementById('bar-rent').style.width = `${(rentRatio * scale).toFixed(1)}%`;
+      document.getElementById('bar-other').style.width = `${(otherCombinedPct * scale).toFixed(1)}%`;
+      document.getElementById('bar-profit').style.width = `${(profitBarPct * scale).toFixed(1)}%`;
+
+      document.getElementById('legend-cogs').textContent = `원가 ${cogsPct.toFixed(0)}%`;
+      document.getElementById('legend-labor').textContent = `인건비 ${laborRatio.toFixed(0)}%`;
+      document.getElementById('legend-rent').textContent = `임대료 ${rentRatio.toFixed(0)}%`;
+      document.getElementById('legend-other').textContent = `기타 ${otherCombinedPct.toFixed(0)}%`;
+      document.getElementById('legend-profit').textContent = `순익 ${netMarginPct.toFixed(0)}%`;
+      
+      document.getElementById('sim-brand-preset-tag').textContent = `${TEMPLATE_DATA.name} 템플릿 기본값`;
+    }
+
+    function syncSimulatorToScorecard() {
+      let paybackScore = 0;
+      if (latestSimPaybackMonths <= 12) paybackScore = 10;
+      else if (latestSimPaybackMonths <= 18) paybackScore = 8;
+      else if (latestSimPaybackMonths <= 24) paybackScore = 6;
+      else if (latestSimPaybackMonths <= 30) paybackScore = 4;
+      else if (latestSimPaybackMonths <= 36) paybackScore = 2;
+      else paybackScore = 0;
+
+      currentScores[6] = paybackScore;
+      oneStrikeFlags[2] = latestSimBelowBep;
+
+      updateStrikeUI();
+      renderSection4Scorecard();
+      recalculateTotalScore();
+      document.getElementById('section-scorecard').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function renderSection6Checklist() {
+      const container = document.getElementById('checklist-container');
+      container.innerHTML = CHECKLIST_ITEMS.map((item, idx) => {
+        const isChecked = checkedQuestions[idx];
+        const cardStyle = isChecked ? 'bg-blue-50/50 border-apple-blue shadow-sm' : 'bg-apple-bg/50 border-apple-border hover:bg-gray-100/70';
+        const iconHtml = isChecked ? '<div class="w-6 h-6 rounded-lg bg-apple-blue text-white flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-check text-sm"></i></div>' : '<div class="w-6 h-6 rounded-lg border-2 border-gray-300 bg-white shrink-0 mt-0.5"></div>';
+
+        return `
+          <div onclick="toggleChecklist(${idx})" class="cursor-pointer p-5 rounded-2xl border transition-all flex items-start gap-3.5 ${cardStyle}">
+            ${iconHtml}
+            <div class="space-y-1.5">
+              <div class="flex items-center gap-2">
+                <span class="text-[11px] font-extrabold text-apple-blue uppercase nowrap-badge">Q0${idx + 1} · ${item.category}</span>
+              </div>
+              <h5 class="text-sm font-extrabold text-apple-text leading-snug ${isChecked ? 'line-through opacity-75' : ''}">${item.title}</h5>
+              <p class="text-xs text-apple-subtext leading-relaxed">${item.desc}</p>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      const count = checkedQuestions.filter(Boolean).length;
+      const pct = Math.round((count / CHECKLIST_ITEMS.length) * 100);
+      document.getElementById('checklist-progress-text').textContent = `${pct}% (${count}/${CHECKLIST_ITEMS.length} 완료)`;
+      document.getElementById('checklist-progress-bar').style.width = `${pct}%`;
+    }
+
+    function toggleChecklist(idx) {
+      checkedQuestions[idx] = !checkedQuestions[idx];
+      renderSection6Checklist();
+    }
+
+    window.addEventListener('DOMContentLoaded', initTemplate);
+  </script>
+</body>
+</html>
