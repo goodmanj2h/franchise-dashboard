@@ -1,12 +1,12 @@
 /**
  * 프랜차이즈 분석 리포트 통합 데이터셋
- * 자동 생성 타임스탬프: 1794206507061
- * 총 브랜드 수: 16개
+ * 자동 생성 타임스탬프: 1794207160088
+ * 총 브랜드 수: 17개
  */
-window.FRANCHISE_BUILD_TIME = 1794206507061;
+window.FRANCHISE_BUILD_TIME = 1794207160088;
 window.FRANCHISE_DATA = [
   {
-    "id": "brand_14_",
+    "id": "brand_15_",
     "name": "상무초밥",
     "corp": "주식회사 상무프랜차이즈",
     "category": "외식 / 일식·초밥",
@@ -84,6 +84,85 @@ window.FRANCHISE_DATA = [
   },
   {
     "id": "brand_8",
+    "name": "미카도스시",
+    "corp": "(주)올바른에프앤비",
+    "category": "일식",
+    "scaleTag": "기준 점포 면적: 66m² (약 20평)",
+    "fileName": "16. 미카도스시 - 정보공개서 분석 리포트_20261109.html",
+    "subtitle": "2024년 기준 가맹점 평균 매출이 매우 우수하며 본사 재무 건전성 및 영업이익이 탄탄한 편이나, 최근 계약해지 건수가 증가하여 신중한 검토가 필요합니다.",
+    "verdict": "본사 영업이익과 가맹점 매출 지표는 훌륭하지만, 2024년 38건의 높은 실질 이탈률(계약해지 등)이 발견되어 폐점 사유 분석 및 현장 실사가 요구됩니다.",
+    "tags": [
+      "#일식",
+      "#본사영업이익우수",
+      "#매출10억대",
+      "#해지건수증가",
+      "#부채비율321%"
+    ],
+    "scores": [
+      2,
+      10,
+      4,
+      0,
+      0,
+      10,
+      8,
+      0,
+      0,
+      8
+    ],
+    "totalScore": 42,
+    "personaScores": {
+      "stability": 44.0,
+      "roi": 78.0,
+      "partner": 20.0,
+      "lightCapital": 70.0
+    },
+    "isDisqualified": true,
+    "strikeReasons": [
+      "실질 이탈률 과다 (48.7%로 15% 초과)"
+    ],
+    "metrics": {
+      "capexMan": 17055,
+      "capexText": "1억 7,055만",
+      "pyeongSalesMan": 3017,
+      "pyeongSalesText": "3,017만 원",
+      "annualSalesMan": 106570,
+      "annualSalesText": "10억 6,570만",
+      "storeCount": 78,
+      "storeCountText": "78개점",
+      "directCountText": "직영점 1개",
+      "churnRate": 48.7,
+      "churnRateText": "48.7% (심각)",
+      "paybackEst": "계산 불가",
+      "debtRatioText": "321.9%",
+      "opProfitText": "12.94억 원",
+      "royaltyText": "미제공",
+      "logisticsMarginText": "미제공",
+      "svRatioText": "미제공"
+    },
+    "quadrant": {
+      "type": "Q2_HIGH_END",
+      "label": "🏢 하이엔드형 (높은 투자비 + 높은 평당매출)",
+      "color": "#0071e3",
+      "x": 17055,
+      "y": 3017,
+      "r": 23
+    },
+    "simDefaults": {
+      "annualSales": 106570,
+      "area": 20,
+      "cogs": 35.0,
+      "rent": 300,
+      "labor": 1500,
+      "royalty": 3.3,
+      "other": 5.0,
+      "capex": 16555,
+      "deposit": 500,
+      "keymoney": 5000
+    }
+  },
+  {
+    "id": "brand_9",
     "name": "옥된장",
     "corp": "(주)옥된장에프엔비",
     "category": "한식",
@@ -238,7 +317,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_10_",
+    "id": "brand_11_",
     "name": "반궁",
     "corp": "(주)이랜드이츠",
     "category": "한식",
@@ -314,7 +393,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_15_",
+    "id": "brand_16_",
     "name": "고향보쌈칼국수",
     "corp": "온겸컴퍼니",
     "category": "한식",
@@ -473,7 +552,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_9",
+    "id": "brand_10_",
     "name": "괭이부리마을",
     "corp": "(주)신솔에프앤비",
     "category": "한식",
@@ -789,7 +868,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_16_",
+    "id": "brand_17_",
     "name": "섭생정식",
     "corp": "개인사업자 (오성진)",
     "category": "한식",
@@ -949,7 +1028,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_11_",
+    "id": "brand_12_",
     "name": "올리빈",
     "corp": "공동대표 김준서, 박현석",
     "category": "샐러드 전문점",
@@ -1029,7 +1108,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_13_",
+    "id": "brand_14_",
     "name": "유월의보리",
     "corp": "유월의 보리 본점 (개인)",
     "category": "외식 / 한식",
@@ -1190,7 +1269,7 @@ window.FRANCHISE_DATA = [
     }
   },
   {
-    "id": "brand_12_",
+    "id": "brand_13_",
     "name": "진초동순두부",
     "corp": "진초동 (개인사업자: 김봉기)",
     "category": "한식",
